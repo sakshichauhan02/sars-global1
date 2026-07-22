@@ -1,0 +1,115 @@
+========================================================================
+SARS TALENT HOMEPAGE ARCHITECTURE & IMPLEMENTATION GUIDE
+========================================================================
+
+OBJECTIVE
+---------
+To construct a modern, visually stunning, fully responsive, and highly interactive landing page for the SARS TALENT platform. The architectural design leverages Next.js 15, React 19, Tailwind CSS v4, and Framer Motion to provide a unified experience featuring continuous marquee animations, frosted glass styling, interactive hover transitions, and viewport-triggered count-up animations.
+
+
+SYSTEM CONNECTION FLOW
+----------------------
+[Root Layout: layout.tsx]
+       │ (Imports globals.css, sets Navbar & Footer)
+       ▼
+[Home Page: page.tsx]
+       │ (Orchestrates Section Imports & Ordering)
+       ├─► [Section 1: Hero.tsx] (Pre-existing video hero)
+       ├─► [Section 2: TrustedBy.tsx] (Scrolling partner logos, white background)
+       ├─► [Section 3: ServicesGrid.tsx] (Responsive cards layout, light/glass background)
+       ├─► [Section 4: Comparison.tsx] (Traditional vs SARS comparison + pulsing VS badge)
+       ├─► [Section 5: IndustriesMarquee.tsx] (Dual-direction pill marquees, navy background)
+       └─► [Section 6: Stats.tsx] (Count-up cards in viewport, metallic slate background)
+
+
+FILE-BY-FILE ARCHITECTURE
+-------------------------
+
+1. app/globals.css (Global Theme & Custom Marquee Keyframes)
+   ----------------------------------------------------------
+   * Objective: Centralize theme properties, reusable utilities, and hardware-accelerated CSS marquee keyframes.
+   * Logic Steps:
+     a. Configures Tailwind theme parameters (primary blue, navy, black, fonts).
+     b. Implements a global `.glass` class for glassmorphic elements.
+     c. Defines keyframe animations using `translate3d` (activating GPU rendering):
+        - `marquee`: Translates 0% to -50% for standard loop.
+        - `marquee-left`: Runs right-to-left.
+        - `marquee-right`: Runs left-to-right (translates -50% to 0%).
+     d. Establishes `.marquee-container` controls ensuring `animation-play-state: paused` triggers on hover.
+     e. Styles `.marquee-logo` to render in grayscale with 50% opacity by default, transitioning to full color and 100% opacity on hover.
+
+2. components/sections/TrustedBy.tsx (Section 3: Client Logo Marquee)
+   ------------------------------------------------------------------
+   * Objective: Display client trust through a smooth, infinitely scrolling row of client logos.
+   * Connection: Renders inside page.tsx; styles controlled by globals.css `@keyframes marquee`.
+   * Logic & Implementation:
+     a. Uses 8 vector SVGs (Acme, Aether, Nova, Krypton, Clarity, Apex, Quantum, Echo) representing modern brands.
+     b. Contains gradient fade overlay divs at the left and right margins to blur the edge entrance and exit.
+     c. Implements seamless looping by grouping logos into two identical lists inside a flex wrapper (`.marquee-container`). When translated by exactly `-50%` (the width of one list), it resets to `0%` instantly and invisibly.
+     d. Spacing layout uses identical gaps/paddings on both sets to ensure spacing does not shift when looping.
+
+3. components/sections/ServicesGrid.tsx (Section 4: Staffing Solutions)
+   ---------------------------------------------------------------------
+   * Objective: Outline staffing solution tracks in an interactive, responsive grid layout.
+   * Connection: Uses Framer Motion for rich card hover states; renders as Section 4 on the homepage.
+   * Logic & Implementation:
+     a. Implements a responsive grid container (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`) matching Mobile (1 col), Tablet (2 col), and Desktop (4 col).
+     b. Renders 4 services cards: Permanent Hiring, Contract Staffing, Executive Search, Dedicated Teams.
+     c. Cards are built with frosted glass styling (`rgba(255,255,255,.7)` background, `blur(16px)` backdrop filter, and a subtle border).
+     d. Uses Framer Motion's `<motion.div>` for hover controls (`whileHover`):
+        - Translates `-8px` on the Y-axis.
+        - Transforms border color to primary blue (`#0A66F5`).
+        - Adds an active blue glow shadow (`rgba(10,102,245,0.15)`).
+        - Animation is configured for a smooth 300ms ease transition.
+     e. Applies a secondary CSS hover rule on the CTA arrow container (`group-hover:translate-x-1.5`) to animate the arrow dynamically when the parent card is hovered.
+
+4. components/sections/Comparison.tsx (Section 5: Why SARS TALENT)
+   -----------------------------------------------------------------
+   * Objective: Compare traditional staffing challenges with SARS TALENT's modern advantages.
+   * Connection: Rendered in page.tsx as Section 5; utilizes Framer Motion to animate the VS badge.
+   * Logic & Implementation:
+     a. Uses a grid layout that stacks vertically on mobile and displays side-by-side (2 columns) on desktop.
+     b. Left side (Traditional Staffing): Muted red icons and gray text represent negative attributes.
+     c. Right side (With SARS TALENT): High-contrast white text, electric blue checkmark icons, and a highlighted "Recommended" badge represent premium benefits.
+     d. Implements a central responsive divider line:
+        - Desktop: A vertical line with the "VS" badge centered at the coordinate midpoint.
+        - Mobile: A horizontal line with the "VS" badge centered in the gap between the stacked columns.
+     e. Badge Pulsing: Wraps the VS badge in a `<motion.div>` animating its scale from `1` to `1.08` and back, while modulating the blur radius of its soft blue glow shadow dynamically on an infinite loop.
+
+5. components/sections/IndustriesMarquee.tsx (Section 7: Industries & Tech)
+   -------------------------------------------------------------------------
+   * Objective: Highlight the engineering industries and tech stacks supported by the platform.
+   * Connection: Utilizes opposite-scrolling CSS keyframes (`marquee-left` and `marquee-right`) defined in globals.css.
+   * Logic & Implementation:
+     a. Divides list of 22 tags into two distinct categories (Row 1: Industries & Core Tech; Row 2: Cloud, DevOps & Languages).
+     b. Row 1 translates right-to-left (`.marquee-left-container`).
+     c. Row 2 translates left-to-right (`.marquee-right-container`).
+     d. Individual tags are structured as rounded glass pills (`rounded-full`, white border opacity, white text).
+     e. Applies interactive hover actions on pills to scale upward (`hover:scale-105`) and brighten on focus.
+
+6. components/sections/Stats.tsx (Section 8: Stats & Impact)
+   ----------------------------------------------------------
+   * Objective: Present company statistics and verification using viewport-triggered numbers animation.
+   * Connection: Renders at the bottom of the page, above the footer; uses Framer Motion for count-ups.
+   * Logic & Implementation:
+     a. Background: Configured with a metallic-gray gradient (`bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A]`).
+     b. Implements a sub-component helper `<Counter>` that takes target values (e.g. 500, 98, 72, 250) and handles interpolation.
+     c. Viewport Detection: Uses Framer Motion's `useInView` hook on a ref wrapper:
+        - `once: true`: Ensures the animation runs only once when scrolled into view.
+        - `margin: "-50px"`: Adds a offset to prevent premature trigger before the card is clearly visible.
+     d. Counter Animation: Triggers Framer Motion's `animate(0, value)` on viewport detection. The `onUpdate` event increments a local state variable to re-render the count as a rounded integer.
+     e. Execution is set to a smooth duration of 2 seconds with an ease-out timing curve.
+
+7. app/page.tsx (Unified Homepage Orchestrator)
+   ---------------------------------------------
+   * Objective: Serve as the entry-point router, importing and ordering each section component.
+   * Connection: Integrates components sequentially.
+   * Layout Spacing Flow:
+     - 1. <Hero /> (0px margin, full viewport)
+     - 2. <TrustedBy /> (100px white marquee band)
+     - 3. <ServicesGrid /> (24rem vertical spacing, bg-white)
+     - 4. <Comparison /> (24rem vertical spacing, bg-[#0B1120])
+     - 5. <IndustriesMarquee /> (20rem vertical spacing, bg-[#0B1120])
+     - 6. <Stats /> (24rem vertical spacing, bg-gradient metallic slate)
+     - This alternating backdrop palette (Dark -> Light -> Dark) provides a clean rhythmic structure to enhance visual readability and eliminate visual fatigue.
+========================================================================
