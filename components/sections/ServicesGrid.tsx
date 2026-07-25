@@ -37,7 +37,7 @@ export default function ServicesGrid() {
       )
     },
     {
-      title: "Dedicated Teams",
+      title: "Dedicated Hiring Teams",
       description: "Deploy pre-vetted, high-performing dedicated squads tailored to your roadmap. We handle sourcing, payroll, and scaling seamlessly.",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 text-[#0A66F5]">
@@ -51,14 +51,14 @@ export default function ServicesGrid() {
   ];
 
   return (
-    <section className="w-full py-24 bg-white flex flex-col items-center justify-center border-t border-neutral-100">
+    <section className="w-full py-24 bg-[#0B1120] flex flex-col items-center justify-center border-t border-white/5">
       <div className="max-w-[1200px] w-full px-6 flex flex-col gap-16">
         {/* Title Block */}
         <div className="max-w-xl flex flex-col gap-4 text-left">
-          <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 font-space-grotesk uppercase tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold !text-white font-space-grotesk uppercase tracking-tight">
             Staffing Solutions
           </h2>
-          <p className="text-neutral-500 font-inter text-sm md:text-base leading-relaxed">
+          <p className="text-metallic-gray font-inter text-sm md:text-base leading-relaxed">
             Tailored recruitment and talent models built to solve your scaling challenges, from single hires to entire product squads.
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function ServicesGrid() {
               whileHover={{
                 y: -8,
                 borderColor: "#0A66F5",
-                boxShadow: "0 15px 30px rgba(10, 102, 245, 0.15)"
+                boxShadow: "0 10px 25px -5px rgba(10, 102, 245, 0.3), 0 8px 10px -6px rgba(10, 102, 245, 0.3)"
               }}
               transition={{
                 duration: 0.3,
@@ -94,7 +94,7 @@ export default function ServicesGrid() {
 
                 {/* Title & Description */}
                 <div className="flex flex-col gap-3">
-                  <h3 className="text-lg md:text-xl font-bold text-neutral-900 font-space-grotesk">
+                  <h3 className="text-lg md:text-xl font-bold !text-neutral-900 font-space-grotesk">
                     {service.title}
                   </h3>
                   <p className="text-sm text-neutral-500 font-inter leading-relaxed">

@@ -124,6 +124,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Reusable hardware-accelerated utility classes */
+.marquee-left,
 .marquee-left-container {
   display: flex;
   width: max-content;
@@ -131,6 +133,7 @@ h1, h2, h3, h4, h5, h6 {
   will-change: transform;
 }
 
+.marquee-right,
 .marquee-right-container {
   display: flex;
   width: max-content;
@@ -138,7 +141,14 @@ h1, h2, h3, h4, h5, h6 {
   will-change: transform;
 }
 
-.marquee-left-container:hover,
-.marquee-right-container:hover {
+/* Reusable CSS rule so any marquee pauses when its parent container is hovered */
+.marquee-parent:hover .marquee-left,
+.marquee-parent:hover .marquee-right,
+.marquee-parent:hover .marquee-left-container,
+.marquee-parent:hover .marquee-right-container,
+:has(> .marquee-left):hover > .marquee-left,
+:has(> .marquee-right):hover > .marquee-right,
+:has(> .marquee-left-container):hover > .marquee-left-container,
+:has(> .marquee-right-container):hover > .marquee-right-container {
   animation-play-state: paused;
 }

@@ -47,7 +47,7 @@ export default function Stats() {
     {
       value: 72,
       suffix: " Hours",
-      label: "Average Hiring Time",
+      label: "Average Time-to-Hire",
       desc: "Speedy turnaround from initial scoping of technical requirements to final onboarding."
     },
     {
@@ -59,7 +59,7 @@ export default function Stats() {
   ];
 
   return (
-    <section className="w-full py-24 bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] border-t border-white/5 flex flex-col items-center justify-center">
+    <section className="w-full py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 border-t border-white/5 flex flex-col items-center justify-center">
       <div className="max-w-[1200px] w-full px-6 flex flex-col gap-16">
         {/* Header Block */}
         <div className="max-w-xl mx-auto text-center flex flex-col gap-4">
