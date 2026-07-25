@@ -82,7 +82,7 @@ export default function ProcessTimeline() {
         ease: "easeOut"
       }
     }
-  };
+  } as const;
 
   return (
     <section className="w-full py-24 bg-[#0B1120] border-t border-white/5 flex flex-col items-center justify-center">
