@@ -1,0 +1,166 @@
+================================================================================
+SARS TALENT LANDING PAGE - LOGIC, IMPLEMENTATION & ARCHITECTURE DETAILS
+================================================================================
+
+1. PROJECT OBJECTIVES
+--------------------
+The objective of this landing page upgrade was to implement high-end visual 
+aesthetics (dark-mode glassmorphism, responsive elements, and cinematic video 
+backgrounds) and high-performance interactive elements (continuous path 
+animations and scroll reveals) without introducing layout shifts, TypeScript 
+errors, or linter warnings.
+
+2. CONNECTIONS & ARCHITECTURE DIAGRAM
+-------------------------------------
+The landing page follows a modular tree structure assembled under Next.js:
+
+                  [app/page.tsx] (Main Page Assembly)
+                         |
+      +------------------+------------------+
+      |                                     |
+[components/Navbar.tsx]           [components/Footer.tsx]
+      |                                     |
+      +------------------+------------------+
+                         |
+      +------------------+-------------------------------------------------+
+      | (All main sections are wrapped by the reusable ScrollReveal wrapper)  |
+      |                                                                       |
+      |-- [components/Hero.tsx] <---------------- (only_need_the_background_video.mp4)
+      |-- [components/sections/TrustedBy.tsx]
+      |-- [components/sections/ServicesGrid.tsx] (Dark Glassmorphic Cards)
+      |-- [components/sections/Comparison.tsx]
+      |-- [components/sections/ProcessTimeline.tsx] (Horizontal/Vertical Glowing Dot)
+      |-- [components/sections/IndustriesMarquee.tsx]
+      |-- [components/sections/Stats.tsx]
+      |-- [components/sections/Testimonials.tsx]
+      |-- [components/sections/FeaturedRoles.tsx] (Light Glassmorphic Cards)
+      |-- [components/sections/FAQ.tsx]
+                         |
+               [components/ScrollReveal.tsx] (Framer Motion Wrapper)
+
+
+================================================================================
+3. FILE-BY-FILE LOGIC, OBJECTIVE & IMPLEMENTATION
+================================================================================
+
+--------------------------------------------------------------------------------
+FILE: components/ScrollReveal.tsx [NEW]
+--------------------------------------------------------------------------------
+* OBJECTIVE:
+  To provide a single, reusable animation wrapper for entrance fade-ins on scroll,
+  ensuring consistency in visual delays across all landing page sections.
+
+* LOGIC & TIMING:
+  - Uses Framer Motion's `whileInView` prop to trigger entrance animations when a 
+    section enters the viewport.
+  - Viewport trigger criteria: animates once (`once: true`) when at least 20% of 
+    the section height is in view (`amount: 0.2`).
+  - Animation properties: Starts at opacity 0 and 20px offset on the Y-axis. 
+    Translates to opacity 1, y: 0.
+  - Timing: 600ms duration with `easeOut` interpolation.
+
+* IMPLEMENTATION:
+  - Exports a default `ScrollReveal` component rendering a `<motion.section>`.
+  - Implements the variants object using the `as const` TypeScript assertion 
+    to ensure perfect compilation under Framer Motion's strict `Easing` type definitions.
+
+--------------------------------------------------------------------------------
+FILE: components/Hero.tsx [MODIFY]
+--------------------------------------------------------------------------------
+* OBJECTIVE:
+  To display a fullscreen, high-contrast video background utilizing the user's 
+  custom MP4 file, keeping all text highly readable without dark-fading the sides.
+
+* LOGIC & STACKING CONTEXT:
+  - Positive Z-Index stacking is used to avoid parent-background clipping:
+    * Parent section container is relative (`bg-black`).
+    * HTML5 Video resides at `z-0` (fully visible, `opacity-100`).
+    * Dark overlay resides at `z-10`.
+    * Content container (Headline, Subheading, Action Buttons) resides at `z-20`.
+  - To keep the sides of the video fully bright while keeping the text highly 
+    readable, we removed the linear and vignette overlays.
+  - Instead, we implemented a center-focused radial gradient overlay:
+    `bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.75)_0%,transparent_55%)]`
+    This creates a soft 75% dark shadow circle exactly behind the central text, 
+    which fades to 100% transparency at 55% screen width.
+
+* IMPLEMENTATION:
+  - Video tags: `autoPlay`, `muted`, `loop`, `playsInline`, `object-cover`.
+  - Source path: `/only_need_the_background_video%20(1).mp4` (placed in `public/`).
+
+--------------------------------------------------------------------------------
+FILE: components/sections/ServicesGrid.tsx [MODIFY]
+--------------------------------------------------------------------------------
+* OBJECTIVE:
+  To display a grid of staffing solutions inside a dark background using a 
+  glassmorphism design and high-performance hover card micro-interactions.
+
+* LOGIC & TIMING:
+  - Cards utilize standard Tailwind classes for glassmorphic styling: 
+    background `bg-white/10`, border `border-white/10`, and blur `backdrop-blur-[16px]`.
+  - Stacking: Positioned on a dark blue background (`bg-[#0B1120]`).
+  - Text Contrast: Modified the card titles to white (`!text-white`) and descriptions 
+    to light grey (`text-slate-300`) to solve accessibility issues on dark backdrops.
+  - Hover states animate using Framer Motion (`whileHover`) over a 300ms transition 
+    duration (`duration: 0.3, ease: "easeInOut"`):
+    * Card lifts up: `y: -8` (translateY(-8px))
+    * Border animates to brand blue: `borderColor: "#0A66F5"`
+    * Blue drop-shadow glow: `boxShadow: "0 8px 32px rgba(10, 102, 245, 0.15)"`
+
+* IMPLEMENTATION:
+  - Stretches cards using grid layout (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`).
+  - Includes a CTA SVG arrow that slides right by 1.5 units on parent hover.
+
+--------------------------------------------------------------------------------
+FILE: components/sections/FeaturedRoles.tsx [MODIFY]
+--------------------------------------------------------------------------------
+* OBJECTIVE:
+  To display active jobs in a grid using a glassmorphic card design on a light 
+  background, keeping text colors dark and readable, with hover arrow animations.
+
+* LOGIC & TIMING:
+  - Background is light gray (`bg-[#F8FAFC]`). Cards are styled with glassmorphism 
+    (`bg-white/10`, `backdrop-blur-[16px]`, `border-white/10`).
+  - Dark text colors (`!text-neutral-900`, `text-neutral-600`) are preserved 
+    for high readability on a light backdrop.
+  - Cards use the exact same Framer Motion hover animations (300ms transition, 
+    `y: -8`, blue border, and blue glow shadow).
+  - Arrow Hover: When the parent card is hovered, the "Apply Now" SVG arrow 
+    translates to the right smoothly by `1.5` units (`group-hover:translate-x-1.5` 
+    with a CSS `transition-transform duration-300`).
+
+* IMPLEMENTATION:
+  - Grid: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`.
+  - Staged with keyboard-accessible focus outlines and keypress triggers.
+
+--------------------------------------------------------------------------------
+FILE: components/sections/ProcessTimeline.tsx [MODIFY]
+--------------------------------------------------------------------------------
+* OBJECTIVE:
+  To render a four-step process timeline with a responsive connector track and 
+  an electric-blue glowing dot that loops continuously along the track.
+
+* LOGIC & REPLAY TRANSITIONS:
+  - Responsive track layout:
+    * Desktop (Horizontal): A horizontal line centered at `top-[32px]`, left/right `left-[48px] right-[48px]`.
+    * Mobile (Vertical): A vertical line aligned with the circle centers at `left-[50px]`, top/bottom `top-[38px] bottom-[38px]`.
+  - The electric-blue dot is a `motion.div` absolute container styled with:
+    `bg-[#0A66F5] shadow-[0_0_12px_6px_rgba(10,102,245,0.6)]`
+  - Continuous movement is configured with a linear interpolation loop:
+    * Desktop: moves horizontally (`left: "0%"` to `left: "100%"`)
+    * Mobile: moves vertically (`top: "0%"` to `top: "100%"`)
+    * Settings: `repeat: Infinity`, `duration: 3`, `ease: "linear"` for smooth motion.
+
+* IMPLEMENTATION:
+  - Replaces SVG percentage layouts with standard HTML absolute elements for 
+    perfect responsive alignment and hardware-accelerated CSS rendering.
+
+--------------------------------------------------------------------------------
+FILE: app/page.tsx [MODIFY]
+--------------------------------------------------------------------------------
+* OBJECTIVE:
+  The master page assembly that imports, positions, and coordinates all sections.
+
+* IMPLEMENTATION:
+  - Imports all components and arranges them sequentially to form the layout.
+  - Applies base styling variables to body text and background blocks.
