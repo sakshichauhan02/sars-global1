@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import ScrollReveal from "../ScrollReveal";
 
 interface Job {
   title: string;
@@ -68,7 +69,7 @@ export default function FeaturedRoles() {
   ];
 
   return (
-    <section className="w-full py-24 bg-[#F8FAFC] border-t border-neutral-200/60 flex flex-col items-center justify-center">
+    <ScrollReveal className="w-full py-24 bg-[#F8FAFC] border-t border-neutral-200/60 flex flex-col items-center justify-center">
       <div className="max-w-[1200px] w-full px-6 flex flex-col gap-16">
         
         {/* Section Heading */}
@@ -89,14 +90,11 @@ export default function FeaturedRoles() {
               whileHover={{
                 y: -8,
                 borderColor: "#0A66F5",
-                boxShadow: "0 10px 25px -5px rgba(10, 102, 245, 0.25), 0 8px 10px -6px rgba(10, 102, 245, 0.25)"
+                boxShadow: "0 8px 32px rgba(10, 102, 245, 0.15)"
               }}
               transition={{
                 duration: 0.3,
                 ease: "easeInOut"
-              }}
-              style={{
-                borderRadius: "16px",
               }}
               tabIndex={0}
               onKeyDown={(e) => {
@@ -107,7 +105,7 @@ export default function FeaturedRoles() {
                   if (btn) btn.click();
                 }
               }}
-              className="group flex flex-col justify-between p-8 bg-white border border-neutral-200/80 cursor-pointer select-none transition-colors h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66F5]/50 focus-visible:ring-offset-2"
+              className="group flex flex-col justify-between p-8 cursor-pointer select-none h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66F5]/50 focus-visible:ring-offset-2 bg-white/10 backdrop-blur-[16px] border border-white/10 rounded-xl"
             >
               <div>
                 {/* Top Section: Logo & Badge */}
@@ -184,6 +182,6 @@ export default function FeaturedRoles() {
         </div>
 
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

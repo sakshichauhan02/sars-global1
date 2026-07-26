@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import ScrollReveal from "../ScrollReveal";
 
 export default function TrustedBy() {
   const logos = [
@@ -96,7 +99,7 @@ export default function TrustedBy() {
   ];
 
   return (
-    <section className="marquee-parent w-full h-[100px] bg-white flex items-center overflow-hidden border-y border-neutral-100/10">
+    <ScrollReveal className="marquee-parent w-full h-[100px] bg-white flex items-center overflow-hidden border-y border-neutral-100/10">
       <div className="w-full relative flex items-center">
         {/* Gradients to fade edges */}
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
@@ -128,6 +131,6 @@ export default function TrustedBy() {
           </div>
         </div>
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

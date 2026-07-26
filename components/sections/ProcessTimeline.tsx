@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import ScrollReveal from "../ScrollReveal";
 
 export default function ProcessTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -85,7 +86,7 @@ export default function ProcessTimeline() {
   } as const;
 
   return (
-    <section className="w-full py-24 bg-[#0B1120] border-t border-white/5 flex flex-col items-center justify-center">
+    <ScrollReveal className="w-full py-24 bg-[#0B1120] border-t border-white/5 flex flex-col items-center justify-center">
       <div className="max-w-[1200px] w-full px-6 flex flex-col gap-16">
         
         {/* Heading */}
@@ -103,69 +104,35 @@ export default function ProcessTimeline() {
           ref={containerRef}
           className="relative w-full max-w-[1100px] mx-auto flex flex-col md:flex-row justify-between gap-12 md:gap-6 px-6"
         >
-          {/* Connector Line SVG (Desktop: Horizontal) */}
-          <svg className="absolute top-[32px] left-[40px] right-[40px] h-[4px] w-[calc(100%-80px)] hidden md:block overflow-visible pointer-events-none">
-            {/* Background Line */}
-            <line x1="0" y1="2" x2="100%" y2="2" stroke="#1E293B" strokeWidth="2" />
-            {/* Animated Draw Line */}
-            <motion.line
-              x1="0"
-              y1="2"
-              x2="100%"
-              y2="2"
-              stroke="#B0B8C4"
-              strokeWidth="2"
-              initial={{ pathLength: 0 }}
-              animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-            />
+          {/* Connector Line (Desktop: Horizontal) */}
+          <div className="absolute top-[32px] left-[48px] right-[48px] h-[2px] bg-neutral-800 hidden md:block pointer-events-none">
             {/* Travelling Pulse Dot */}
-            <motion.circle
-              r="4"
-              fill="#0A66F5"
-              initial={{ cx: "0%" }}
-              animate={isInView ? { cx: "100%" } : { cx: "0%" }}
+            <motion.div
+              initial={{ left: "0%" }}
+              animate={{ left: "100%" }}
               transition={{
                 repeat: Infinity,
                 duration: 3,
                 ease: "linear"
               }}
-              cy="2"
-              style={{ filter: "drop-shadow(0 0 4px #0A66F5)" }}
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0A66F5] shadow-[0_0_12px_6px_rgba(10,102,245,0.6)]"
             />
-          </svg>
+          </div>
           
-          {/* Connector Line SVG (Mobile: Vertical) */}
-          <svg className="absolute left-[30px] top-6 bottom-6 w-[4px] h-[calc(100%-48px)] md:hidden overflow-visible pointer-events-none">
-            {/* Background Line */}
-            <line x1="2" y1="0" x2="2" y2="100%" stroke="#1E293B" strokeWidth="2" />
-            {/* Animated Draw Line */}
-            <motion.line
-              x1="2"
-              y1="0"
-              x2="2"
-              y2="100%"
-              stroke="#B0B8C4"
-              strokeWidth="2"
-              initial={{ pathLength: 0 }}
-              animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-            />
+          {/* Connector Line (Mobile: Vertical) */}
+          <div className="absolute left-[50px] top-[38px] bottom-[38px] w-[2px] bg-neutral-800 md:hidden pointer-events-none">
             {/* Travelling Pulse Dot */}
-            <motion.circle
-              r="4"
-              fill="#0A66F5"
-              initial={{ cy: "0%" }}
-              animate={isInView ? { cy: "100%" } : { cy: "0%" }}
+            <motion.div
+              initial={{ top: "0%" }}
+              animate={{ top: "100%" }}
               transition={{
                 repeat: Infinity,
                 duration: 3,
                 ease: "linear"
               }}
-              cx="2"
-              style={{ filter: "drop-shadow(0 0 4px #0A66F5)" }}
+              className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0A66F5] shadow-[0_0_12px_6px_rgba(10,102,245,0.6)]"
             />
-          </svg>
+          </div>
 
           {/* Staggered Timeline Nodes Wrapper */}
           <motion.div
@@ -210,6 +177,6 @@ export default function ProcessTimeline() {
         </div>
 
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

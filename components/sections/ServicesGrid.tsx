@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import ScrollReveal from "../ScrollReveal";
 
 export default function ServicesGrid() {
   const services = [
@@ -51,7 +52,7 @@ export default function ServicesGrid() {
   ];
 
   return (
-    <section className="w-full py-24 bg-[#0B1120] flex flex-col items-center justify-center border-t border-white/5">
+    <ScrollReveal className="w-full py-24 bg-[#0B1120] flex flex-col items-center justify-center border-t border-white/5">
       <div className="max-w-[1200px] w-full px-6 flex flex-col gap-16">
         {/* Title Block */}
         <div className="max-w-xl flex flex-col gap-4 text-left">
@@ -71,20 +72,13 @@ export default function ServicesGrid() {
               whileHover={{
                 y: -8,
                 borderColor: "#0A66F5",
-                boxShadow: "0 10px 25px -5px rgba(10, 102, 245, 0.3), 0 8px 10px -6px rgba(10, 102, 245, 0.3)"
+                boxShadow: "0 8px 32px rgba(10, 102, 245, 0.15)"
               }}
               transition={{
                 duration: 0.3,
                 ease: "easeInOut"
               }}
-              style={{
-                background: "rgba(255, 255, 255, 0.7)",
-                backdropFilter: "blur(16px)",
-                borderColor: "rgba(176, 184, 196, 0.2)",
-                borderWidth: "1px",
-                borderRadius: "16px",
-              }}
-              className="group flex flex-col justify-between p-8 h-full cursor-pointer select-none transition-colors border"
+              className="group flex flex-col justify-between p-8 h-full cursor-pointer select-none border border-white/10 bg-white/10 backdrop-blur-[16px] rounded-[16px]"
             >
               <div className="flex flex-col gap-6">
                 {/* Large Icon Container */}
@@ -94,10 +88,10 @@ export default function ServicesGrid() {
 
                 {/* Title & Description */}
                 <div className="flex flex-col gap-3">
-                  <h3 className="text-lg md:text-xl font-bold !text-neutral-900 font-space-grotesk">
+                  <h3 className="text-lg md:text-xl font-bold !text-white font-space-grotesk">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-neutral-500 font-inter leading-relaxed">
+                  <p className="text-sm text-slate-300 font-inter leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -115,6 +109,6 @@ export default function ServicesGrid() {
           ))}
         </div>
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import ScrollReveal from "../ScrollReveal";
 
 export default function Comparison() {
   const traditionalItems = [
@@ -43,7 +44,7 @@ export default function Comparison() {
   ];
 
   return (
-    <section className="w-full py-24 bg-white border-t border-neutral-100 flex flex-col items-center justify-center">
+    <ScrollReveal className="w-full py-24 bg-white border-t border-neutral-100 flex flex-col items-center justify-center">
       <div className="max-w-[1200px] w-full px-6 flex flex-col gap-16">
         {/* Title Block */}
         <div className="max-w-xl mx-auto text-center flex flex-col gap-4">
@@ -162,6 +163,6 @@ export default function Comparison() {
 
         </div>
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

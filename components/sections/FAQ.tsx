@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ScrollReveal from "../ScrollReveal";
 
 interface FAQItem {
   question: string;
@@ -43,7 +44,7 @@ export default function FAQ() {
   };
 
   return (
-    <section className="w-full py-24 bg-white border-t border-neutral-100 flex flex-col items-center justify-center">
+    <ScrollReveal className="w-full py-24 bg-white border-t border-neutral-100 flex flex-col items-center justify-center">
       <div className="max-w-[800px] w-full px-6 flex flex-col gap-12">
         
         {/* Section Heading */}
@@ -122,6 +123,6 @@ export default function FAQ() {
         </div>
 
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

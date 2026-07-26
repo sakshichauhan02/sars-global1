@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import ScrollReveal from "../ScrollReveal";
 
 interface Testimonial {
   name: string;
@@ -118,7 +119,7 @@ export default function Testimonials() {
   const displayTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="w-full py-24 bg-white border-t border-neutral-100 flex flex-col items-center justify-center overflow-hidden">
+    <ScrollReveal className="w-full py-24 bg-white border-t border-neutral-100 flex flex-col items-center justify-center overflow-hidden">
       <div className="max-w-[1200px] w-full px-6 flex flex-col gap-16">
         
         {/* Section Heading */}
@@ -235,6 +236,6 @@ export default function Testimonials() {
         </div>
 
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

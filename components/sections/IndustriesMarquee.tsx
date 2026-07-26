@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import ScrollReveal from "../ScrollReveal";
 
 export default function IndustriesMarquee() {
   const row1Tags = [
@@ -26,7 +29,7 @@ export default function IndustriesMarquee() {
   ];
 
   return (
-    <section className="w-full py-20 bg-white border-t border-neutral-100 flex flex-col gap-8 overflow-hidden">
+    <ScrollReveal className="w-full py-20 bg-white border-t border-neutral-100 flex flex-col gap-8 overflow-hidden">
       {/* Title & Subheading */}
       <div className="max-w-4xl mx-auto text-center px-6 flex flex-col gap-3">
         <h2 className="text-3xl md:text-4xl font-bold !text-neutral-900 font-space-grotesk uppercase tracking-tight">
@@ -98,6 +101,6 @@ export default function IndustriesMarquee() {
           </div>
         </div>
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

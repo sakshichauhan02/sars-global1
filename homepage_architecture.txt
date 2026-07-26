@@ -4,112 +4,178 @@ SARS TALENT HOMEPAGE ARCHITECTURE & IMPLEMENTATION GUIDE
 
 OBJECTIVE
 ---------
-To construct a modern, visually stunning, fully responsive, and highly interactive landing page for the SARS TALENT platform. The architectural design leverages Next.js 15, React 19, Tailwind CSS v4, and Framer Motion to provide a unified experience featuring continuous marquee animations, frosted glass styling, interactive hover transitions, and viewport-triggered count-up animations.
+To construct a modern, visually stunning, fully responsive, and highly interactive landing page for the SARS TALENT platform. The architecture is built using Next.js 15, React 19, Tailwind CSS v4, and Framer Motion, ensuring smooth animations, high-contrast readability, full keyboard accessibility, WAI-ARIA compliance, and zero layout shifts.
 
 
 SYSTEM CONNECTION FLOW
-----------------------
+======================
 [Root Layout: layout.tsx]
-       │ (Imports globals.css, sets Navbar & Footer)
+       │ (Imports globals.css, sets fonts, Navbar & Footer wrappers)
        ▼
 [Home Page: page.tsx]
-       │ (Orchestrates Section Imports & Ordering)
-       ├─► [Section 1: Hero.tsx] (Pre-existing video hero)
-       ├─► [Section 2: TrustedBy.tsx] (Scrolling partner logos, white background)
-       ├─► [Section 3: ServicesGrid.tsx] (Responsive cards layout, light/glass background)
-       ├─► [Section 4: Comparison.tsx] (Traditional vs SARS comparison + pulsing VS badge)
-       ├─► [Section 5: IndustriesMarquee.tsx] (Dual-direction pill marquees, navy background)
-       └─► [Section 6: Stats.tsx] (Count-up cards in viewport, metallic slate background)
+       │ (Orchestrates all landing page sections in precise order)
+       ├─► [Section 1: Hero.tsx] (Futuristic background video, staggered word fade-ins) [Dark]
+       ├─► [Section 2: TrustedBy.tsx] (Smooth infinite logo marquee, grayscale hover transition) [Light]
+       ├─► [Section 3: ServicesGrid.tsx] (Responsive cards layout with hover lift & blue glow) [Dark]
+       ├─► [Section 4: ProcessTimeline.tsx] (Staggered timeline with animated drawing connection lines & traveling dot) [Dark]
+       ├─► [Section 5: Comparison.tsx] (Muted traditional vs dark recommended card, pulsing VS badge) [Light]
+       ├─► [Section 6: IndustriesMarquee.tsx] (Opposite scrolling pill marquees, light theme glass pills) [Light]
+       ├─► [Section 7: Stats.tsx] (Viewport-triggered count-up cards, dark slate metallic gradient) [Dark]
+       ├─► [Section 8: Testimonials.tsx] (5-second auto-rotate client success carousel with center card scaling) [Light]
+       ├─► [Section 9: FeaturedRoles.tsx] (Interactive job cards, keyboard focusable, whileHover lift & glow) [Light Gray]
+       └─► [Section 10: FAQ.tsx] (Smooth height-expanding accordion, plus-to-cross rotation, WAI-ARIA compliant) [White]
 
 
-FILE-BY-FILE ARCHITECTURE
--------------------------
+FILE-BY-FILE DETAILS (OBJECTIVE, LOGIC & IMPLEMENTATION)
+========================================================
 
-1. app/globals.css (Global Theme & Custom Marquee Keyframes)
-   ----------------------------------------------------------
-   * Objective: Centralize theme properties, reusable utilities, and hardware-accelerated CSS marquee keyframes.
-   * Logic Steps:
+1. app/globals.css
+   ---------------
+   * Objective: Configure global theme styles, custom scrollbars, text selection color, and centralize hardware-accelerated CSS marquee keyframes.
+   * Connection: Loaded at the root layout level; styles apply globally to all components.
+   * Logic & Implementation Steps:
      a. Configures Tailwind theme parameters (primary blue, navy, black, fonts).
      b. Implements a global `.glass` class for glassmorphic elements.
-     c. Defines keyframe animations using `translate3d` (activating GPU rendering):
-        - `marquee`: Translates 0% to -50% for standard loop.
-        - `marquee-left`: Runs right-to-left.
-        - `marquee-right`: Runs left-to-right (translates -50% to 0%).
-     d. Establishes `.marquee-container` controls ensuring `animation-play-state: paused` triggers on hover.
+     c. Defines keyframe animations using `translate3d` to activate GPU rendering for better rendering performance:
+        - `marquee-left`: Translates 0% to -50% (right-to-left loop).
+        - `marquee-right`: Translates -50% to 0% (left-to-right loop).
+     d. Establishes `.marquee-parent` hover play state controls, allowing marquees to pause animation when their container is hovered.
      e. Styles `.marquee-logo` to render in grayscale with 50% opacity by default, transitioning to full color and 100% opacity on hover.
 
-2. components/sections/TrustedBy.tsx (Section 3: Client Logo Marquee)
-   ------------------------------------------------------------------
-   * Objective: Display client trust through a smooth, infinitely scrolling row of client logos.
-   * Connection: Renders inside page.tsx; styles controlled by globals.css `@keyframes marquee`.
-   * Logic & Implementation:
-     a. Uses 8 vector SVGs (Acme, Aether, Nova, Krypton, Clarity, Apex, Quantum, Echo) representing modern brands.
-     b. Contains gradient fade overlay divs at the left and right margins to blur the edge entrance and exit.
-     c. Implements seamless looping by grouping logos into two identical lists inside a flex wrapper (`.marquee-container`). When translated by exactly `-50%` (the width of one list), it resets to `0%` instantly and invisibly.
-     d. Spacing layout uses identical gaps/paddings on both sets to ensure spacing does not shift when looping.
+2. app/layout.tsx
+   --------------
+   * Objective: Define the standard HTML root structure, load custom Google Fonts (Space Grotesk & Inter), set page metadata, and wrap the children with the global Navbar and Footer.
+   * Connection: Serves as the outer template for all pages in the app.
+   * Logic & Implementation Steps:
+     a. Initializes Google fonts and stores them in CSS variables (`--font-space-grotesk` and `--font-inter`).
+     b. Exports metadata object containing page titles and descriptions.
+     c. Renders the main document `<html>` and `<body>` tags.
+     d. Embeds `<Navbar />`, the `{children}` router page, and `<Footer />` in vertical sequence.
 
-3. components/sections/ServicesGrid.tsx (Section 4: Staffing Solutions)
-   ---------------------------------------------------------------------
-   * Objective: Outline staffing solution tracks in an interactive, responsive grid layout.
-   * Connection: Uses Framer Motion for rich card hover states; renders as Section 4 on the homepage.
-   * Logic & Implementation:
-     a. Implements a responsive grid container (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`) matching Mobile (1 col), Tablet (2 col), and Desktop (4 col).
-     b. Renders 4 services cards: Permanent Hiring, Contract Staffing, Executive Search, Dedicated Teams.
-     c. Cards are built with frosted glass styling (`rgba(255,255,255,.7)` background, `blur(16px)` backdrop filter, and a subtle border).
-     d. Uses Framer Motion's `<motion.div>` for hover controls (`whileHover`):
-        - Translates `-8px` on the Y-axis.
-        - Transforms border color to primary blue (`#0A66F5`).
-        - Adds an active blue glow shadow (`rgba(10,102,245,0.15)`).
-        - Animation is configured for a smooth 300ms ease transition.
-     e. Applies a secondary CSS hover rule on the CTA arrow container (`group-hover:translate-x-1.5`) to animate the arrow dynamically when the parent card is hovered.
+3. app/page.tsx
+   ------------
+   * Objective: Orchestrate the rendering sequence of all completed section components on the home route.
+   * Connection: Serves as the landing page entry route, importing all sections.
+   * Logic & Implementation Steps:
+     a. Imports all 10 completed landing page sections.
+     b. Orders them exactly as requested to maintain the alternating background rhythm:
+        Hero (Dark) → TrustedBy (Light) → ServicesGrid (Dark) → Comparison (Light) → ProcessTimeline (Dark) → IndustriesMarquee (Light) → Stats (Dark) → Testimonials (Light) → FeaturedRoles (Light Gray) → FAQ (White).
 
-4. components/sections/Comparison.tsx (Section 5: Why SARS TALENT)
-   -----------------------------------------------------------------
-   * Objective: Compare traditional staffing challenges with SARS TALENT's modern advantages.
-   * Connection: Rendered in page.tsx as Section 5; utilizes Framer Motion to animate the VS badge.
-   * Logic & Implementation:
-     a. Uses a grid layout that stacks vertically on mobile and displays side-by-side (2 columns) on desktop.
-     b. Left side (Traditional Staffing): Muted red icons and gray text represent negative attributes.
-     c. Right side (With SARS TALENT): High-contrast white text, electric blue checkmark icons, and a highlighted "Recommended" badge represent premium benefits.
-     d. Implements a central responsive divider line:
-        - Desktop: A vertical line with the "VS" badge centered at the coordinate midpoint.
-        - Mobile: A horizontal line with the "VS" badge centered in the gap between the stacked columns.
-     e. Badge Pulsing: Wraps the VS badge in a `<motion.div>` animating its scale from `1` to `1.08` and back, while modulating the blur radius of its soft blue glow shadow dynamically on an infinite loop.
+4. components/Navbar.tsx
+   ---------------------
+   * Objective: Provide an interactive navigation bar with scroll detection, mobile hamburger panel toggling, and clean branding.
+   * Connection: Rendered fixed at the top of layout.tsx.
+   * Logic & Implementation Steps:
+     a. Sets state `scrolled` via a `window.scrollY` event listener to apply a glassmorphic background (`#0B1120/85` with backdrop-filter) once the page scroll exceeds 100px.
+     b. Toggles state `mobileMenuOpen` when the hamburger icon is clicked, mounting/dismounting the mobile nav menu overlay.
+     c. Employs Framer Motion's `AnimatePresence` and `<motion.div>` to slide down the mobile menu panel smoothly.
 
-5. components/sections/IndustriesMarquee.tsx (Section 7: Industries & Tech)
-   -------------------------------------------------------------------------
-   * Objective: Highlight the engineering industries and tech stacks supported by the platform.
-   * Connection: Utilizes opposite-scrolling CSS keyframes (`marquee-left` and `marquee-right`) defined in globals.css.
-   * Logic & Implementation:
-     a. Divides list of 22 tags into two distinct categories (Row 1: Industries & Core Tech; Row 2: Cloud, DevOps & Languages).
-     b. Row 1 translates right-to-left (`.marquee-left-container`).
-     c. Row 2 translates left-to-right (`.marquee-right-container`).
-     d. Individual tags are structured as rounded glass pills (`rounded-full`, white border opacity, white text).
-     e. Applies interactive hover actions on pills to scale upward (`hover:scale-105`) and brighten on focus.
+5. components/Footer.tsx
+   ---------------------
+   * Objective: Render structured footer links (Services, Company, Get in Touch) with copyright information and a clean brand logo.
+   * Connection: Fixed at the very bottom of layout.tsx.
+   * Logic & Implementation Steps:
+     a. Structures links in a responsive 4-column layout (`grid-cols-1 sm:grid-cols-2 md:grid-cols-4`).
+     b. Implements smooth hover transitions (`transition-colors duration-200`) on link anchors.
+     c. Renders copyright info with dynamic year generation using `new Date().getFullYear()`.
 
-6. components/sections/Stats.tsx (Section 8: Stats & Impact)
-   ----------------------------------------------------------
-   * Objective: Present company statistics and verification using viewport-triggered numbers animation.
-   * Connection: Renders at the bottom of the page, above the footer; uses Framer Motion for count-ups.
-   * Logic & Implementation:
-     a. Background: Configured with a metallic-gray gradient (`bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A]`).
-     b. Implements a sub-component helper `<Counter>` that takes target values (e.g. 500, 98, 72, 250) and handles interpolation.
-     c. Viewport Detection: Uses Framer Motion's `useInView` hook on a ref wrapper:
-        - `once: true`: Ensures the animation runs only once when scrolled into view.
-        - `margin: "-50px"`: Adds a offset to prevent premature trigger before the card is clearly visible.
-     d. Counter Animation: Triggers Framer Motion's `animate(0, value)` on viewport detection. The `onUpdate` event increments a local state variable to re-render the count as a rounded integer.
-     e. Execution is set to a smooth duration of 2 seconds with an ease-out timing curve.
+6. components/Hero.tsx
+   -------------------
+   * Objective: Display a high-impact intro header utilizing a circuit board looping background video and smooth, staggered text entry.
+   * Connection: Section 1 of page.tsx.
+   * Logic & Implementation Steps:
+     a. Embeds an auto-playing, muted, looping `<video>` positioned absolutely in the background (`-z-20`).
+     b. Adds a black gradient overlay (`-z-10`) to ensure contrast and typography legibility.
+     c. Simplifies Framer Motion animations using direct `initial` and `animate` props instead of complex nested staggers.
+     d. Animates word spans (`word.text`) sequentially using the formula `delay: index * 0.15` to achieve a smooth staggered appearance.
 
-7. app/page.tsx (Unified Homepage Orchestrator)
-   ---------------------------------------------
-   * Objective: Serve as the entry-point router, importing and ordering each section component.
-   * Connection: Integrates components sequentially.
-   * Layout Spacing Flow:
-     - 1. <Hero /> (0px margin, full viewport)
-     - 2. <TrustedBy /> (100px white marquee band)
-     - 3. <ServicesGrid /> (24rem vertical spacing, bg-white)
-     - 4. <Comparison /> (24rem vertical spacing, bg-[#0B1120])
-     - 5. <IndustriesMarquee /> (20rem vertical spacing, bg-[#0B1120])
-     - 6. <Stats /> (24rem vertical spacing, bg-gradient metallic slate)
-     - This alternating backdrop palette (Dark -> Light -> Dark) provides a clean rhythmic structure to enhance visual readability and eliminate visual fatigue.
+7. components/sections/TrustedBy.tsx
+   ---------------------------------
+   * Objective: Display trusted partner logos in a seamless, infinitely scrolling row on a white background.
+   * Connection: Section 2 of page.tsx.
+   * Logic & Implementation Steps:
+     a. Structures 8 SVGs (Acme, Aether, Nova, Krypton, Clarity, Apex, Quantum, Echo) into a logos list.
+     b. Employs double list duplication (`[...logos, ...logos]`) inside a flex container with the `.marquee-left` class to loop seamlessly.
+     c. Adds left and right gradient overlays (`bg-gradient-to-r from-white to-transparent`) at `w-24` width to soften logo entries and exits.
+     d. Pauses scrolling automatically when hovering anywhere inside the section using `.marquee-parent:hover`.
+
+8. components/sections/ServicesGrid.tsx
+   ------------------------------------
+   * Objective: Present staffing solutions in a 4-column responsive grid on a dark background.
+   * Connection: Section 3 of page.tsx.
+   * Logic & Implementation Steps:
+     a. Implements a responsive grid container (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`).
+     b. Renders 4 services cards (Permanent Hiring, Contract Staffing, Executive Search, Dedicated Hiring Teams).
+     c. Styles cards with semi-transparent white background (`rgba(255,255,255,0.7)`), backdrop blur (`blur(16px)`), and a light border.
+     d. Animates cards on hover (`whileHover`): lifts card (`y: -8`), changes border to primary blue (`#0A66F5`), and applies a blue glow shadow.
+     e. Slides the CTA arrow right by `1.5` units on card hover using Tailwind's `group-hover:translate-x-1.5`.
+
+9. components/sections/ProcessTimeline.tsx
+   ---------------------------------------
+   * Objective: Showcase the hiring process timeline with viewport-triggered draw animations and a traveling dot.
+   * Connection: Section 5 of page.tsx.
+   * Logic & Implementation Steps:
+     a. Triggers draw and stagger entries once the container enters viewport using Framer Motion's `useInView`.
+     b. Timeline Line: Uses inline SVGs for desktop (horizontal) and mobile (vertical). Animates the line drawing using `pathLength: 0 → 1` via `motion.line` once in view.
+     c. Traveling Dot: Animates a `<motion.circle>` infinitely (`repeat: Infinity`) along the SVG coordinates (animating `cx` on desktop, `cy` on mobile).
+     d. Node Animation: Staggers the entry of each timeline node (scale `0 → 1`, opacity `0 → 1`) with `0.2s` delays between steps.
+
+10. components/sections/Comparison.tsx
+    ----------------------------------
+    * Objective: Highlight platform advantages by contrasting traditional staffing with SARS TALENT.
+    * Connection: Section 4 of page.tsx.
+    * Logic & Implementation Steps:
+      a. Left Column (Traditional): Styled in muted gray text with muted red cross icons to signal drawbacks.
+      b. Right Column (SARS TALENT): Encased in a highlighted dark card (`bg-[#0B1120]`) with white text and blue checkmarks.
+      c. Center Divider: Renders a vertical metallic line on desktop and a horizontal line on mobile.
+      d. VS Badge: Centered badge that scales (`1` to `1.08`) and pulses a blue glow shadow infinitely.
+
+11. components/sections/IndustriesMarquee.tsx
+    -----------------------------------------
+    * Objective: Present industries and technology stacks in dual opposite-scrolling rows on a light background.
+    * Connection: Section 6 of page.tsx.
+    * Logic & Implementation Steps:
+      a. Row 1 (Industries): Scrolls right-to-left using `.marquee-left`.
+      b. Row 2 (Technologies): Scrolls left-to-right using `.marquee-right`.
+      c. Pills: Styled in light mode glass (`bg-neutral-50 border border-neutral-200/80 text-neutral-800`).
+      d. Hovering either row pauses only that row by placing `.marquee-parent` wrappers on each row individually.
+
+12. components/sections/Stats.tsx
+    -----------------------------
+    * Objective: Present company metrics in a responsive grid using viewport-triggered count-up animations.
+    * Connection: Section 7 of page.tsx.
+    * Logic & Implementation Steps:
+      a. Houses 4 stats cards: 500+, 98%, 72 Hours, and 250+.
+      b. Counter Component: Uses Framer Motion's `useInView` to detect visibility (configured with `once: true` and a `margin: "-50px"`).
+      c. Animation: Triggers `animate(0, value)` on visibility, updating state using `Math.floor(latest)` on each update frame to show counting.
+
+13. components/sections/Testimonials.tsx
+    ------------------------------------
+    * Objective: Display client success quotes in a sliding carousel with auto-rotation.
+    * Connection: Section 8 of page.tsx.
+    * Logic & Implementation Steps:
+      a. Tracks `currentIndex` and auto-rotates slides to the left every 5 seconds.
+      b. Seamless Loop: Duplicates the testimonials list. Once transition reaches index 6, it instantly disables transition (`isTransitioning = false`) and resets `currentIndex` to 0.
+      c. Center Scaling: Dynamically scales the active/center card to `1.02` and applies a blue drop shadow.
+      d. Dot Indicators: Clickable pill-shaped indicators. The active slide dot is styled in blue and becomes wider.
+
+14. components/sections/FeaturedRoles.tsx
+    -------------------------------------
+    * Objective: Feature open engineering job roles in a hover-interactive, fully accessible grid.
+    * Connection: Section 9 of page.tsx.
+    * Logic & Implementation Steps:
+      a. Layout: Renders a 3-column responsive grid on a light-gray (`#F8FAFC`) background.
+      b. Hover: Lift card (`y: -8`), change borders to blue, apply blue glow shadow, and slide the apply arrow.
+      c. Keyboard Accessibility: Adds `tabIndex={0}` and an `onKeyDown` handler (Space/Enter to trigger click) to make card blocks accessible.
+
+15. components/sections/FAQ.tsx
+    ---------------------------
+    * Objective: Answer questions in a WAI-ARIA compliant, height-expanding accordion.
+    * Connection: Section 10 of page.tsx.
+    * Logic & Implementation Steps:
+      a. Click Toggle: Expands the selected question and collapses the others (mutual exclusion).
+      b. Animation: Expands height (`0 → auto`) and opacity (`0 → 1`) smoothly using Framer Motion.
+      c. Icon: SVG plus (`+`) rotates 45° to form a cross (`x`) when active.
+      d. Active Styling: Adds a `3px` blue left border and a soft blue background tint.
+      e. Accessibility: Programmatically links triggers to panels using `id`, `aria-expanded`, `aria-controls`, `aria-labelledby`, and `role="region"`.
 ========================================================================

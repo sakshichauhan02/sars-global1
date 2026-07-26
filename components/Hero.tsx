@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import ScrollReveal from "./ScrollReveal";
 
 export default function Hero() {
   const headlineWords = [
@@ -11,26 +12,26 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
+    <ScrollReveal className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Background Video */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover -z-20 opacity-60"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-100"
       >
         <source
-          src="https://assets.mixkit.co/videos/preview/mixkit-animation-of-a-futuristic-circuit-board-42956-large.mp4"
+          src="/only_need_the_background_video%20(1).mp4"
           type="video/mp4"
         />
       </video>
 
-      {/* Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black -z-10" />
+      {/* Dark Center Radial Overlay (Keeps sides bright, makes center text readable) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.75)_0%,transparent_55%)] z-10" />
 
       {/* Content Container */}
-      <div className="relative z-10 max-w-[1200px] w-full px-6 flex flex-col items-center justify-center text-center gap-6 md:gap-8">
+      <div className="relative z-20 max-w-[1200px] w-full px-6 flex flex-col items-center justify-center text-center gap-6 md:gap-8">
         
         {/* Headline - Animating word-by-word with individual transitions */}
         <h1 className="font-space-grotesk font-bold text-[40px] md:text-[56px] lg:text-[72px] leading-tight tracking-[-1px] uppercase flex flex-wrap justify-center gap-x-[0.3em]">
@@ -96,6 +97,6 @@ export default function Hero() {
         </motion.div>
 
       </div>
-    </section>
+    </ScrollReveal>
   );
 }
