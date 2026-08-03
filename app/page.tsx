@@ -11,7 +11,7 @@ import FAQ from "@/components/sections/FAQ";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-pure-black text-metallic-gray">
+    <div className="flex flex-col min-h-screen bg-white text-slate-700">
       {/* 1. Hero Section (Dark) */}
       <Hero />
 

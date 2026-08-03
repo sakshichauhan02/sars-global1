@@ -115,19 +115,25 @@ export default function Testimonials() {
     }
   }, [currentIndex, testimonials.length]);
 
-  // Duplicate list to support seamless infinite loop transitions
   const displayTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <ScrollReveal className="w-full py-24 bg-white border-t border-neutral-100 flex flex-col items-center justify-center overflow-hidden">
-      <div className="max-w-[1200px] w-full px-6 flex flex-col gap-16">
+    <ScrollReveal className="relative w-full py-32 md:py-44 bg-[#F8FAFC] border-t border-slate-900/[0.06] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.04] pointer-events-none z-0" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(10,102,245,0.04)_0%,transparent_70%)] pointer-events-none z-0" />
+
+      <div className="relative z-10 max-w-[1200px] w-full px-6 flex flex-col gap-24">
         
         {/* Section Heading */}
-        <div className="max-w-xl mx-auto text-center flex flex-col gap-4">
-          <h2 className="text-3xl md:text-4xl font-bold !text-neutral-900 font-space-grotesk uppercase tracking-tight">
+        <div className="max-w-prose mx-auto text-center flex flex-col gap-6 items-center justify-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0A66F5]/10 bg-[#0A66F5]/5 text-xs font-semibold tracking-wider text-[#0A66F5] uppercase">
+            Testimonials
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black !text-[#0B1120] font-space-grotesk uppercase tracking-tight">
             Client Success
           </h2>
-          <p className="text-neutral-500 font-inter text-sm md:text-base leading-relaxed">
+          <p className="text-slate-500 font-inter text-base md:text-lg leading-relaxed max-w-[650px] mx-auto">
             What engineering leaders say about working with SARS TALENT
           </p>
         </div>
@@ -137,12 +143,11 @@ export default function Testimonials() {
           <div
             style={{
               transform: `translate3d(-${currentIndex * (100 / visibleCount)}%, 0, 0)`,
-              transition: isTransitioning ? "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)" : "none"
+              transition: isTransitioning ? "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)" : "none"
             }}
             className="flex w-full gap-0"
           >
             {displayTestimonials.map((item, idx) => {
-              // Highlight the center card on Desktop, or the first card on Mobile/Tablet
               const relativeIndex = idx - currentIndex;
               const isCenter =
                 visibleCount === 3
@@ -156,20 +161,26 @@ export default function Testimonials() {
                     minWidth: `${100 / visibleCount}%`,
                     width: `${100 / visibleCount}%`
                   }}
-                  className="px-3 box-border"
+                  className="px-4 box-border"
                 >
                   <div
                     style={{
                       transform: isCenter ? "scale(1.02)" : "scale(1)",
                       transition: "transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease"
                     }}
-                    className={`bg-white border p-8 rounded-[16px] h-full flex flex-col justify-between select-none ${
+                    className={`relative p-8 md:p-10 rounded-[24px] h-full flex flex-col justify-between select-none border backdrop-blur-[20px] transition-all duration-500 ${
                       isCenter
-                        ? "border-[#0A66F5]/40 shadow-[0_10px_30px_-10px_rgba(10,102,245,0.12)]"
-                        : "border-neutral-200/80 shadow-sm"
+                        ? "bg-white border-[#0A66F5] shadow-[0_25px_60px_rgba(10,102,245,0.12)]"
+                        : "bg-white/80 border-slate-900/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.02)]"
                     }`}
                   >
-                    <div className="flex flex-col gap-6">
+                    {/* Top 3px Glowing Line Accent */}
+                    <div className={`absolute top-0 left-0 right-0 h-[3px] rounded-t-[24px] bg-gradient-to-r from-[#0A66F5]/50 to-[#3B82F6]/50 transition-opacity duration-500 ${isCenter ? "opacity-100" : "opacity-30"}`} />
+
+                    {/* Faint Metallic Border Highlight Inner Layer */}
+                    <div className="absolute inset-0 rounded-[24px] border border-white/40 pointer-events-none z-10" />
+
+                    <div className="flex flex-col gap-8">
                       {/* Star Rating */}
                       <div className="flex items-center gap-1">
                         {[...Array(item.rating)].map((_, i) => (
@@ -177,7 +188,7 @@ export default function Testimonials() {
                             key={i}
                             viewBox="0 0 24 24"
                             fill="#F59E0B"
-                            className="w-5 h-5 text-amber-500"
+                            className="w-4.5 h-4.5 text-amber-500"
                           >
                             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                           </svg>
@@ -185,25 +196,25 @@ export default function Testimonials() {
                       </div>
 
                       {/* Review Text */}
-                      <p className="text-sm md:text-base text-neutral-600 font-inter leading-relaxed italic">
+                      <p className="text-sm md:text-base text-slate-600 font-inter leading-relaxed italic max-w-prose">
                         &ldquo;{item.review}&rdquo;
                       </p>
                     </div>
 
                     {/* Reviewer Details */}
-                    <div className="flex items-center gap-4 mt-8">
+                    <div className="flex items-center gap-4 mt-10">
                       {/* Avatar */}
-                      <div className={`w-12 h-12 rounded-full ${item.bgClass} flex items-center justify-center text-white font-space-grotesk font-bold text-sm shadow-inner`}>
+                      <div className={`w-12 h-12 rounded-full ${item.bgClass} flex items-center justify-center text-white font-inter font-bold text-sm shadow-inner`}>
                         {item.initials}
                       </div>
                       
                       {/* Name & Company */}
                       <div className="flex flex-col">
-                        <span className="text-sm font-bold !text-neutral-900 font-space-grotesk">
+                        <span className="text-sm font-bold !text-[#0B1120] font-inter">
                           {item.name}
                         </span>
-                        <span className="text-xs text-neutral-500 font-inter">
-                          {item.role}, <span className="font-semibold text-neutral-600">{item.company}</span>
+                        <span className="text-xs text-slate-500 font-inter mt-0.5">
+                          {item.role}, <span className="font-semibold text-slate-600">{item.company}</span>
                         </span>
                       </div>
                     </div>
@@ -226,8 +237,8 @@ export default function Testimonials() {
                   setIsTransitioning(true);
                   setCurrentIndex(index);
                 }}
-                className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  isActive ? "bg-[#0A66F5] w-6" : "bg-neutral-300 w-2.5 hover:bg-neutral-400"
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  isActive ? "bg-[#0A66F5] w-6" : "bg-neutral-300 w-2 hover:bg-neutral-400"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />

@@ -99,19 +99,19 @@ export default function TrustedBy() {
   ];
 
   return (
-    <ScrollReveal className="marquee-parent w-full h-[100px] bg-white flex items-center overflow-hidden border-y border-neutral-100/10">
+    <ScrollReveal className="marquee-parent w-full h-[140px] bg-[#F8FAFC] flex items-center overflow-hidden border-y border-slate-900/[0.06]">
       <div className="w-full relative flex items-center">
         {/* Gradients to fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
 
         <div className="marquee-left">
           {/* First set of logos */}
-          <div className="flex items-center gap-16 md:gap-24 px-8 md:px-12">
+          <div className="flex items-center gap-20 md:gap-28 px-8 md:px-12">
             {logos.map((logo, index) => (
               <div
                 key={`logo-1-${index}`}
-                className="marquee-logo flex items-center justify-center cursor-pointer select-none"
+                className="marquee-logo flex items-center justify-center cursor-pointer select-none transition-all duration-300 opacity-40 hover:opacity-100 hover:scale-105"
               >
                 {logo.element}
               </div>
@@ -119,11 +119,11 @@ export default function TrustedBy() {
           </div>
 
           {/* Duplicated set for seamless loop */}
-          <div className="flex items-center gap-16 md:gap-24 px-8 md:px-12" aria-hidden="true">
+          <div className="flex items-center gap-20 md:gap-28 px-8 md:px-12" aria-hidden="true">
             {logos.map((logo, index) => (
               <div
                 key={`logo-2-${index}`}
-                className="marquee-logo flex items-center justify-center cursor-pointer select-none"
+                className="marquee-logo flex items-center justify-center cursor-pointer select-none transition-all duration-300 opacity-40 hover:opacity-100 hover:scale-105"
               >
                 {logo.element}
               </div>

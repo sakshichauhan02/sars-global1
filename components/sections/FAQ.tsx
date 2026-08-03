@@ -44,42 +44,63 @@ export default function FAQ() {
   };
 
   return (
-    <ScrollReveal className="w-full py-24 bg-white border-t border-neutral-100 flex flex-col items-center justify-center">
-      <div className="max-w-[800px] w-full px-6 flex flex-col gap-12">
+    <ScrollReveal className="relative w-full py-32 md:py-44 bg-white border-t border-slate-900/[0.06] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background Decor */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0" 
+        style={{
+          background: "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 0.7) 40%, rgba(241, 245, 249, 0.9) 100%)"
+        }}
+      />
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.04] pointer-events-none z-0" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(10,102,245,0.04)_0%,transparent_70%)] pointer-events-none z-0" />
+
+      <div className="relative z-10 max-w-[800px] w-full px-6 flex flex-col gap-20">
         
         {/* Section Heading */}
-        <div className="text-center flex flex-col gap-4">
-          <h2 className="text-3xl md:text-4xl font-bold !text-neutral-900 font-space-grotesk uppercase tracking-tight">
+        <div className="text-center flex flex-col gap-6 max-w-prose mx-auto items-center justify-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0A66F5]/10 bg-[#0A66F5]/5 text-xs font-semibold tracking-wider text-[#0A66F5] uppercase">
+            Support
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black !text-[#0B1120] font-space-grotesk uppercase tracking-tight">
             FAQ
           </h2>
-          <p className="text-neutral-500 font-inter text-sm md:text-base">
+          <p className="text-slate-500 font-inter text-base md:text-lg leading-relaxed max-w-[650px] mx-auto">
             Frequently Asked Questions
           </p>
         </div>
 
         {/* Accordion List */}
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-6 w-full">
           {faqs.map((item, idx) => {
             const isActive = activeIndex === idx;
 
             return (
               <div
                 key={idx}
-                className={`border rounded-xl overflow-hidden transition-all duration-300 ${
+                className={`relative border rounded-[24px] overflow-hidden transition-all duration-300 backdrop-blur-[20px] ${
                   isActive
-                    ? "bg-[#0A66F5]/5 border-l-[3px] border-l-[#0A66F5] border-neutral-200"
-                    : "bg-white border-neutral-200"
+                    ? "bg-white border-[#0A66F5] shadow-[0_15px_45px_rgba(10,102,245,0.08)] scale-[1.01]"
+                    : "bg-white/80 border-slate-900/[0.08] hover:border-slate-300/60 shadow-sm"
                 }`}
               >
+                {/* Top Glowing Accent Line when Active */}
+                {isActive && (
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#0A66F5] to-[#3B82F6] z-10" />
+                )}
+
+                {/* Inner Metallic Border */}
+                <div className="absolute inset-0 rounded-[24px] border border-white/40 pointer-events-none z-10" />
+
                 {/* Accordion Trigger */}
                 <button
                   id={`faq-btn-${idx}`}
                   onClick={() => toggleFAQ(idx)}
-                  className="w-full flex items-center justify-between p-6 cursor-pointer select-none text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66F5]/50 focus-visible:ring-offset-2"
+                  className="w-full flex items-center justify-between p-6 md:p-8 cursor-pointer select-none text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66F5]/50 focus-visible:ring-offset-2"
                   aria-expanded={isActive}
                   aria-controls={`faq-panel-${idx}`}
                 >
-                  <span className="font-bold !text-neutral-900 font-space-grotesk text-base tracking-tight pr-4">
+                  <span className="font-bold !text-[#0B1120] font-space-grotesk text-base md:text-lg tracking-tight pr-4">
                     {item.question}
                   </span>
                   
@@ -110,13 +131,12 @@ export default function FAQ() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 text-sm md:text-base text-neutral-600 font-inter leading-relaxed">
+                      <div className="px-6 pb-8 md:px-8 md:pb-8 text-sm md:text-base text-slate-500 font-inter leading-relaxed max-w-prose">
                         {item.answer}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
               </div>
             );
           })}
