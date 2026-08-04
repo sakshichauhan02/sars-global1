@@ -1,192 +1,150 @@
 "use client";
 
-import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import ScrollReveal from "../ScrollReveal";
+import { useRef } from "react";
+
+const steps = [
+  {
+    num: "01",
+    icon: "📋",
+    title: "Requirement Intake",
+    desc: "Share your stack, team size, culture, and timeline. Our system starts matching immediately.",
+    metric: "< 15 min",
+    metricLabel: "Avg. intake time",
+    gradient: "from-blue-600 to-cyan-500",
+    detail: ["Role definition", "Tech stack mapping", "Seniority calibration", "Culture alignment"],
+  },
+  {
+    num: "02",
+    icon: "🤖",
+    title: "AI Talent Matching",
+    desc: "Our LLM analyzes 200+ signals across our global pool and ranks top candidates.",
+    metric: "< 2 hours",
+    metricLabel: "To shortlist",
+    gradient: "from-violet-600 to-blue-600",
+    detail: ["200+ signals analyzed", "GitHub profile scan", "OSS contribution score", "Culture fit model"],
+  },
+  {
+    num: "03",
+    icon: "🔬",
+    title: "Technical Screening",
+    desc: "Every candidate completes domain-specific coding tests and architecture reviews.",
+    metric: "Top 3%",
+    metricLabel: "Candidates pass",
+    gradient: "from-cyan-500 to-teal-500",
+    detail: ["Live coding sessions", "System design review", "Domain expertise check", "Communication eval"],
+  },
+  {
+    num: "04",
+    icon: "🚀",
+    title: "Deploy & Onboard",
+    desc: "Your engineer is onboarded in under 48 hours. We handle compliance, payroll & admin.",
+    metric: "< 48h",
+    metricLabel: "Full deployment",
+    gradient: "from-pink-600 to-violet-600",
+    detail: ["Day-1 onboarding", "Payroll & compliance", "90-day guarantee", "Ongoing support"],
+  },
+];
 
 export default function ProcessTimeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  // Trigger animations when the timeline enters the viewport
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-
-  const steps = [
-    {
-      number: "01",
-      title: "Requirement Gathering",
-      desc: "Define your technical needs, team size, timeline, and cultural alignment preferences.",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 md:w-7 md:h-7">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <polyline points="14 2 14 8 20 8" />
-          <line x1="16" y1="13" x2="8" y2="13" />
-          <line x1="16" y1="17" x2="8" y2="17" />
-          <polyline points="10 9 9 9 8 9" />
-        </svg>
-      )
-    },
-    {
-      number: "02",
-      title: "AI Talent Matching",
-      desc: "Our AI matching engine crawls our global talent pool to source the top 3% matching candidates.",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 md:w-7 md:h-7">
-          <circle cx="12" cy="12" r="10" />
-          <circle cx="12" cy="12" r="3" />
-          <line x1="12" y1="2" x2="12" y2="4" />
-          <line x1="12" y1="20" x2="12" y2="22" />
-          <line x1="2" y1="12" x2="4" y2="12" />
-          <line x1="20" y1="12" x2="22" y2="12" />
-        </svg>
-      )
-    },
-    {
-      number: "03",
-      title: "Technical Screening",
-      desc: "Candidates undergo rigorous coding tests and technical interviews by subject matter experts.",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 md:w-7 md:h-7">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <polyline points="9 11 11 13 15 9" />
-        </svg>
-      )
-    },
-    {
-      number: "04",
-      title: "Deployment & Support",
-      desc: "Swift onboarding in under 48 hours with continued administrative and payroll support.",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 md:w-7 md:h-7">
-          <path d="M22 2L11 13" />
-          <path d="M22 2l-7 20-4-9-9-4 20-7z" />
-        </svg>
-      )
-    }
-  ];
-
-  // Variants for staggered node entry animation
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2, // 0.2s delay between each node
-      }
-    }
-  };
-
-  const nodeVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  } as const;
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <ScrollReveal className="relative w-full py-32 md:py-44 bg-[#0B1120] border-t border-white/5 flex flex-col items-center justify-center overflow-hidden">
-      {/* Dark Blueprint Grid Pattern */}
-      <div className="absolute inset-0 bg-grid-pattern-dark opacity-35 pointer-events-none z-0" />
-      
-      {/* Radial Glow Lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(10,102,245,0.08)_0%,transparent_70%)] pointer-events-none z-0" />
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#3B82F6]/[0.02] blur-[120px] pointer-events-none z-0" />
+    <section id="process" className="relative w-full py-32 bg-white overflow-hidden font-poppins text-slate-900">
+      {/* Background */}
+      <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-50 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-violet-50 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 max-w-[1200px] w-full px-6 flex flex-col gap-24">
-        
-        {/* Heading */}
-        <div className="max-w-prose mx-auto text-center flex flex-col gap-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs font-semibold tracking-wider text-slate-300 uppercase self-center">
-            How It Works
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black !text-white font-space-grotesk uppercase tracking-tight">
-            Our Process
-          </h2>
-          <p className="text-slate-400 font-inter text-base md:text-lg leading-relaxed max-w-[650px] mx-auto">
-            From Requirement Scoping to Global Engineer Deployment
-          </p>
-        </div>
-
-        {/* Responsive Timeline Container */}
-        <div
-          ref={containerRef}
-          className="relative w-full max-w-[1100px] mx-auto flex flex-col md:flex-row justify-between gap-16 md:gap-10 px-6"
+      <div className="relative z-10 max-w-[1300px] mx-auto px-6">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-20"
         >
-          {/* Connector Line (Desktop: Horizontal) */}
-          <div className="absolute top-[32px] left-[48px] right-[48px] h-[2px] bg-white/10 hidden md:block pointer-events-none">
-            {/* Travelling Pulse Dot */}
+          <span className="inline-block px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-50 text-blue-600 text-xs font-semibold tracking-widest uppercase mb-5">
+            How It Works
+          </span>
+          <h2 className="text-5xl md:text-7xl font-extrabold text-slate-900 mb-6 leading-tight">
+            Our{" "}
+            <span className="gradient-text">Process</span>
+          </h2>
+          <p className="text-slate-500 text-lg max-w-[550px] mx-auto">
+            Four steps. Forty-eight hours. One elite engineer on your team.
+          </p>
+        </motion.div>
+
+        {/* Process Cards */}
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+          {steps.map((step, i) => (
             <motion.div
-              initial={{ left: "0%" }}
-              animate={{ left: "100%" }}
-              transition={{
-                repeat: Infinity,
-                duration: 3.5,
-                ease: "linear"
-              }}
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#0A66F5] shadow-[0_0_15px_8px_rgba(10,102,245,0.6)]"
-            />
-          </div>
-          
-          {/* Connector Line (Mobile: Vertical) */}
-          <div className="absolute left-[50px] top-[38px] bottom-[38px] w-[2px] bg-white/10 md:hidden pointer-events-none">
-            {/* Travelling Pulse Dot */}
-            <motion.div
-              initial={{ top: "0%" }}
-              animate={{ top: "100%" }}
-              transition={{
-                repeat: Infinity,
-                duration: 3.5,
-                ease: "linear"
-              }}
-              className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#0A66F5] shadow-[0_0_15px_8px_rgba(10,102,245,0.6)]"
-            />
-          </div>
+              key={i}
+              initial={{ opacity: 0, y: 50 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group relative p-7 rounded-3xl border border-slate-200 bg-white/80 backdrop-blur-sm overflow-hidden cursor-default transition-all duration-400 shadow-sm hover:border-blue-300 hover:shadow-[0_20px_50px_rgba(10,102,245,0.08)]"
+            >
+              {/* Hover glow top border */}
+              <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${step.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
 
-          {/* Staggered Timeline Nodes Wrapper */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="w-full flex flex-col md:flex-row justify-between gap-16 md:gap-10"
-          >
-            {steps.map((step, idx) => (
-              <motion.div
-                key={idx}
-                variants={nodeVariants}
-                className="relative flex flex-row md:flex-col items-start md:items-center text-left md:text-center gap-8 md:gap-8 flex-1"
-              >
-                
-                {/* Node Circle */}
-                <div className="relative flex-shrink-0 w-[52px] h-[52px] md:w-16 md:h-16 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center shadow-lg backdrop-blur-md z-10 transition-all duration-400 hover:border-[#0A66F5]/50 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(10,102,245,0.2)]">
-                  {/* Step Number Badge */}
-                  <div className="absolute -top-1 -right-1 w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#0A66F5] text-white font-space-grotesk text-[10px] md:text-[11px] font-bold flex items-center justify-center shadow-[0_2px_8px_rgba(10,102,245,0.4)]">
-                    {step.number}
-                  </div>
-                  {/* SVG Icon */}
-                  <div className="text-[#0A66F5] flex items-center justify-center transition-transform duration-300 hover:scale-110">
-                    {step.icon}
-                  </div>
-                </div>
+              {/* Step number watermark */}
+              <div className="absolute top-4 right-4 text-7xl font-extrabold text-slate-900/5 group-hover:text-blue-600/5 transition-colors leading-none select-none">
+                {step.num}
+              </div>
 
-                {/* Node Details */}
-                <div className="flex flex-col gap-4 pt-1 md:pt-0">
-                  <h3 className="text-lg md:text-xl font-bold !text-white font-space-grotesk tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-slate-400 font-inter leading-relaxed max-w-[240px] md:mx-auto">
-                    {step.desc}
-                  </p>
-                </div>
+              {/* Icon */}
+              <div className="text-4xl mb-5 group-hover:scale-110 transition-transform duration-300 inline-block">
+                {step.icon}
+              </div>
 
-              </motion.div>
-            ))}
-          </motion.div>
+              {/* Title */}
+              <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+                {step.title}
+              </h3>
+              <p className="text-slate-500 text-sm leading-relaxed mb-6">
+                {step.desc}
+              </p>
 
+              {/* Metric pill */}
+              <div className={`inline-flex flex-col items-start px-4 py-3 rounded-xl bg-gradient-to-br ${step.gradient} bg-opacity-10 border border-slate-200 mb-6`}>
+                <span className="text-xl font-extrabold text-slate-900">{step.metric}</span>
+                <span className="text-[10px] text-slate-500 tracking-wider uppercase">{step.metricLabel}</span>
+              </div>
+
+              {/* Checklist */}
+              <ul className="flex flex-col gap-2">
+                {step.detail.map((d, di) => (
+                  <li key={di} className="flex items-center gap-2.5 text-xs text-slate-500 group-hover:text-slate-700 transition-colors">
+                    <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-br ${step.gradient} flex-shrink-0`} />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
 
+        {/* Connecting arrow bar */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
+          className="hidden xl:block relative mt-8 mx-12 origin-left"
+        >
+          <div className="h-[2px] bg-gradient-to-r from-blue-600 via-cyan-400 via-violet-500 to-pink-600 rounded-full" />
+          <motion.div
+            animate={{ left: ["0%", "100%"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border border-slate-200 shadow-[0_0_20px_rgba(10,102,245,0.3)]"
+          />
+        </motion.div>
       </div>
-    </ScrollReveal>
+    </section>
   );
 }

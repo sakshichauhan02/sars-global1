@@ -1,148 +1,169 @@
 "use client";
 
-import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ScrollReveal from "../ScrollReveal";
+import { useState } from "react";
 
-interface FAQItem {
-  question: string;
-  answer: string;
-}
+const faqs = [
+  {
+    q: "How quickly can SARS Global find me an engineer?",
+    a: "Our AI matching engine delivers a curated shortlist of pre-vetted candidates within 48 hours of your requirement submission. For urgent needs, we often deliver in under 24 hours.",
+    tag: "Speed",
+  },
+  {
+    q: "What makes your AI matching different from a job board?",
+    a: "Job boards surface resumes. We surface engineers who will actually thrive in your team. Our LLM analyzes 200+ signals — GitHub contributions, OSS activity, technical writing, past performance data — and ranks candidates by predicted impact, not just keyword match.",
+    tag: "AI Tech",
+  },
+  {
+    q: "Do you handle international hiring and compliance?",
+    a: "Absolutely. We operate across 90+ countries and manage all local labor law compliance, payroll processing, contractor agreements, and IP protection. You hire globally, we handle the paperwork.",
+    tag: "Global",
+  },
+  {
+    q: "What if the engineer doesn't work out?",
+    a: "We offer a 90-day replacement guarantee. If your placed engineer doesn't meet expectations within the first 90 days, we find a replacement at no extra charge — no questions, no friction.",
+    tag: "Guarantee",
+  },
+  {
+    q: "What roles and tech stacks do you specialize in?",
+    a: "We specialize in the full software engineering spectrum: Frontend (React, Vue, Angular), Backend (Node.js, Python, Go, Java), Full-Stack, DevOps/SRE, Mobile (iOS, Android, React Native), and AI/ML engineers.",
+    tag: "Roles",
+  },
+  {
+    q: "Is there a minimum engagement size?",
+    a: "Not at all. We work with startups needing their first engineer and enterprises building teams of 50+. Our intake process scales to your exact needs.",
+    tag: "Pricing",
+  },
+];
+
+const tagColors: Record<string, string> = {
+  "Speed": "from-blue-600 to-cyan-500",
+  "AI Tech": "from-violet-600 to-blue-500",
+  "Global": "from-teal-500 to-cyan-400",
+  "Guarantee": "from-green-500 to-teal-500",
+  "Roles": "from-pink-600 to-violet-600",
+  "Pricing": "from-orange-500 to-pink-500",
+};
 
 export default function FAQ() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const faqs: FAQItem[] = [
-    {
-      question: "What is SARS TALENT?",
-      answer: "SARS TALENT is a premium global tech recruitment and talent matching platform. We connect high-growth companies with the top 3% of software engineering talent worldwide, streamlining hiring from sourcing to onboarding."
-    },
-    {
-      question: "How fast can I hire an engineer?",
-      answer: "Our average matching turnaround is under 72 hours. Once we gather your specific technical requirements, our AI matching engine filters candidates instantly and provides pre-vetted options for you to interview."
-    },
-    {
-      question: "What technologies do your engineers specialize in?",
-      answer: "Our talent network covers leading modern technology stacks, including React, Next.js, Node.js, Python, AWS, Azure, DevOps, Go, Java, Kubernetes, and machine learning architectures."
-    },
-    {
-      question: "Is there a vetting process?",
-      answer: "Yes, absolutely. Every engineer undergoes a multi-stage vetting process including coding tests, technical architecture reviews conducted by senior domain experts, and cultural alignment evaluations."
-    },
-    {
-      question: "How does contract-to-hire staffing work?",
-      answer: "Contract-to-hire allows you to work with an engineer on a flexible contract basis first (typically 3 to 6 months) to evaluate compatibility risk-free before making a permanent full-time employment offer."
-    },
-    {
-      question: "Do you handle international payroll and compliance?",
-      answer: "Yes, we handle all global onboarding, local labor law compliance, tax withholding, and monthly payroll processing so your internal team can focus entirely on shipping product."
-    }
-  ];
-
-  const toggleFAQ = (index: number) => {
-    setActiveIndex((prev) => (prev === index ? null : index));
-  };
+  const [active, setActive] = useState<number | null>(null);
 
   return (
-    <ScrollReveal className="relative w-full py-32 md:py-44 bg-white border-t border-slate-900/[0.06] flex flex-col items-center justify-center overflow-hidden">
-      {/* Background Decor */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-0" 
-        style={{
-          background: "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 0.7) 40%, rgba(241, 245, 249, 0.9) 100%)"
-        }}
-      />
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.04] pointer-events-none z-0" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(10,102,245,0.04)_0%,transparent_70%)] pointer-events-none z-0" />
+    <section className="relative w-full py-32 bg-[#080d1a] overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-grid-dark opacity-50 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-blue-600/6 blur-[160px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 max-w-[800px] w-full px-6 flex flex-col gap-20">
-        
-        {/* Section Heading */}
-        <div className="text-center flex flex-col gap-6 max-w-prose mx-auto items-center justify-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0A66F5]/10 bg-[#0A66F5]/5 text-xs font-semibold tracking-wider text-[#0A66F5] uppercase">
-            Support
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black !text-[#0B1120] font-space-grotesk uppercase tracking-tight">
+      <div className="relative z-10 max-w-[1000px] mx-auto px-6">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-1.5 rounded-full border border-blue-500/25 bg-blue-500/10 text-blue-400 text-xs font-semibold tracking-widest uppercase font-dm-sans mb-5">
             FAQ
+          </span>
+          <h2 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+            Got{" "}
+            <span className="gradient-text">Questions?</span>
           </h2>
-          <p className="text-slate-500 font-inter text-base md:text-lg leading-relaxed max-w-[650px] mx-auto">
-            Frequently Asked Questions
+          <p className="text-slate-400 text-lg max-w-[500px] mx-auto">
+            We've answered the ones we get asked most. If yours isn't here — just reach out.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Accordion List */}
-        <div className="flex flex-col gap-6 w-full">
-          {faqs.map((item, idx) => {
-            const isActive = activeIndex === idx;
-
+        {/* Accordion */}
+        <div className="flex flex-col gap-3">
+          {faqs.map((faq, i) => {
+            const isOpen = active === i;
             return (
-              <div
-                key={idx}
-                className={`relative border rounded-[24px] overflow-hidden transition-all duration-300 backdrop-blur-[20px] ${
-                  isActive
-                    ? "bg-white border-[#0A66F5] shadow-[0_15px_45px_rgba(10,102,245,0.08)] scale-[1.01]"
-                    : "bg-white/80 border-slate-900/[0.08] hover:border-slate-300/60 shadow-sm"
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.07 }}
+                className={`relative rounded-2xl border overflow-hidden transition-all duration-300 ${
+                  isOpen
+                    ? "border-blue-500/40 bg-blue-500/5 shadow-[0_0_30px_rgba(10,102,245,0.1)]"
+                    : "border-white/6 bg-white/[0.02] hover:border-blue-500/20"
                 }`}
               >
-                {/* Top Glowing Accent Line when Active */}
-                {isActive && (
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#0A66F5] to-[#3B82F6] z-10" />
+                {/* Active top bar */}
+                {isOpen && (
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${tagColors[faq.tag]} origin-left`}
+                  />
                 )}
 
-                {/* Inner Metallic Border */}
-                <div className="absolute inset-0 rounded-[24px] border border-white/40 pointer-events-none z-10" />
-
-                {/* Accordion Trigger */}
+                {/* Question button */}
                 <button
-                  id={`faq-btn-${idx}`}
-                  onClick={() => toggleFAQ(idx)}
-                  className="w-full flex items-center justify-between p-6 md:p-8 cursor-pointer select-none text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66F5]/50 focus-visible:ring-offset-2"
-                  aria-expanded={isActive}
-                  aria-controls={`faq-panel-${idx}`}
+                  onClick={() => setActive(isOpen ? null : i)}
+                  className="w-full flex items-center justify-between px-6 py-5 text-left gap-4"
                 >
-                  <span className="font-bold !text-[#0B1120] font-space-grotesk text-base md:text-lg tracking-tight pr-4">
-                    {item.question}
-                  </span>
-                  
-                  {/* Plus icon turning into cross on rotate */}
+                  <div className="flex items-center gap-3 flex-1">
+                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r ${tagColors[faq.tag]} text-white whitespace-nowrap`}>
+                      {faq.tag}
+                    </span>
+                    <span className={`font-semibold text-sm md:text-base leading-snug ${isOpen ? "text-white" : "text-slate-300"}`}>
+                      {faq.q}
+                    </span>
+                  </div>
                   <motion.div
-                    animate={{ rotate: isActive ? 45 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="flex-shrink-0 text-[#0A66F5] w-6 h-6 flex items-center justify-center"
+                    animate={{ rotate: isOpen ? 45 : 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex-shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center text-slate-400"
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
                       <line x1="12" y1="5" x2="12" y2="19" />
                       <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
                   </motion.div>
                 </button>
 
-                {/* Animated Expandable Panel */}
+                {/* Answer */}
                 <AnimatePresence initial={false}>
-                  {isActive && (
+                  {isOpen && (
                     <motion.div
-                      id={`faq-panel-${idx}`}
-                      role="region"
-                      aria-labelledby={`faq-btn-${idx}`}
-                      key="content"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-8 md:px-8 md:pb-8 text-sm md:text-base text-slate-500 font-inter leading-relaxed max-w-prose">
-                        {item.answer}
-                      </div>
+                      <p className="px-6 pb-6 text-slate-400 text-sm md:text-base leading-relaxed">
+                        {faq.a}
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-slate-500 mb-4">Still have questions?</p>
+          <a
+            href="mailto:hello@sarsglobal.com"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-blue-500/30 bg-blue-500/10 text-blue-400 font-semibold text-sm hover:bg-blue-500/20 hover:border-blue-500/50 transition-all duration-300"
+          >
+            <span>📧</span> hello@sarsglobal.com
+          </a>
+        </motion.div>
       </div>
-    </ScrollReveal>
+    </section>
   );
 }

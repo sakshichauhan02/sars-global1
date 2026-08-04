@@ -1,231 +1,130 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import ScrollReveal from "../ScrollReveal";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
-const listVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const itemLeftVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const }
-  }
-};
-
-const itemRightVariants = {
-  hidden: { opacity: 0, x: 20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const }
-  }
-};
+const whySars = [
+  { icon: "🤖", title: "AI Talent Matching", desc: "Proprietary LLM analyzes 200+ signals to surface the perfect engineer for your team, culture, and tech stack." },
+  { icon: "⚡", title: "48-Hour Delivery", desc: "From requirement to candidate shortlist in under 48 hours. No ghosting, no delays, no excuses." },
+  { icon: "🌍", title: "Global Talent Pool", desc: "Access the top 3% from 90+ countries — time-zone matched, compliance handled, ready to ship." },
+  { icon: "🛡️", title: "Quality Guarantee", desc: "98% retention rate backed by our 90-day replacement guarantee. We own the outcome." },
+  { icon: "📊", title: "Data-Driven Insights", desc: "Live dashboards, hiring velocity metrics, and market intelligence to keep you ahead of the curve." },
+  { icon: "🤝", title: "Dedicated Recruiters", desc: "Your team gets a dedicated recruiter who lives and breathes your domain. Not a ticket queue." },
+];
 
 export default function Comparison() {
-  const traditionalItems = [
-    {
-      title: "Slow Hiring",
-      desc: "Takes weeks or months of manual vetting, resume filtering, and scheduling."
-    },
-    {
-      title: "High Cost",
-      desc: "Heavy placement fees, recruiter commissions, and administrative overhead."
-    },
-    {
-      title: "Limited Talent",
-      desc: "Restricted to local geographic search or standard active job boards."
-    },
-    {
-      title: "Long Time-to-Hire",
-      desc: "Vacant positions remain open, stalling roadmap progression and shipping cycles."
-    }
-  ];
-
-  const sarsItems = [
-    {
-      title: "Fast Hiring",
-      desc: "Pre-screened, elite developers matching your stack in under 48 hours."
-    },
-    {
-      title: "Curated Engineers",
-      desc: "Direct access to the top 3% of global software engineering talent."
-    },
-    {
-      title: "AI Matching",
-      desc: "Data-driven compatibility checking for technical and cultural fit."
-    },
-    {
-      title: "Dedicated Recruiters",
-      desc: "Full lifecycle support including compliance, onboarding, and payroll."
-    }
-  ];
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <ScrollReveal className="relative w-full py-32 md:py-44 bg-[#F8FAFC] border-t border-slate-900/[0.06] flex flex-col items-center justify-center overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.04] pointer-events-none z-0" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(10,102,245,0.06)_0%,transparent_70%)] pointer-events-none z-0" />
-      <div className="absolute top-1/4 right-10 w-[300px] h-[300px] rounded-full bg-[#0A66F5]/[0.03] blur-[80px] pointer-events-none z-0" />
+    <section className="relative w-full py-32 bg-[#020409] overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-blue-600/8 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/5 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 max-w-[1200px] w-full px-6 flex flex-col gap-24">
-        {/* Title Block */}
-        <div className="max-w-prose mx-auto text-center flex flex-col gap-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0A66F5]/10 bg-[#0A66F5]/5 text-xs font-semibold tracking-wider text-[#0A66F5] uppercase self-center">
-            Comparison
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black !text-[#0B1120] font-space-grotesk uppercase tracking-tight">
-            Why SARS TALENT?
+      <div className="relative z-10 max-w-[1300px] mx-auto px-6">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-20"
+        >
+          <span className="inline-block px-4 py-1.5 rounded-full border border-blue-500/25 bg-blue-500/10 text-blue-400 text-xs font-semibold tracking-widest uppercase font-dm-sans mb-5">
+            Why SARS Global
+          </span>
+          <h2 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+            The Ultimate{" "}
+            <span className="gradient-text">AI Hiring Platform.</span>
           </h2>
-          <p className="text-slate-500 font-inter text-base md:text-lg leading-relaxed max-w-[650px] mx-auto">
-            See how our advanced global talent matching compares against traditional staffing methods.
+          <p className="text-slate-400 text-lg max-w-[600px] mx-auto">
+            Traditional staffing is slow and inaccurate. We leverage advanced LLMs to match you with top-tier engineers in record time.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Comparison Layout */}
-        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 w-full items-stretch">
-          
-          {/* Left Column: Traditional Staffing */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={listVariants}
-            className="flex flex-col gap-10 p-8 md:p-12 rounded-[24px] bg-white/80 border border-slate-900/[0.08] backdrop-blur-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.02)] transition-all duration-400 hover:border-slate-300/60 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.04)]"
+        {/* Split: Metrics + Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+
+          {/* Left: Big AI statement card */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-2 relative rounded-3xl overflow-hidden border border-blue-500/20 bg-gradient-to-br from-blue-950/60 to-[#020409] p-8 flex flex-col gap-8 min-h-[500px]"
           >
-            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold !text-slate-500 font-space-grotesk tracking-tight uppercase border-b border-slate-100 pb-5">
-              Traditional Staffing
-            </h3>
-            <div className="flex flex-col gap-8">
-              {traditionalItems.map((item, idx) => (
-                <motion.div 
-                  key={`trad-${idx}`} 
-                  variants={itemLeftVariants}
-                  className="flex gap-6 items-start"
-                >
-                  <div className="flex-shrink-0 mt-1 w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 border border-red-500/20">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                      <line x1="18" y1="6" x2="6" y2="18" />
-                      <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
+            {/* Scan line effect */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-3xl">
+              <div className="scan-line" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent pointer-events-none" />
+
+            <div className="relative z-10">
+              <div className="text-6xl mb-6">🧬</div>
+              <h3 className="text-3xl font-bold text-white mb-4 leading-tight">
+                AI That Actually<br />
+                <span className="gradient-text">Understands Code</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Our proprietary matching engine parses GitHub contributions, technical blogs, open-source activity, and 200+ engineering signals to find talent that traditional recruiters miss.
+              </p>
+            </div>
+
+            {/* Live metric display */}
+            <div className="relative z-10 flex flex-col gap-3 mt-auto">
+              {[
+                { label: "AI Match Accuracy", val: 94, color: "#0A66F5" },
+                { label: "Time Saved vs Traditional", val: 78, color: "#22d3ee" },
+                { label: "First-Interview Pass Rate", val: 91, color: "#a78bfa" },
+              ].map((m, i) => (
+                <div key={i} className="flex flex-col gap-1.5">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-400">{m.label}</span>
+                    <span className="text-white font-semibold">{m.val}%</span>
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <h4 className="text-base font-bold !text-slate-700 font-space-grotesk tracking-tight">
-                      {item.title}
-                    </h4>
-                    <p className="text-sm text-slate-500 font-inter leading-relaxed max-w-[400px]">
-                      {item.desc}
-                    </p>
+                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${m.val}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.2, delay: i * 0.2, ease: "easeOut" }}
+                      className="h-full rounded-full"
+                      style={{ background: m.color }}
+                    />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Center Divider & VS Badge (Desktop: Vertical) */}
-          <div className="hidden lg:flex absolute left-1/2 top-0 bottom-0 -translate-x-1/2 flex-col items-center justify-center pointer-events-none z-10">
-            <div className="w-[1px] h-full bg-gradient-to-b from-[#0A66F5]/0 via-[#0A66F5]/20 to-[#0A66F5]/0" />
-            <motion.div
-              animate={{
-                scale: [1, 1.05, 1],
-                borderColor: [
-                  "rgba(10, 102, 245, 0.2)",
-                  "rgba(10, 102, 245, 0.5)",
-                  "rgba(10, 102, 245, 0.2)"
-                ],
-                boxShadow: [
-                  "0 0 20px rgba(10, 102, 245, 0.1)",
-                  "0 0 35px rgba(10, 102, 245, 0.25)",
-                  "0 0 20px rgba(10, 102, 245, 0.1)"
-                ]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 3,
-                ease: "easeInOut"
-              }}
-              className="absolute w-14 h-14 rounded-full border bg-white/95 backdrop-blur-md flex items-center justify-center text-sm font-black !text-[#0B1120] pointer-events-auto select-none font-space-grotesk"
-            >
-              VS
-            </motion.div>
+          {/* Right: 6-item feature grid */}
+          <div ref={ref} className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {whySars.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ scale: 1.02, borderColor: "rgba(10,102,245,0.35)" }}
+                className="group relative p-6 rounded-2xl border border-white/6 bg-white/[0.02] backdrop-blur-sm cursor-default transition-all duration-300"
+              >
+                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300 inline-block">
+                  {item.icon}
+                </div>
+                <h4 className="text-base font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                  {item.title}
+                </h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
+                <div className="absolute bottom-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+              </motion.div>
+            ))}
           </div>
-
-          {/* Center Divider & VS Badge (Mobile: Horizontal) */}
-          <div className="flex lg:hidden items-center justify-center w-full my-4 relative h-12">
-            <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#0A66F5]/25 to-transparent" />
-            <motion.div
-              animate={{
-                scale: [1, 1.05, 1],
-                boxShadow: [
-                  "0 0 12px rgba(10, 102, 245, 0.08)",
-                  "0 0 25px rgba(10, 102, 245, 0.2)",
-                  "0 0 12px rgba(10, 102, 245, 0.08)"
-                ]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 3,
-                ease: "easeInOut"
-              }}
-              className="relative z-10 w-11 h-11 rounded-full border border-slate-200/80 bg-white/95 backdrop-blur-md flex items-center justify-center text-xs font-bold !text-[#0B1120] select-none font-space-grotesk"
-            >
-              VS
-            </motion.div>
-          </div>
-
-          {/* Right Column: With SARS TALENT */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={listVariants}
-            className="relative flex flex-col gap-10 p-8 md:p-12 rounded-[24px] bg-white/90 border-2 border-[#0A66F5]/80 shadow-[0_20px_50px_rgba(10,102,245,0.05)] transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(10,102,245,0.14)] overflow-hidden"
-          >
-            {/* Top 4px Glowing Accent */}
-            <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#0A66F5] to-[#3B82F6]" />
-            
-            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold !text-[#0B1120] font-space-grotesk tracking-tight uppercase border-b border-slate-100 pb-5 flex items-center justify-between">
-              <span>With SARS TALENT</span>
-              <span className="text-[10px] px-3 py-1 rounded-full bg-[#0A66F5]/10 text-[#0A66F5] border border-[#0A66F5]/20 font-bold tracking-wide uppercase font-inter">
-                Recommended
-              </span>
-            </h3>
-            <div className="flex flex-col gap-8">
-              {sarsItems.map((item, idx) => (
-                <motion.div 
-                  key={`sars-${idx}`} 
-                  variants={itemRightVariants}
-                  className="flex gap-6 items-start"
-                >
-                  <div className="flex-shrink-0 mt-1 w-8 h-8 rounded-full bg-[#0A66F5]/10 flex items-center justify-center text-[#0A66F5] border border-[#0A66F5]/20">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <h4 className="text-base font-bold !text-[#0B1120] font-space-grotesk tracking-tight">
-                      {item.title}
-                    </h4>
-                    <p className="text-sm text-slate-600 font-inter leading-relaxed max-w-[400px]">
-                      {item.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
         </div>
       </div>
-    </ScrollReveal>
+    </section>
   );
 }

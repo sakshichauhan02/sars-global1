@@ -1,22 +1,19 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollProgress from "@/components/ScrollProgress";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "SARS TALENT",
-  description: "SARS TALENT Platform",
+  title: "SARS Global — Elite Tech Talent",
+  description: "AI-powered global tech recruitment. Hire the top 3% of engineers in under 48 hours.",
 };
 
 export default function RootLayout({
@@ -26,9 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}
-      >
+      <body className={`${poppins.variable} antialiased`}>
         <Navbar />
         {children}
         <Footer />
@@ -36,3 +31,4 @@ export default function RootLayout({
     </html>
   );
 }
+

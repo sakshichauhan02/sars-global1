@@ -1,237 +1,242 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
-import ScrollReveal from "../ScrollReveal";
-
-interface Job {
-  title: string;
-  company: string;
-  location: string;
-  salary: string;
-  tags: string[];
-  featured: boolean;
-  logo: React.ReactNode;
-}
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15
-    }
-  }
-};
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 40
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1] as const
-    }
-  }
-};
+import { useState } from "react";
 
 export default function FeaturedRoles() {
-  const jobs: Job[] = [
-    {
-      title: "Senior Frontend Engineer",
-      company: "FinTech Flow",
-      location: "New York, NY (Remote)",
-      salary: "$140k - $170k",
-      tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-      featured: true,
-      logo: (
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-          <rect width="40" height="40" rx="8" fill="#8B5CF6" fillOpacity="0.1" />
-          <path d="M12 20C12 15 16 12 20 12C24 12 28 16 28 20C28 24 24 28 20 28C16 28 12 24 12 20Z" stroke="#8B5CF6" strokeWidth="2.5" />
-          <circle cx="20" cy="20" r="4" fill="#8B5CF6" />
-        </svg>
-      )
-    },
-    {
-      title: "Lead Backend Engineer",
-      company: "CloudScale",
-      location: "San Francisco, CA (Hybrid)",
-      salary: "$160k - $190k",
-      tags: ["Node.js", "Express", "PostgreSQL", "AWS"],
-      featured: true,
-      logo: (
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-          <rect width="40" height="40" rx="8" fill="#06B6D4" fillOpacity="0.1" />
-          <path d="M20 10L30 15L20 20L10 15L20 10Z" stroke="#06B6D4" strokeWidth="2.5" strokeLinejoin="round" />
-          <path d="M10 25L20 30L30 25" stroke="#06B6D4" strokeWidth="2.5" strokeLinejoin="round" />
-          <path d="M10 20L20 25L30 20" stroke="#06B6D4" strokeWidth="2.5" strokeLinejoin="round" />
-        </svg>
-      )
-    },
-    {
-      title: "Machine Learning Specialist",
-      company: "AI Labs",
-      location: "Austin, TX (Remote)",
-      salary: "$180k - $210k",
-      tags: ["Python", "PyTorch", "Docker", "Kubernetes"],
-      featured: true,
-      logo: (
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-          <rect width="40" height="40" rx="8" fill="#EC4899" fillOpacity="0.1" />
-          <circle cx="20" cy="20" r="8" stroke="#EC4899" strokeWidth="2.5" />
-          <circle cx="20" cy="20" r="3" fill="#EC4899" />
-          <line x1="20" y1="6" x2="20" y2="12" stroke="#EC4899" strokeWidth="2" strokeLinecap="round" />
-          <line x1="20" y1="28" x2="20" y2="34" stroke="#EC4899" strokeWidth="2" strokeLinecap="round" />
-          <line x1="6" y1="20" x2="12" y2="20" stroke="#EC4899" strokeWidth="2" strokeLinecap="round" />
-          <line x1="28" y1="20" x2="34" y2="20" stroke="#EC4899" strokeWidth="2" strokeLinecap="round" />
-        </svg>
-      )
-    }
-  ];
+  const [formData, setFormData] = useState({
+    company: "", name: "", email: "", role: "", timeline: "", size: "", message: ""
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const roleOptions = ["Frontend Engineer", "Backend Engineer", "Full Stack Developer", "DevOps / SRE", "ML / AI Engineer", "Mobile Developer", "Engineering Manager", "CTO / VP Engineering", "Other"];
+  const timelineOptions = ["ASAP (< 1 week)", "Within 2 weeks", "Within a month", "Just exploring"];
+  const sizeOptions = ["1-10", "11-50", "51-200", "201-1000", "1000+"];
 
   return (
-    <ScrollReveal className="relative w-full py-32 md:py-44 bg-white border-t border-slate-900/[0.06] flex flex-col items-center justify-center overflow-hidden">
-      {/* Background Decor */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-0" 
-        style={{
-          background: "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 0.7) 40%, rgba(241, 245, 249, 0.9) 100%)"
-        }}
-      />
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.04] pointer-events-none z-0" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(10,102,245,0.04)_0%,transparent_70%)] pointer-events-none z-0" />
+    <section id="hire" className="relative w-full py-32 bg-white overflow-hidden font-poppins text-slate-900">
+      {/* Background */}
+      <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-blue-50 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-violet-50 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 max-w-[1200px] w-full px-6 flex flex-col gap-24">
-        
-        {/* Section Heading */}
-        <div className="max-w-prose mx-auto text-center flex flex-col gap-6 items-center justify-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0A66F5]/10 bg-[#0A66F5]/5 text-xs font-semibold tracking-wider text-[#0A66F5] uppercase">
-            Careers
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black !text-[#0B1120] font-space-grotesk uppercase tracking-tight">
-            Featured Roles
-          </h2>
-          <p className="text-slate-500 font-inter text-base md:text-lg leading-relaxed max-w-[650px] mx-auto">
-            Explore premium software engineering opportunities within our global partner network
-          </p>
-        </div>
+      <div className="relative z-10 max-w-[1300px] mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
-        {/* Responsive Grid Layout */}
-        <motion.div 
-          variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 w-full"
-        >
-          {jobs.map((job, idx) => (
-            <motion.div
-              key={idx}
-              variants={cardVariants}
-              whileHover={{
-                y: -12,
-                scale: 1.02,
-                borderColor: "rgba(10, 102, 245, 0.8)",
-                boxShadow: "0 20px 60px rgba(10, 102, 245, 0.18)"
-              }}
-              transition={{
-                duration: 0.4,
-                ease: [0.16, 1, 0.3, 1] as const
-              }}
-              style={{
-                backgroundColor: "rgba(255, 255, 255, 0.85)"
-              }}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  const btn = e.currentTarget.querySelector("span");
-                  if (btn) btn.click();
-                }
-              }}
-              className="group relative flex flex-col justify-between p-8 md:p-10 cursor-pointer select-none min-h-[420px] h-[420px] border border-slate-900/[0.08] backdrop-blur-[20px] rounded-[24px] overflow-hidden transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0A66F5]/50"
-            >
-              {/* 3px Glowing Top Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#0A66F5]/40 to-[#3B82F6]/40 opacity-40 transition-opacity duration-300 group-hover:opacity-100" />
-              
-              {/* Faint Metallic Border Highlight Inner Layer */}
-              <div className="absolute inset-0 rounded-[24px] border border-white/40 pointer-events-none z-10" />
+          {/* Left: pitch */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col gap-8 sticky top-28"
+          >
+            <div>
+              <span className="inline-block px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-50 text-blue-600 text-xs font-semibold tracking-widest uppercase mb-6">
+                Partner With Us
+              </span>
+              <h2 className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+                Get Hired
+                <br />
+                <span className="gradient-text">With Us.</span>
+              </h2>
+              <p className="text-slate-500 text-lg leading-relaxed">
+                Tell us who you need. We&apos;ll have pre-vetted, AI-matched engineers ready for your first interview within 48 hours — or we refund your deposit.
+              </p>
+            </div>
 
-              <div>
-                {/* Top Section: Logo & Badge */}
-                <div className="flex items-center justify-between w-full mb-6">
-                  {/* Company Logo */}
-                  <div className="transition-transform duration-300 group-hover:scale-105">
-                    {job.logo}
+            {/* Promises */}
+            <div className="flex flex-col gap-4">
+              {[
+                { icon: "⚡", text: "First candidates in 48 hours — guaranteed" },
+                { icon: "🤖", text: "AI-powered matching across 90+ countries" },
+                { icon: "🛡️", text: "90-day replacement guarantee, no questions" },
+                { icon: "📊", text: "Live hiring dashboard to track progress" },
+                { icon: "🌍", text: "Full compliance, payroll & onboarding handled" },
+              ].map((p, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 bg-white/80 hover:border-blue-400 hover:shadow-sm transition-all group"
+                >
+                  <span className="text-xl">{p.icon}</span>
+                  <span className="text-slate-600 text-sm group-hover:text-slate-900 transition-colors">{p.text}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Social proof */}
+            <div className="flex items-center gap-4 p-5 rounded-2xl border border-blue-100 bg-blue-50">
+              <div className="flex -space-x-3">
+                {["🟦", "🟪", "🟩", "🟧"].map((c, i) => (
+                  <div key={i} className="w-9 h-9 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-sm">
+                    {c}
                   </div>
-                  
-                  {/* Featured Badge */}
-                  {job.featured && (
-                    <span className="text-[10px] px-3 py-1 rounded-full bg-[#0A66F5]/10 text-[#0A66F5] border border-[#0A66F5]/20 font-bold tracking-wide uppercase font-inter">
-                      Featured
-                    </span>
-                  )}
-                </div>
+                ))}
+              </div>
+              <p className="text-slate-500 text-sm">
+                <span className="text-blue-700 font-semibold">250+ companies</span> hired through SARS Global this year
+              </p>
+            </div>
+          </motion.div>
 
-                {/* Middle Section: Details */}
-                <div className="flex flex-col gap-5">
-                  <div>
-                    {/* Role Title */}
-                    <h3 className="text-xl md:text-2xl font-bold !text-[#0B1120] font-space-grotesk tracking-tight leading-tight transition-colors duration-300 group-hover:text-[#0A66F5]">
-                      {job.title}
+          {/* Right: Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <div className="relative p-8 md:p-10 rounded-3xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden">
+              {/* Top glow bar */}
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-600 via-cyan-400 to-violet-600" />
+
+              {!submitted ? (
+                <>
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-bold text-slate-900 mb-1">
+                      Start Hiring Today
                     </h3>
-                    {/* Company */}
-                    <span className="text-sm font-semibold text-slate-400 font-inter mt-1 block">
-                      {job.company}
-                    </span>
+                    <p className="text-slate-500 text-sm">No commitment required. We reply within 2 hours.</p>
                   </div>
 
-                  {/* Metadata: Location & Salary */}
-                  <div className="flex flex-col gap-2.5 border-y border-slate-100 py-3.5 font-inter text-xs md:text-sm text-slate-500">
-                    <div className="flex items-center gap-2">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-slate-400">
-                        <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                      <span>{job.location}</span>
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs text-slate-500 font-medium">Company Name</label>
+                        <input
+                          required
+                          placeholder="Acme Corp"
+                          value={formData.company}
+                          onChange={e => setFormData({ ...formData, company: e.target.value })}
+                          className="px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-400 focus:bg-white transition-all"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs text-slate-500 font-medium">Your Name</label>
+                        <input
+                          required
+                          placeholder="John Smith"
+                          value={formData.name}
+                          onChange={e => setFormData({ ...formData, name: e.target.value })}
+                          className="px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-400 focus:bg-white transition-all"
+                        />
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-slate-400">
-                        <line x1="12" y1="1" x2="12" y2="23" />
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                      </svg>
-                      <span className="font-bold text-slate-700">{job.salary}</span>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs text-slate-500 font-medium">Work Email</label>
+                      <input
+                        required type="email"
+                        placeholder="john@company.com"
+                        value={formData.email}
+                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                        className="px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-400 focus:bg-white transition-all"
+                      />
                     </div>
-                  </div>
 
-                  {/* Technology Tags */}
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {job.tags.map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="text-[11px] px-3 py-1 rounded-full bg-slate-50 text-slate-500 border border-slate-100 font-medium font-inter transition-colors duration-200 group-hover:bg-slate-100 group-hover:text-slate-600"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs text-slate-500 font-medium">Role Needed</label>
+                        <select
+                          required
+                          value={formData.role}
+                          onChange={e => setFormData({ ...formData, role: e.target.value })}
+                          className="px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-sm focus:outline-none focus:border-blue-400 focus:bg-white transition-all cursor-pointer"
+                        >
+                          <option value="">Select role...</option>
+                          {roleOptions.map(r => <option key={r}>{r}</option>)}
+                        </select>
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs text-slate-500 font-medium">Hiring Timeline</label>
+                        <select
+                          required
+                          value={formData.timeline}
+                          onChange={e => setFormData({ ...formData, timeline: e.target.value })}
+                          className="px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-sm focus:outline-none focus:border-blue-400 focus:bg-white transition-all cursor-pointer"
+                        >
+                          <option value="">Select...</option>
+                          {timelineOptions.map(t => <option key={t}>{t}</option>)}
+                        </select>
+                      </div>
+                    </div>
 
-              {/* Bottom Section: Button */}
-              <div className="mt-auto pt-4 w-full">
-                <span className="text-[#0A66F5] font-bold text-sm tracking-wide font-inter flex items-center gap-2 transition-colors duration-300 group-hover:text-[#0852c4]">
-                  Apply Now
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs text-slate-500 font-medium">Company Size</label>
+                      <div className="flex flex-wrap gap-2">
+                        {sizeOptions.map(s => (
+                          <button
+                            type="button"
+                            key={s}
+                            onClick={() => setFormData({ ...formData, size: s })}
+                            className={`px-4 py-2 rounded-xl border text-xs font-medium transition-all duration-200 ${
+                              formData.size === s
+                                ? "border-blue-500 bg-blue-50 text-blue-700"
+                                : "border-slate-200 bg-white text-slate-500 hover:border-blue-300"
+                            }`}
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs text-slate-500 font-medium">Additional Context</label>
+                      <textarea
+                        rows={3}
+                        placeholder="Tell us about your tech stack, team, or specific requirements..."
+                        value={formData.message}
+                        onChange={e => setFormData({ ...formData, message: e.target.value })}
+                        className="px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-400 focus:bg-white transition-all resize-none"
+                      />
+                    </div>
+
+                    <motion.button
+                      type="submit"
+                      whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(10,102,245,0.2)" }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold text-base border border-blue-400/20 shadow-[0_0_25px_rgba(10,102,245,0.15)] transition-all duration-300 mt-2"
+                    >
+                      Get My Engineers in 48 Hours →
+                    </motion.button>
+
+                    <p className="text-center text-xs text-slate-500">
+                      No spam. No commitment. We reply within 2 hours.
+                    </p>
+                  </form>
+                </>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center text-center gap-6 py-12"
+                >
+                  <div className="text-6xl">🚀</div>
+                  <h3 className="text-2xl font-bold text-slate-900">You&apos;re in!</h3>
+                  <p className="text-slate-500">
+                    Our team will reach out within 2 hours with your first AI-matched candidates. Check your email.
+                  </p>
+                  <div className="flex items-center gap-2 text-sm text-blue-600">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    Request received — matching started
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        </div>
       </div>
-    </ScrollReveal>
+    </section>
   );
 }

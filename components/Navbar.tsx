@@ -34,14 +34,14 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 w-full h-[72px] flex items-center justify-between px-6 md:px-12 transition-all duration-300 ${
           scrolled
-            ? "bg-white/80 backdrop-blur-[20px] border-b border-slate-900/[0.04] shadow-[0_2px_20px_rgba(0,0,0,0.01)]"
+            ? "bg-[#020409]/90 backdrop-blur-[20px] border-b border-white/5"
             : "bg-transparent border-b border-transparent"
         }`}
       >
         {/* Left: Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className={`font-space-grotesk text-xl font-bold tracking-tight transition-colors duration-300 ${scrolled ? "text-slate-900" : "text-white"}`}>
-            SARS <span className="text-[#0A66F5]">TALENT</span>
+          <span className="font-syne text-xl font-bold tracking-tight text-white">
+            SARS <span className="gradient-text">GLOBAL</span>
           </span>
         </Link>
 
@@ -51,7 +51,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className={`text-sm font-semibold tracking-wide transition-colors duration-300 relative group font-inter ${scrolled ? "text-slate-600 hover:text-[#0A66F5]" : "text-slate-300 hover:text-white"}`}
+              className="text-sm font-semibold tracking-wide transition-colors duration-300 relative group font-dm-sans text-slate-400 hover:text-white"
             >
               {link.name}
               <span className="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-[#0A66F5] transition-all duration-300 group-hover:w-full" />
@@ -64,11 +64,7 @@ export default function Navbar() {
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Link
               href="/roles"
-              className={`px-5 py-2.5 rounded-xl border transition-all duration-300 inline-block font-inter text-sm font-semibold tracking-wide shadow-sm ${
-                scrolled
-                  ? "border-slate-200/80 bg-white/80 text-slate-800 hover:bg-slate-50"
-                  : "border-white/10 bg-white/5 text-slate-200 hover:bg-white/10"
-              }`}
+              className="px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-300 inline-block font-dm-sans text-sm font-semibold"
             >
               Explore Roles
             </Link>
@@ -77,7 +73,7 @@ export default function Navbar() {
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Link
               href="/talent"
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0A66F5] to-[#3B82F6] text-white text-sm font-semibold tracking-wide transition-all duration-300 inline-block font-inter shadow-[0_4px_12px_rgba(10,102,245,0.15)] hover:shadow-[0_4px_20px_rgba(10,102,245,0.3)]"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white text-sm font-semibold tracking-wide transition-all duration-300 inline-block font-dm-sans shadow-[0_0_20px_rgba(10,102,245,0.3)] hover:shadow-[0_0_30px_rgba(10,102,245,0.5)]"
             >
               Find Talent
             </Link>
@@ -126,7 +122,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[72px] left-0 right-0 z-40 bg-white/95 backdrop-blur-[20px] border-b border-slate-200/40 px-6 py-8 flex flex-col gap-6 md:hidden"
+            className="fixed top-[72px] left-0 right-0 z-40 bg-[#020409]/95 backdrop-blur-[20px] border-b border-white/5 px-6 py-8 flex flex-col gap-6 md:hidden"
           >
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (

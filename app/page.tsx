@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import TrustedBy from "@/components/sections/TrustedBy";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import Comparison from "@/components/sections/Comparison";
 import ProcessTimeline from "@/components/sections/ProcessTimeline";
@@ -11,35 +10,32 @@ import FAQ from "@/components/sections/FAQ";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-slate-700">
-      {/* 1. Hero Section (Dark) */}
+    <div className="flex flex-col min-h-screen bg-[#020409] text-white">
+      {/* 1. Hero — Dark (neural network canvas) */}
       <Hero />
 
-      {/* 2. Trusted By Section (Light) */}
-      <TrustedBy />
-
-      {/* 3. Services Grid Section (Dark) */}
+      {/* 2. Services Grid — Dark navy */}
       <ServicesGrid />
 
-      {/* 4. Why SARS TALENT Section (Light) */}
+      {/* 3. Why SARS — Pure dark */}
       <Comparison />
 
-      {/* 5. Our Process Section (Dark) */}
+      {/* 4. Our Process — Dark navy */}
       <ProcessTimeline />
 
-      {/* 6. Industries & Technologies Marquee Section (Light) */}
+      {/* 5. Roles & Tech — Pure dark */}
       <IndustriesMarquee />
 
-      {/* 7. Stats & Impact Section (Dark) */}
+      {/* 6. Stats & Impact — Dark navy */}
       <Stats />
 
-      {/* 8. Client Success (Testimonials) Section (Light) */}
+      {/* 7. Testimonials — Pure dark */}
       <Testimonials />
 
-      {/* 9. Featured Roles Section (Light Gray) */}
+      {/* 8. Get Hired With Us — Pure dark */}
       <FeaturedRoles />
 
-      {/* 10. FAQ Section (White) */}
+      {/* 9. FAQ — Dark navy */}
       <FAQ />
     </div>
   );

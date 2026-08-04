@@ -1,20 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-blue: #0A66F5;
-  --color-deep-navy: #0B1120;
-  --color-pure-black: #000000;
-  --color-metallic-gray: #B0B8C4;
-  
-  --font-space-grotesk: var(--font-space-grotesk), sans-serif;
-  --font-inter: var(--font-inter), sans-serif;
+  --color-primary: #0A66F5;
+  --color-primary-light: #3B82F6;
+  --color-primary-glow: rgba(10, 102, 245, 0.4);
+  --color-bg-dark: #020409;
+  --color-bg-dark-2: #080d1a;
+  --color-bg-mid: #111827;
+  --color-bg-light: #f0f4ff;
+  --color-surface: rgba(255,255,255,0.04);
+  --color-border: rgba(255,255,255,0.07);
+  --color-text-muted: #7c8ba1;
+
+  --font-poppins: var(--font-poppins), sans-serif;
 }
 
 :root {
-  --primary-blue: #0A66F5;
-  --deep-navy: #0B1120;
-  --pure-black: #000000;
-  --metallic-gray: #B0B8C4;
+  --primary: #0A66F5;
+  --primary-light: #3B82F6;
+  --primary-glow: rgba(10, 102, 245, 0.4);
+  --cyan: #22d3ee;
+  --bg-dark: #020409;
+  --bg-dark-2: #080d1a;
+  --bg-mid: #111827;
 }
 
 html {
@@ -23,162 +31,178 @@ html {
 }
 
 body {
-  background-color: #FFFFFF;
-  color: #334155; /* slate-700 */
-  font-family: var(--font-inter), sans-serif;
+  background-color: var(--bg-dark);
+  color: #e2e8f0;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-space-grotesk), sans-serif;
-  color: #111827; /* slate-900 */
+  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-weight: 700;
 }
 
-/* Custom Text Selection */
+.font-poppins { font-family: var(--font-poppins), "Poppins", sans-serif; }
+
 ::selection {
-  background-color: rgba(10, 102, 245, 0.15); /* primary-blue with 15% opacity */
-  color: #0A66F5;
+  background-color: rgba(10, 102, 245, 0.25);
+  color: #60a5fa;
 }
 
-/* Reusable Glassmorphism Utility */
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #020409; }
+::-webkit-scrollbar-thumb { background: #0A66F5; border-radius: 4px; }
+* { scrollbar-width: thin; scrollbar-color: #0A66F5 #020409; }
+
+/* === DOTTED GRID BACKGROUND === */
+.bg-dots {
+  background-image: radial-gradient(circle, rgba(10,102,245,0.35) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.bg-dots-white {
+  background-image: radial-gradient(circle, rgba(10,102,245,0.35) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.bg-grid-dark {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* === GLASSMORPHISM === */
 .glass {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,0.04);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255,255,255,0.07);
 }
 
-/* Grid background patterns */
-.bg-grid-pattern {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
-}
-
-.bg-grid-pattern-dark {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-}
-
-/* Glassmorphism surfaces */
 .glass-light {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(10,102,245,0.1);
 }
 
-.glass-dark {
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+/* === GLOW EFFECTS === */
+.glow-blue {
+  box-shadow: 0 0 30px rgba(10,102,245,0.3), 0 0 60px rgba(10,102,245,0.1);
 }
 
-/* Custom Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+.text-glow {
+  text-shadow: 0 0 20px rgba(10,102,245,0.5);
 }
 
-::-webkit-scrollbar-track {
-  background: #000000;
+/* === GRADIENT TEXT === */
+.gradient-text {
+  background: linear-gradient(135deg, #0A66F5, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #0A66F5;
-  border-radius: 4px;
+.gradient-text-warm {
+  background: linear-gradient(135deg, #3B82F6, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #0852c4;
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #0A66F5 #000000;
-}
-
-/* TrustedBy Marquee Styles */
-@keyframes marquee {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-.marquee-container {
-  display: flex;
-  width: max-content;
-  animation: marquee 25s linear infinite;
-  will-change: transform;
-}
-
-.marquee-container:hover {
-  animation-play-state: paused;
-}
-
-.marquee-logo {
-  filter: grayscale(100%) opacity(0.5);
-  transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.marquee-logo:hover {
-  filter: grayscale(0%) opacity(1);
-}
-
-/* Industries & Technologies Marquee Styles */
+/* === MARQUEE === */
 @keyframes marquee-left {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes marquee-right {
-  0% {
-    transform: translate3d(-50%, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
-/* Reusable hardware-accelerated utility classes */
-.marquee-left,
-.marquee-left-container {
-  display: flex;
-  width: max-content;
-  animation: marquee-left 35s linear infinite;
-  will-change: transform;
-}
-
-.marquee-right,
-.marquee-right-container {
-  display: flex;
-  width: max-content;
-  animation: marquee-right 35s linear infinite;
-  will-change: transform;
-}
-
-/* Reusable CSS rule so any marquee pauses when its parent container is hovered */
+.marquee-left { display: flex; width: max-content; animation: marquee-left 35s linear infinite; will-change: transform; }
+.marquee-right { display: flex; width: max-content; animation: marquee-right 35s linear infinite; will-change: transform; }
 .marquee-parent:hover .marquee-left,
-.marquee-parent:hover .marquee-right,
-.marquee-parent:hover .marquee-left-container,
-.marquee-parent:hover .marquee-right-container,
-:has(> .marquee-left):hover > .marquee-left,
-:has(> .marquee-right):hover > .marquee-right,
-:has(> .marquee-left-container):hover > .marquee-left-container,
-:has(> .marquee-right-container):hover > .marquee-right-container {
-  animation-play-state: paused;
+.marquee-parent:hover .marquee-right { animation-play-state: paused; }
+
+/* === 3D PERSPECTIVE === */
+.perspective-1000 { perspective: 1000px; }
+.preserve-3d { transform-style: preserve-3d; }
+
+/* === BENTO CARDS === */
+.bento-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+  background: rgba(10,102,245,0.06);
+  border-color: rgba(10,102,245,0.3);
+  box-shadow: 0 20px 60px rgba(10,102,245,0.1);
+  transform: translateY(-4px);
+}
+
+/* === SHIMMER ANIMATION === */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease infinite;
+}
+
+/* === FLOAT ANIMATION === */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+.float { animation: float 4s ease-in-out infinite; }
+
+/* === PULSE RING === */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.pulse-ring {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* === SCAN LINE === */
+@keyframes scan {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(10,102,245,0.6), transparent);
+  animation: scan 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* === COUNTER BAR FILL === */
+@keyframes fill-bar {
+  from { width: 0%; }
+}
+
+/* === TYPING CURSOR === */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #0A66F5;
 }
