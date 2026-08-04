@@ -29,10 +29,10 @@ export default function ContactPage() {
           {/* Left: Info */}
           <ScrollReveal className="flex flex-col justify-center">
             <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
-              Let's Start a <span className="gradient-text">Conversation</span>
+              Let&apos;s Start a <span className="gradient-text">Conversation</span>
             </h1>
             <p className="text-lg text-slate-400 mb-12 max-w-md leading-relaxed">
-              Whether you're looking to scale your engineering team or seeking your next career-defining role, our team is ready to help.
+              Whether you&apos;re looking to scale your engineering team or seeking your next career-defining role, our team is ready to help.
             </p>
 
             <div className="flex flex-col gap-8">

@@ -71,7 +71,7 @@ export default function FAQ() {
             <span className="gradient-text">Questions?</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-[500px] mx-auto">
-            We've answered the ones we get asked most. If yours isn't here — just reach out.
+            We&apos;ve answered the ones we get asked most. If yours isn&apos;t here — just reach out.
           </p>
         </motion.div>
 

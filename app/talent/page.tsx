@@ -56,7 +56,7 @@ export default function TalentPage() {
         <div className="max-w-[1300px] mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">Why Partner With Us?</h2>
           <p className="text-slate-400 max-w-2xl mx-auto mb-16 text-lg">
-            We don't just find resumes. We source, vet, and match engineers based on technical depth and cultural fit, ensuring immediate impact for your projects.
+            We don&apos;t just find resumes. We source, vet, and match engineers based on technical depth and cultural fit, ensuring immediate impact for your projects.
           </p>
           <Stats />
         </div>
@@ -70,7 +70,7 @@ export default function TalentPage() {
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to Build Your Dream Team?</h2>
           <p className="text-xl text-slate-400 mb-10">
-            Tell us about your technical requirements and culture. We'll introduce you to your next great hire within 48 hours.
+            Tell us about your technical requirements and culture. We&apos;ll introduce you to your next great hire within 48 hours.
           </p>
           <Link
             href="/contact"

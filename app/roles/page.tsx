@@ -16,7 +16,7 @@ export default function RolesPage() {
             Join the <span className="gradient-text">Elite Network</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-400 max-w-2xl">
-            We partner with the world's most innovative companies. Find high-impact roles in AI, Web3, and Enterprise Engineering that match your expertise.
+            We partner with the world&apos;s most innovative companies. Find high-impact roles in AI, Web3, and Enterprise Engineering that match your expertise.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
             <Link

@@ -2,7 +2,6 @@
 
 import { motion, useTransform, useMotionValue, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
 
 // Static array to prevent reference changes on every render
 const ROLES = ["Engineers", "DevOps Leads", "ML Architects", "Full-Stack Devs", "CTOs"];

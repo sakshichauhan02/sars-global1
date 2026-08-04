@@ -58,7 +58,7 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="py-24 bg-[#0B1120] text-center px-6">
-        <h2 className="text-3xl md:text-5xl font-bold mb-8">Let's Build Something Great</h2>
+        <h2 className="text-3xl md:text-5xl font-bold mb-8">Let&apos;s Build Something Great</h2>
         <Link
           href="/contact"
           className="px-10 py-4 rounded-xl bg-[#0A66F5] text-white font-bold tracking-wide hover:bg-blue-600 transition-all duration-300 inline-block shadow-[0_0_20px_rgba(10,102,245,0.3)]"
