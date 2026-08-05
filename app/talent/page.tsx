@@ -13,42 +13,9 @@ const PROFILES = [
   { id: 5, name: "James L.", role: "Sr. Smart Contract", prev: "Coinbase", exp: "5 YOE", match: "95%", img: "https://i.pravatar.cc/150?u=james", stack: ["Solidity", "EVM", "Foundry"] },
 ];
 
-const MODELS = [
-  {
-    title: "Dedicated Teams",
-    desc: "A fully managed squad of engineers tailored to your roadmap.",
-    points: ["Scrum Master included", "Scalable on demand", "Dedicated Slack channel"],
-    ideal: "Large scale product development",
-    icon: "🤖",
-    gradient: "from-blue-600 to-cyan-500",
-    glow: "rgba(10,102,245,0.15)"
-  },
-  {
-    title: "Permanent Hiring",
-    desc: "Elite engineers joining your core team full-time.",
-    points: ["90-day replacement guarantee", "Rigorous cultural fit vetting", "Salary negotiation handled"],
-    ideal: "Scaling core engineering capability",
-    icon: "🏢",
-    gradient: "from-violet-600 to-blue-600",
-    glow: "rgba(139,92,246,0.15)"
-  },
-  {
-    title: "Contract Staffing",
-    desc: "Specialized contractors for short-to-medium term sprint goals.",
-    points: ["Deployed in 48 hours", "Hourly or monthly billing", "No payroll overhead"],
-    ideal: "Urgent project deadlines & skill gaps",
-    icon: "⚡",
-    gradient: "from-pink-600 to-violet-600",
-    glow: "rgba(236,72,153,0.15)"
-  }
-];
 
-const FAQS = [
-  { q: "How do you vet your engineers?", a: "Every candidate goes through a 4-stage process: automated technical screening, a live system design interview with our internal senior architects, a behavioral analysis, and a strict background check." },
-  { q: "What is your pricing model?", a: "We charge a flat percentage of the candidate's first-year base salary for permanent hires, payable only upon successful placement. For contractors, we offer transparent hourly rates with a small margin included." },
-  { q: "Can I interview the candidates?", a: "Absolutely. We provide a curated shortlist of 3-5 top matches. You maintain full control over the final interview and selection process." },
-  { q: "Do you handle local compliance and payroll for remote hires?", a: "Yes, through our employer of record (EOR) partners, we can compliantly hire and pay engineers in over 90 countries without you needing a local entity." }
-];
+
+
 
 const TECH_STACKS = [
   { category: "Frontend", tools: ["React", "Next.js", "Vue", "TypeScript", "TailwindCSS"], gradient: "from-blue-600 to-cyan-500" },

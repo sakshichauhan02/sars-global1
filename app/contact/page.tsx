@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, useTransform, useMotionValue } from "framer-motion";
-import ScrollReveal from "@/components/ScrollReveal";
 
 const OFFICES = [
   { city: "San Francisco", region: "Global HQ", icon: "🌉", gradient: "from-blue-600 to-cyan-500" },

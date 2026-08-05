@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
+import { motion, useTransform, useMotionValue } from "framer-motion";
 import { useEffect, useRef } from "react";
-import ScrollReveal from "@/components/ScrollReveal";
+
 
 const JOBS = [
   { id: 1, title: "Senior AI Engineer", company: "Stealth Startup", loc: "Remote (US)", type: "Full-Time", salary: "$160k - $210k", tech: ["Python", "PyTorch"], tag: "Hot Role", gradient: "from-pink-500 to-rose-500" },
@@ -12,12 +12,7 @@ const JOBS = [
   { id: 5, title: "Machine Learning Ops", company: "HealthTech AI", loc: "Remote (EU/US)", type: "Full-Time", salary: "$140k - $175k", tech: ["Docker", "Python"], tag: "Interviewing", gradient: "from-orange-500 to-amber-500" },
 ];
 
-const PERKS = [
-  { icon: "💰", title: "Salary Negotiation", desc: "Top-of-market compensation data.", gradient: "from-emerald-500 to-teal-500" },
-  { icon: "🌍", title: "Visa & Relocation", desc: "Partners offering full sponsorship.", gradient: "from-blue-500 to-cyan-500" },
-  { icon: "🛡️", title: "Anonymous Browsing", desc: "Hidden from your current employer.", gradient: "from-violet-500 to-purple-500" },
-  { icon: "📚", title: "Interview Prep", desc: "System design mock sessions.", gradient: "from-pink-500 to-rose-500" }
-];
+
 
 export default function RolesPage() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -121,7 +116,7 @@ export default function RolesPage() {
             <h2 className="text-4xl font-extrabold">Active Opportunities</h2>
           </div>
           <div className="flex flex-col gap-5">
-            {JOBS.map((job, i) => (
+            {JOBS.map((job) => (
               <div key={job.id} className="group flex flex-col md:flex-row justify-between items-start md:items-center p-8 rounded-[2rem] border border-slate-200 bg-white/80 backdrop-blur-md hover:border-slate-300 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all cursor-pointer relative overflow-hidden">
                 <div className={`absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b ${job.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
                 <div className="flex flex-col gap-4 relative z-10">
@@ -153,7 +148,7 @@ export default function RolesPage() {
               { text: "The anonymous browsing feature is incredible. I was able to test the market without alerting my current employer.", role: "ML Researcher", grad: "from-emerald-600/20 to-teal-600/20", border: "border-emerald-500/30" }
             ].map((t, i) => (
               <div key={i} className={`p-10 rounded-[2.5rem] bg-gradient-to-br ${t.grad} backdrop-blur-xl border ${t.border} flex flex-col justify-between hover:shadow-[0_0_40px_rgba(255,255,255,0.05)] transition-shadow`}>
-                <p className="text-lg leading-relaxed font-medium mb-8">"{t.text}"</p>
+                <p className="text-lg leading-relaxed font-medium mb-8">&quot;{t.text}&quot;</p>
                 <div className="font-bold text-white uppercase tracking-widest text-xs">{t.role}</div>
               </div>
             ))}

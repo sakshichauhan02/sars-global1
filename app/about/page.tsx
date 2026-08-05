@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
+import { motion, useTransform, useMotionValue } from "framer-motion";
 import { useRef, useEffect } from "react";
-import ScrollReveal from "@/components/ScrollReveal";
 
 const TEAM = [
   { name: "Sarah Jenkins", role: "CEO", img: "https://i.pravatar.cc/400?u=sarahj", bio: "Former VP Eng at Stripe." },
