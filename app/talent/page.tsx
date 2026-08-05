@@ -204,7 +204,7 @@ export default function TalentPage() {
       {/* 2. ROI & Value Calculator (DARK) */}
       <section className="relative py-32 bg-[#080d1a] border-y border-white/5 overflow-hidden">
         {/* Subtle static dots for secondary dark sections */}
-        <div className="absolute inset-0 bg-dots pointer-events-none" />
+
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">The Cost of Bad Hires</h2>
@@ -257,7 +257,7 @@ export default function TalentPage() {
       {/* 3. Advanced Hover Vetted Profiles (LIGHT) */}
       <section className="relative py-32 bg-white text-slate-900 border-y border-slate-100 overflow-hidden">
         {/* Subtle static dots for light sections */}
-        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+
         <div className="max-w-[1300px] mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-end gap-6 relative z-10">
           <div>
             <span className="inline-block px-4 py-1.5 rounded-full border border-violet-500/20 bg-violet-50 text-violet-600 text-xs font-bold tracking-widest uppercase mb-5">
@@ -302,7 +302,7 @@ export default function TalentPage() {
 
       {/* 4. Scroll-Linked Vetting Process (DARK) */}
       <section ref={processRef} className="relative py-32 bg-[#020409] text-white border-b border-white/5 overflow-hidden">
-        <div className="absolute inset-0 bg-dots pointer-events-none" />
+
         <div className="max-w-[1300px] mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
           <div className="sticky top-32">
             <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Rigorous <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Protocol</span></h2>
@@ -337,7 +337,7 @@ export default function TalentPage() {
 
       {/* 5. Core Technologies (LIGHT with Multi-color Gradients) */}
       <section className="relative py-32 bg-[#F8FAFC] text-slate-900 border-b border-slate-200">
-        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Core Technologies</h2>

@@ -89,7 +89,7 @@ export default function RolesPage() {
 
       {/* 2. Global Salary Insights (DARK) */}
       <section className="relative py-32 bg-[#080d1a] border-b border-white/5 overflow-hidden">
-        <div className="absolute inset-0 bg-dots pointer-events-none" />
+
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-extrabold mb-4">Global Salary Insights</h2>
@@ -114,7 +114,7 @@ export default function RolesPage() {
 
       {/* 3. Advanced Job List (LIGHT) */}
       <section className="relative py-32 bg-white text-slate-900 overflow-hidden">
-        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+
         <div className="max-w-[1100px] mx-auto px-6 relative z-10">
           <div className="flex justify-between items-center mb-10 border-b border-slate-200 pb-6">
             <h2 className="text-4xl font-extrabold">Active Opportunities</h2>
@@ -142,7 +142,7 @@ export default function RolesPage() {
 
       {/* 4. Candidate Testimonials (DARK) */}
       <section className="relative py-32 bg-[#020409] text-white border-t border-white/5 overflow-hidden">
-        <div className="absolute inset-0 bg-dots pointer-events-none" />
+
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <h2 className="text-4xl font-extrabold mb-16 text-center">Engineers We&apos;ve Placed</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

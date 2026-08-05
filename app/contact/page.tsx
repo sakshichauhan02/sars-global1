@@ -107,7 +107,7 @@ export default function ContactPage() {
 
       {/* 2. Enterprise Partnerships (DARK) */}
       <section className="relative py-32 bg-[#080d1a] border-b border-white/5 text-center overflow-hidden">
-        <div className="absolute inset-0 bg-dots pointer-events-none" />
+        
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <h2 className="text-4xl font-extrabold mb-6">Enterprise ATS Integrations</h2>
           <p className="text-slate-400 text-lg mb-10">We integrate seamlessly with Greenhouse, Lever, and Workday. If you are an ATS provider looking to partner, access our developer API docs.</p>
@@ -120,7 +120,7 @@ export default function ContactPage() {
 
       {/* 3. Global Offices Section (LIGHT) */}
       <section className="relative py-32 bg-[#F8FAFC] text-slate-900 overflow-hidden">
-        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-extrabold mb-6">Our Global Hubs</h2>
