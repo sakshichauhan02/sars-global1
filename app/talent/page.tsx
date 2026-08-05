@@ -47,7 +47,7 @@ export default function TalentPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#020409] text-white pt-[72px]">
       
-      {/* 1. Split-Screen Hero */}
+      {/* 1. Split-Screen Hero (DARK) */}
       <section className="relative w-full min-h-[90vh] flex flex-col lg:flex-row items-center justify-between px-6 lg:px-16 max-w-[1400px] mx-auto py-20 gap-16">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/4" />
         
@@ -76,7 +76,7 @@ export default function TalentPage() {
           </div>
         </div>
 
-        {/* Right: Interactive Intake Preview */}
+        {/* Right: Interactive Intake Preview (DARK glass) */}
         <motion.div 
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -112,19 +112,22 @@ export default function TalentPage() {
         </motion.div>
       </section>
 
-      {/* 2. Vetted Profiles Marquee */}
-      <section className="py-24 bg-[#080d1a] border-y border-white/5 overflow-hidden">
-        <div className="max-w-[1300px] mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
+      {/* 2. Vetted Profiles Marquee (LIGHT) */}
+      <section className="py-24 bg-white text-slate-900 border-y border-slate-100 overflow-hidden relative">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        <div className="absolute top-0 right-1/2 w-[600px] h-[300px] bg-blue-50 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="max-w-[1300px] mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-6 relative z-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">Pre-Vetted & Ready to Code</h2>
-            <p className="text-slate-400">Sneak peek at the caliber of engineers in our active network.</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-2 text-slate-900">Pre-Vetted & Ready to Code</h2>
+            <p className="text-slate-500">Sneak peek at the caliber of engineers in our active network.</p>
           </div>
-          <Link href="/contact" className="text-blue-400 font-semibold hover:text-white transition-colors">View All Profiles →</Link>
+          <Link href="/contact" className="text-blue-600 font-bold hover:text-blue-500 transition-colors">View All Profiles →</Link>
         </div>
         
-        <div className="relative w-full flex overflow-x-hidden group">
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#080d1a] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#080d1a] to-transparent z-10 pointer-events-none" />
+        <div className="relative w-full flex overflow-x-hidden group z-10">
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
           
           <motion.div 
             animate={{ x: ["0%", "-50%"] }}
@@ -132,24 +135,24 @@ export default function TalentPage() {
             className="flex gap-6 px-6 whitespace-nowrap marquee-parent"
           >
             {[...PROFILES, ...PROFILES].map((p, i) => (
-              <div key={i} className="w-[350px] inline-flex flex-col bg-[#020409] border border-white/10 rounded-2xl p-6 hover:border-blue-500/50 transition-colors shrink-0">
+              <div key={i} className="w-[350px] inline-flex flex-col bg-white border border-slate-200 rounded-3xl p-6 hover:border-blue-400 hover:shadow-[0_10px_40px_rgba(10,102,245,0.1)] transition-all shrink-0">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-4">
-                    <img src={p.img} alt={p.name} className="w-12 h-12 rounded-full border border-white/20 object-cover" />
+                    <img src={p.img} alt={p.name} className="w-12 h-12 rounded-full border border-slate-200 object-cover" />
                     <div>
-                      <h4 className="font-bold text-white text-lg">{p.name}</h4>
-                      <p className="text-xs text-slate-400">{p.role}</p>
+                      <h4 className="font-bold text-slate-900 text-lg">{p.name}</h4>
+                      <p className="text-xs font-semibold text-slate-500">{p.role}</p>
                     </div>
                   </div>
-                  <div className="px-2 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold rounded uppercase tracking-wider">{p.match} AI Match</div>
+                  <div className="px-2 py-1 bg-green-50 text-green-600 border border-green-200 text-[10px] font-bold rounded uppercase tracking-wider">{p.match} AI Match</div>
                 </div>
-                <div className="flex gap-4 mb-5 text-sm text-slate-300">
-                  <div className="flex flex-col"><span className="text-xs text-slate-500">Prev.</span><span>{p.prev}</span></div>
-                  <div className="flex flex-col"><span className="text-xs text-slate-500">Exp.</span><span>{p.exp}</span></div>
+                <div className="flex gap-4 mb-5 text-sm text-slate-600">
+                  <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Prev.</span><span className="font-medium">{p.prev}</span></div>
+                  <div className="flex flex-col"><span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Exp.</span><span className="font-medium">{p.exp}</span></div>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {p.stack.map(s => (
-                    <span key={s} className="px-2 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-slate-300">{s}</span>
+                    <span key={s} className="px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-600">{s}</span>
                   ))}
                 </div>
               </div>
@@ -158,33 +161,33 @@ export default function TalentPage() {
         </div>
       </section>
 
-      {/* 3. Engagement Models */}
-      <ScrollReveal className="py-24 bg-[#020409]">
-        <div className="max-w-[1300px] mx-auto px-6">
+      {/* 3. Engagement Models (LIGHT) */}
+      <ScrollReveal className="py-24 bg-[#F8FAFC] text-slate-900">
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Flexible Engagement Models</h2>
-            <p className="text-slate-400">Scale up or down precisely based on your product roadmap.</p>
+            <h2 className="text-4xl font-extrabold mb-4">Flexible Engagement Models</h2>
+            <p className="text-slate-500">Scale up or down precisely based on your product roadmap.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {MODELS.map((m, i) => (
-              <div key={i} className="flex flex-col bg-white/[0.02] border border-white/10 rounded-3xl p-8 hover:bg-white/[0.04] transition-colors relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-8 text-5xl opacity-20 group-hover:scale-110 transition-transform">{m.icon}</div>
-                <h3 className="text-2xl font-bold mb-3 relative z-10">{m.title}</h3>
-                <p className="text-slate-400 mb-8 h-[50px] relative z-10">{m.desc}</p>
+              <div key={i} className="flex flex-col bg-white border border-slate-200 rounded-3xl p-8 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:border-blue-300 transition-all relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-8 text-6xl opacity-10 group-hover:scale-110 transition-transform group-hover:opacity-20">{m.icon}</div>
+                <h3 className="text-2xl font-bold mb-3 text-slate-900 relative z-10">{m.title}</h3>
+                <p className="text-slate-500 mb-8 h-[50px] relative z-10">{m.desc}</p>
                 
                 <div className="flex-1 flex flex-col gap-4 relative z-10">
                   {m.points.map((pt, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <div className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs shrink-0">✓</div>
-                      <span className="text-sm text-slate-300">{pt}</span>
+                      <div className="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs shrink-0 font-bold">✓</div>
+                      <span className="text-sm font-medium text-slate-700">{pt}</span>
                     </div>
                   ))}
                 </div>
                 
-                <div className="mt-8 pt-6 border-t border-white/10 relative z-10">
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Ideal For</span>
-                  <span className="text-sm text-white">{m.ideal}</span>
+                <div className="mt-8 pt-6 border-t border-slate-100 relative z-10">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Ideal For</span>
+                  <span className="text-sm font-semibold text-blue-600">{m.ideal}</span>
                 </div>
               </div>
             ))}
@@ -192,10 +195,11 @@ export default function TalentPage() {
         </div>
       </ScrollReveal>
 
-      {/* 4. Client FAQs */}
-      <ScrollReveal className="py-24 bg-[#080d1a] border-t border-white/5">
-        <div className="max-w-[800px] mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Client FAQ</h2>
+      {/* 4. Client FAQs (DARK) */}
+      <ScrollReveal className="py-24 bg-[#020409] text-white border-t border-white/5 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-blue-600/5 blur-[150px] rounded-full pointer-events-none" />
+        <div className="max-w-[800px] mx-auto px-6 relative z-10">
+          <h2 className="text-4xl font-extrabold text-center mb-12">Client FAQ</h2>
           <div className="flex flex-col gap-4">
             {FAQS.map((faq, i) => (
               <details key={i} className="group bg-white/[0.02] border border-white/10 rounded-2xl p-6 cursor-pointer open:bg-white/[0.04]">

@@ -32,7 +32,7 @@ export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#020409] text-white pt-[72px]">
       
-      {/* Hero & Form Section */}
+      {/* Hero & Form Section (DARK) */}
       <section className="relative w-full py-20 lg:py-32 overflow-hidden border-b border-white/5">
         <div className="absolute inset-0 bg-dots opacity-[0.05] pointer-events-none" />
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
@@ -45,7 +45,7 @@ export default function ContactPage() {
               <span className="text-xs font-semibold tracking-widest text-blue-300 uppercase">24/7 Global Support</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
               Let&apos;s Build Your <br />
               <span className="gradient-text">Next Great Team</span>
             </h1>
@@ -56,10 +56,10 @@ export default function ContactPage() {
             <h3 className="text-xl font-bold mb-6 border-b border-white/10 pb-4">Direct Departments</h3>
             <div className="flex flex-col gap-4">
               {DEPTS.map((dept, i) => (
-                <div key={i} className="flex justify-between items-center p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-colors">
+                <div key={i} className="flex justify-between items-center p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-colors hover:border-blue-500/30">
                   <div>
-                    <h4 className="font-bold text-white text-sm">{dept.name}</h4>
-                    <p className="text-xs text-slate-500">{dept.desc}</p>
+                    <h4 className="font-bold text-white text-base">{dept.name}</h4>
+                    <p className="text-sm text-slate-500 mt-1">{dept.desc}</p>
                   </div>
                   <a href={`mailto:${dept.email}`} className="text-blue-400 text-sm font-semibold hover:text-white transition-colors">
                     {dept.email}
@@ -142,26 +142,29 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Global Offices Section */}
-      <section className="py-24 bg-[#080d1a]">
-        <div className="max-w-[1300px] mx-auto px-6">
+      {/* Global Offices Section (LIGHT) */}
+      <section className="py-32 bg-[#F8FAFC] text-slate-900 border-t border-slate-200 relative overflow-hidden">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        <div className="absolute bottom-0 left-1/2 w-[800px] h-[400px] bg-blue-50 blur-[150px] rounded-full pointer-events-none -translate-x-1/2" />
+
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Our Global Hubs</h2>
-            <p className="text-slate-400">Operating seamlessly across timezones to support your engineering teams.</p>
+            <h2 className="text-4xl font-extrabold mb-4">Our Global Hubs</h2>
+            <p className="text-slate-500 max-w-xl mx-auto">Operating seamlessly across timezones to support your engineering teams around the clock.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {OFFICES.map((office, i) => (
-              <div key={i} className="flex flex-col p-8 rounded-3xl bg-white/[0.02] border border-white/10 hover:bg-white/[0.04] transition-colors relative overflow-hidden group">
-                <div className="absolute -top-6 -right-6 text-8xl opacity-10 group-hover:scale-110 transition-transform duration-500">{office.icon}</div>
+              <div key={i} className="flex flex-col p-10 rounded-3xl bg-white border border-slate-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)] hover:border-blue-300 transition-all relative overflow-hidden group">
+                <div className="absolute -top-6 -right-6 text-9xl opacity-5 group-hover:scale-110 transition-transform duration-500">{office.icon}</div>
                 <div className="relative z-10">
                   <div className="flex justify-between items-start mb-6">
-                    <h3 className="text-2xl font-bold text-white">{office.city}</h3>
-                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-slate-300">{office.time}</span>
+                    <h3 className="text-3xl font-extrabold text-slate-900">{office.city}</h3>
+                    <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-xs font-bold text-blue-600">{office.time}</span>
                   </div>
-                  <p className="text-blue-400 font-semibold text-sm mb-4">{office.region}</p>
-                  <p className="text-slate-400 text-sm mb-6 leading-relaxed max-w-[200px]">{office.address}</p>
-                  <a href={`mailto:${office.email}`} className="text-sm font-bold border-b border-white/20 pb-1 hover:border-blue-400 hover:text-blue-400 transition-colors inline-block">
+                  <p className="text-blue-600 font-bold text-sm mb-4 uppercase tracking-wider">{office.region}</p>
+                  <p className="text-slate-500 text-sm mb-8 leading-relaxed max-w-[200px] font-medium">{office.address}</p>
+                  <a href={`mailto:${office.email}`} className="text-sm font-bold text-slate-900 border-b-2 border-slate-200 pb-1 hover:border-blue-600 hover:text-blue-600 transition-colors inline-block">
                     {office.email}
                   </a>
                 </div>
