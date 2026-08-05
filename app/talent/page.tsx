@@ -256,6 +256,7 @@ export default function TalentPage() {
 
       {/* 3. Advanced Hover Vetted Profiles (LIGHT) */}
       <section className="relative py-32 bg-white text-slate-900 border-y border-slate-100 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none opacity-60" />
         {/* Subtle static dots for light sections */}
 
         <div className="max-w-[1300px] mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-end gap-6 relative z-10">
@@ -337,6 +338,7 @@ export default function TalentPage() {
 
       {/* 5. Core Technologies (LIGHT with Multi-color Gradients) */}
       <section className="relative py-32 bg-[#F8FAFC] text-slate-900 border-b border-slate-200">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none opacity-60" />
 
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">

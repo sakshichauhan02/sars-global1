@@ -120,6 +120,7 @@ export default function ContactPage() {
 
       {/* 3. Global Offices Section (LIGHT) */}
       <section className="relative py-32 bg-[#F8FAFC] text-slate-900 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none opacity-60" />
         
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">

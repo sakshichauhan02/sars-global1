@@ -114,6 +114,7 @@ export default function RolesPage() {
 
       {/* 3. Advanced Job List (LIGHT) */}
       <section className="relative py-32 bg-white text-slate-900 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none opacity-60" />
 
         <div className="max-w-[1100px] mx-auto px-6 relative z-10">
           <div className="flex justify-between items-center mb-10 border-b border-slate-200 pb-6">
