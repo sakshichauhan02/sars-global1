@@ -58,7 +58,7 @@ export default function AboutPage() {
         <motion.div 
           className="absolute top-1/2 left-1/2 w-[800px] h-[800px] rounded-full pointer-events-none mix-blend-overlay z-0"
           style={{
-            background: "radial-gradient(circle, rgba(10,102,245,0.3) 0%, transparent 60%)",
+            background: "radial-gradient(circle, rgba(10, 102, 245, 0.4) 0%, transparent 60%)",
             x: lensX,
             y: lensY,
             translateX: "-50%",
