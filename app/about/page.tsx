@@ -10,6 +10,19 @@ const TEAM = [
   { name: "Elena Rostova", role: "Lead Technical Assessor", img: "https://i.pravatar.cc/300?u=elena2", bio: "Ex-Google Staff Engineer. Designs and oversees all system design interview protocols." }
 ];
 
+const ADVISORS = [
+  { name: "Jonathan Doe", role: "Strategic Advisor", company: "Ex-CTO @ Uber" },
+  { name: "Alicia Keys", role: "Culture & DEI", company: "VP HR @ Netflix" },
+  { name: "Samir Patil", role: "Growth Partner", company: "Partner @ Sequoia" }
+];
+
+const TIMELINE = [
+  { year: "2021", title: "The Inception", desc: "SARS Global was founded to eliminate the technical recruitment friction experienced by fast-growing startups." },
+  { year: "2022", title: "AI Engine V1", desc: "Launched our proprietary ML vetting engine, reducing initial candidate screening time from days to seconds." },
+  { year: "2023", title: "Global Expansion", desc: "Opened operational hubs in London and Singapore, establishing a 24/7 placement pipeline." },
+  { year: "2024", title: "Enterprise Scaling", desc: "Crossed 1,000+ active enterprise clients and over $50M in localized payroll managed." }
+];
+
 const CULTURE = [
   { title: "No Resumes, Only Reality", desc: "We don't care how well a candidate writes a CV. We care how well they write code, design systems, and communicate under pressure." },
   { title: "Speed is a Feature", desc: "In tech, moving slow means losing. We built our internal tools to guarantee 48-hour turnarounds without sacrificing a single degree of quality." },
@@ -82,7 +95,24 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Leadership Team Grid (DARK) */}
+      {/* 3. Our Journey Timeline (DARK) */}
+      <section className="py-24 bg-[#080d1a] border-b border-white/5">
+        <div className="max-w-[1000px] mx-auto px-6">
+          <h2 className="text-4xl font-extrabold text-center mb-16">The Journey So Far</h2>
+          <div className="flex flex-col gap-12 border-l-2 border-white/10 pl-8 relative">
+            {TIMELINE.map((t, i) => (
+              <div key={i} className="relative">
+                <div className="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-[#080d1a]"></div>
+                <div className="text-blue-400 font-bold mb-1">{t.year}</div>
+                <h3 className="text-2xl font-bold text-white mb-3">{t.title}</h3>
+                <p className="text-slate-400 leading-relaxed">{t.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Leadership Team Grid (DARK) */}
       <ScrollReveal className="py-32 bg-[#020409]">
         <div className="max-w-[1300px] mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
@@ -95,7 +125,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {TEAM.map((member, i) => (
               <div key={i} className="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#080d1a] hover:border-blue-500/30 transition-all">
                 <div className="aspect-[4/5] overflow-hidden relative">
@@ -112,10 +142,24 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+
+          {/* Advisors Grid */}
+          <div className="pt-16 border-t border-white/10">
+            <h3 className="text-2xl font-bold mb-8">Board & Advisors</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {ADVISORS.map((adv, i) => (
+                <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/10">
+                  <h4 className="font-bold text-white text-lg">{adv.name}</h4>
+                  <p className="text-blue-400 text-sm font-semibold mb-1">{adv.role}</p>
+                  <p className="text-slate-500 text-sm">{adv.company}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </ScrollReveal>
 
-      {/* 4. Culture & Mission Blocks (LIGHT) */}
+      {/* 5. Culture & Mission Blocks (LIGHT) */}
       <ScrollReveal className="py-24 bg-[#F8FAFC] text-slate-900 border-t border-slate-200 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100 blur-[150px] rounded-full pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">

@@ -40,7 +40,22 @@ const FAQS = [
   { q: "How do you vet your engineers?", a: "Every candidate goes through a 4-stage process: automated technical screening, a live system design interview with our internal senior architects, a behavioral analysis, and a strict background check." },
   { q: "What is your pricing model?", a: "We charge a flat percentage of the candidate's first-year base salary for permanent hires, payable only upon successful placement. For contractors, we offer transparent hourly rates with a small margin included." },
   { q: "Can I interview the candidates?", a: "Absolutely. We provide a curated shortlist of 3-5 top matches. You maintain full control over the final interview and selection process." },
-  { q: "What if the contractor leaves mid-project?", a: "We maintain a deep bench of 'ready-to-deploy' talent. In the rare event a contractor must leave, we provide an equivalent replacement within 72 hours." }
+  { q: "What if the contractor leaves mid-project?", a: "We maintain a deep bench of 'ready-to-deploy' talent. In the rare event a contractor must leave, we provide an equivalent replacement within 72 hours." },
+  { q: "Do you handle local compliance and payroll for remote hires?", a: "Yes, through our employer of record (EOR) partners, we can compliantly hire and pay engineers in over 90 countries without you needing a local entity." }
+];
+
+const TECH_STACKS = [
+  { category: "Frontend", tools: ["React", "Next.js", "Vue", "TypeScript", "TailwindCSS"] },
+  { category: "Backend", tools: ["Node.js", "Python", "Go", "Rust", "Java", "C#"] },
+  { category: "Data & AI", tools: ["PyTorch", "TensorFlow", "Pandas", "Spark", "Snowflake"] },
+  { category: "DevOps", tools: ["Kubernetes", "Docker", "AWS", "Terraform", "CI/CD"] },
+  { category: "Web3", tools: ["Solidity", "Rust", "Foundry", "Hardhat", "Ethers.js"] }
+];
+
+const SUCCESS_STORIES = [
+  { company: "Fintech Unicorn", metric: "3 Weeks", result: "Scaled core banking engineering team from 10 to 25 devs." },
+  { company: "Series A AI Startup", metric: "48 Hours", result: "Deployed 2 Staff ML Researchers to beat a product deadline." },
+  { company: "Enterprise SaaS", metric: "98%", result: "Retention rate across 40+ placements over the last two years." }
 ];
 
 export default function TalentPage() {
@@ -119,8 +134,8 @@ export default function TalentPage() {
 
         <div className="max-w-[1300px] mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-6 relative z-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-2 text-slate-900">Pre-Vetted & Ready to Code</h2>
-            <p className="text-slate-500">Sneak peek at the caliber of engineers in our active network.</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-2 text-slate-900">Pre-Vetted & Ready to Code</h2>
+            <p className="text-slate-500 text-lg">Sneak peek at the caliber of engineers in our active network.</p>
           </div>
           <Link href="/contact" className="text-blue-600 font-bold hover:text-blue-500 transition-colors">View All Profiles →</Link>
         </div>
@@ -161,12 +176,108 @@ export default function TalentPage() {
         </div>
       </section>
 
-      {/* 3. Engagement Models (LIGHT) */}
+      {/* 3. The Assessment Process (DARK) */}
+      <ScrollReveal className="py-24 bg-[#020409] text-white border-b border-white/5 relative overflow-hidden">
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6">Rigorous <br/><span className="gradient-text">Vetting Protocol</span></h2>
+            <p className="text-slate-400 text-lg leading-relaxed mb-8">
+              We reject 97% of applicants before you ever see their profile. Our vetting process is designed by ex-FAANG architects to ensure only the highest caliber engineers make it to your desk.
+            </p>
+            <div className="flex flex-col gap-6">
+              {[
+                { step: "1", title: "AI Skill Analysis", desc: "Our engine parses GitHub repos, PRs, and past projects for code quality." },
+                { step: "2", title: "Live Coding", desc: "No LeetCode. Real-world pairing sessions on actual product features." },
+                { step: "3", title: "System Design", desc: "Architectural whiteboarding to assess scale, trade-offs, and deep logic." },
+                { step: "4", title: "Culture & EQ", desc: "Behavioral deep-dive to ensure they fit your specific remote culture." }
+              ].map((s, i) => (
+                <div key={i} className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-blue-600/20 border border-blue-500/50 flex items-center justify-center text-blue-400 font-bold shrink-0">{s.step}</div>
+                  <div>
+                    <h4 className="font-bold text-white text-lg">{s.title}</h4>
+                    <p className="text-slate-500 text-sm">{s.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="bg-[#080d1a] border border-white/10 rounded-3xl p-8">
+             <div className="h-64 flex items-center justify-center border-b border-white/10 mb-6 pb-6">
+               <div className="text-center">
+                 <div className="text-6xl font-extrabold text-blue-500 mb-2">3%</div>
+                 <div className="text-slate-400 font-bold uppercase tracking-widest">Acceptance Rate</div>
+               </div>
+             </div>
+             <div className="space-y-4">
+               <div className="flex justify-between items-center text-sm">
+                 <span className="text-slate-500">Profiles Scanned</span>
+                 <span className="text-white font-bold">100,000+</span>
+               </div>
+               <div className="flex justify-between items-center text-sm">
+                 <span className="text-slate-500">Technical Interviews</span>
+                 <span className="text-white font-bold">12,500+</span>
+               </div>
+               <div className="flex justify-between items-center text-sm">
+                 <span className="text-slate-500">Engineers Approved</span>
+                 <span className="text-blue-400 font-bold">3,000+</span>
+               </div>
+             </div>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      {/* 4. Tech Stack Expertise (LIGHT) */}
+      <section className="py-24 bg-white text-slate-900 border-b border-slate-100">
+        <div className="max-w-[1300px] mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-extrabold mb-4">Core Technologies</h2>
+            <p className="text-slate-500 text-lg">We maintain specialized talent pools across modern development ecosystems.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {TECH_STACKS.map((stack, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 transition-colors">
+                <h3 className="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                  {stack.category}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {stack.tools.map(tool => (
+                    <span key={tool} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600">{tool}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Success Stories (DARK) */}
+      <section className="py-24 bg-[#080d1a] text-white">
+        <div className="max-w-[1300px] mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-extrabold mb-4">Client Impact</h2>
+            <p className="text-slate-400">Results delivered for fast-growing companies.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {SUCCESS_STORIES.map((story, i) => (
+              <div key={i} className="p-8 rounded-3xl bg-white/[0.02] border border-white/10">
+                <div className="text-5xl font-extrabold text-blue-500 mb-4">{story.metric}</div>
+                <h4 className="font-bold text-xl text-white mb-2">{story.company}</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">{story.result}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Engagement Models (LIGHT) */}
       <ScrollReveal className="py-24 bg-[#F8FAFC] text-slate-900">
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-extrabold mb-4">Flexible Engagement Models</h2>
-            <p className="text-slate-500">Scale up or down precisely based on your product roadmap.</p>
+            <p className="text-slate-500 text-lg">Scale up or down precisely based on your product roadmap.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -195,7 +306,7 @@ export default function TalentPage() {
         </div>
       </ScrollReveal>
 
-      {/* 4. Client FAQs (DARK) */}
+      {/* 7. Client FAQs (DARK) */}
       <ScrollReveal className="py-24 bg-[#020409] text-white border-t border-white/5 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-blue-600/5 blur-[150px] rounded-full pointer-events-none" />
         <div className="max-w-[800px] mx-auto px-6 relative z-10">

@@ -13,7 +13,14 @@ const OFFICES = [
 const DEPTS = [
   { name: "Enterprise Sales", desc: "Scaling a team of 10+ engineers?", email: "enterprise@sarsglobal.com" },
   { name: "Candidate Support", desc: "Questions about your application?", email: "talent@sarsglobal.com" },
-  { name: "Media & Press", desc: "Interview requests & branding.", email: "press@sarsglobal.com" }
+  { name: "Media & Press", desc: "Interview requests & branding.", email: "press@sarsglobal.com" },
+  { name: "Partner API Integrations", desc: "For ATS integration issues.", email: "api@sarsglobal.com" }
+];
+
+const SUPPORT_FAQS = [
+  { q: "How quickly do you respond to talent requests?", a: "Our enterprise sales team typically responds within 2 hours during normal business hours across our global hubs." },
+  { q: "Can candidates contact support directly?", a: "Yes, candidates who are actively interviewing can reach their dedicated talent advocate via their provided Slack channel or direct email." },
+  { q: "Where can I find press assets?", a: "Please email our Press team, and we will provide our brand guidelines, logos, and executive bios." }
 ];
 
 export default function ContactPage() {
@@ -32,7 +39,7 @@ export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#020409] text-white pt-[72px]">
       
-      {/* Hero & Form Section (DARK) */}
+      {/* 1. Hero & Form Section (DARK) */}
       <section className="relative w-full py-20 lg:py-32 overflow-hidden border-b border-white/5">
         <div className="absolute inset-0 bg-dots opacity-[0.05] pointer-events-none" />
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
@@ -61,15 +68,23 @@ export default function ContactPage() {
                     <h4 className="font-bold text-white text-base">{dept.name}</h4>
                     <p className="text-sm text-slate-500 mt-1">{dept.desc}</p>
                   </div>
-                  <a href={`mailto:${dept.email}`} className="text-blue-400 text-sm font-semibold hover:text-white transition-colors">
+                  <a href={`mailto:${dept.email}`} className="text-blue-400 text-sm font-semibold hover:text-white transition-colors hidden sm:block">
                     {dept.email}
                   </a>
                 </div>
               ))}
             </div>
+            
+            {/* Socials */}
+            <div className="flex gap-4 mt-8 pt-8 border-t border-white/10">
+              <span className="text-slate-400 text-sm font-semibold">Follow Us:</span>
+              <a href="#" className="text-white hover:text-blue-400 transition-colors">LinkedIn</a>
+              <a href="#" className="text-white hover:text-blue-400 transition-colors">Twitter (X)</a>
+              <a href="#" className="text-white hover:text-blue-400 transition-colors">GitHub</a>
+            </div>
           </ScrollReveal>
 
-          {/* Right: Custom Interactive Form (Retained & Enhanced) */}
+          {/* Right: Custom Interactive Form */}
           <ScrollReveal>
             <div className="bg-[#080d1a]/80 border border-white/10 rounded-3xl p-8 md:p-10 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative">
               {isSubmitted ? (
@@ -142,8 +157,26 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Global Offices Section (LIGHT) */}
-      <section className="py-32 bg-[#F8FAFC] text-slate-900 border-t border-slate-200 relative overflow-hidden">
+      {/* 2. Support FAQs (DARK) */}
+      <section className="py-24 bg-[#080d1a] text-white border-b border-white/5">
+        <div className="max-w-[800px] mx-auto px-6">
+          <h2 className="text-3xl font-extrabold text-center mb-12">Support & General FAQ</h2>
+          <div className="flex flex-col gap-4">
+            {SUPPORT_FAQS.map((faq, i) => (
+              <details key={i} className="group bg-white/[0.02] border border-white/10 rounded-2xl p-6 cursor-pointer open:bg-white/[0.04]">
+                <summary className="font-bold text-lg list-none flex justify-between items-center outline-none">
+                  {faq.q}
+                  <span className="text-blue-400 group-open:rotate-45 transition-transform text-2xl leading-none">+</span>
+                </summary>
+                <p className="text-slate-400 mt-4 leading-relaxed pr-8">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Global Offices Section (LIGHT) */}
+      <section className="py-32 bg-[#F8FAFC] text-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-dots-white pointer-events-none" />
         <div className="absolute bottom-0 left-1/2 w-[800px] h-[400px] bg-blue-50 blur-[150px] rounded-full pointer-events-none -translate-x-1/2" />
 

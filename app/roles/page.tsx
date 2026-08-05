@@ -11,6 +11,9 @@ const JOBS = [
   { id: 3, title: "Lead Smart Contract Dev", company: "DeFi Protocol", loc: "Remote (Global)", type: "Contract (12mo)", salary: "$120/hr", tech: ["Solidity", "Foundry", "EVM"], tag: "" },
   { id: 4, title: "Backend Engineer - Infrastructure", company: "SaaS Enterprise", loc: "San Francisco, CA", type: "Full-Time", salary: "$150k - $190k", tech: ["Go", "Kubernetes", "gRPC"], tag: "" },
   { id: 5, title: "Machine Learning Ops (MLOps)", company: "HealthTech AI", loc: "Remote (EU/US)", type: "Full-Time", salary: "$140k - $175k", tech: ["Docker", "Python", "Terraform"], tag: "Actively Interviewing" },
+  { id: 6, title: "Principal Security Engineer", company: "CyberDefense Co.", loc: "Remote (Global)", type: "Full-Time", salary: "$200k - $250k", tech: ["Security", "Rust", "C++"], tag: "Exclusive" },
+  { id: 7, title: "Data Platform Lead", company: "E-Commerce Giant", loc: "London, UK (Hybrid)", type: "Full-Time", salary: "£120k - £160k", tech: ["Snowflake", "Spark", "Python"], tag: "" },
+  { id: 8, title: "Senior iOS Developer", company: "Health & Fitness App", loc: "Remote (US/Canada)", type: "Contract (6mo)", salary: "$100/hr", tech: ["Swift", "Objective-C", "Combine"], tag: "New" }
 ];
 
 const JOURNEY = [
@@ -18,6 +21,13 @@ const JOURNEY = [
   { step: "02", title: "Technical Vetting", desc: "A single rigorous interview with our architects. Pass once, skip screens at 50+ companies." },
   { step: "03", title: "Direct Pitching", desc: "We bypass ATS black holes. Our advocates pitch you directly to engineering leaders." },
   { step: "04", title: "Offer Negotiation", desc: "We provide market data and negotiate on your behalf to secure the compensation you deserve." }
+];
+
+const PERKS = [
+  { icon: "💰", title: "Salary Negotiation", desc: "We use our aggregated market data to ensure you get top-of-market compensation and equity." },
+  { icon: "🌍", title: "Visa & Relocation", desc: "We partner with companies that offer full visa sponsorship and seamless relocation packages." },
+  { icon: "🛡️", title: "Anonymous Browsing", desc: "Keep your profile hidden from your current employer while you explore exclusive roles." },
+  { icon: "📚", title: "Interview Prep", desc: "Access our internal library of system design templates and mock interview sessions." }
 ];
 
 export default function RolesPage() {
@@ -67,7 +77,22 @@ export default function RolesPage() {
         </div>
       </section>
 
-      {/* 2. Advanced Job List (LIGHT) */}
+      {/* 2. Perks of the Network (LIGHT) */}
+      <section className="py-20 bg-[#F8FAFC] text-slate-900 border-b border-slate-200">
+        <div className="max-w-[1300px] mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {PERKS.map((p, i) => (
+              <div key={i} className="flex flex-col items-center text-center">
+                <div className="text-5xl mb-4">{p.icon}</div>
+                <h3 className="font-bold text-xl mb-2 text-slate-900">{p.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Advanced Job List (LIGHT) */}
       <section className="py-24 bg-white text-slate-900 border-y border-slate-100 relative overflow-hidden">
         <div className="absolute inset-0 bg-dots-white pointer-events-none" />
         <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-blue-50 blur-[120px] rounded-full pointer-events-none -translate-y-1/2" />
@@ -89,14 +114,14 @@ export default function RolesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: (i % 5) * 0.1 }}
                 className="group flex flex-col md:flex-row justify-between items-start md:items-center p-6 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-[0_10px_30px_rgba(10,102,245,0.06)] transition-all cursor-pointer"
               >
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-wrap items-center gap-3">
                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{job.title}</h3>
                     {job.tag && (
-                      <span className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md ${job.tag === 'Hot Role' ? 'bg-orange-50 text-orange-600 border border-orange-200' : 'bg-green-50 text-green-600 border border-green-200'}`}>
+                      <span className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md ${job.tag === 'Hot Role' || job.tag === 'Exclusive' ? 'bg-orange-50 text-orange-600 border border-orange-200' : 'bg-green-50 text-green-600 border border-green-200'}`}>
                         {job.tag}
                       </span>
                     )}
@@ -129,13 +154,25 @@ export default function RolesPage() {
         </div>
       </section>
 
-      {/* 3. Candidate Journey (DARK) */}
-      <ScrollReveal className="py-24 bg-[#020409] text-white border-t border-white/5 relative overflow-hidden">
+      {/* 4. Top Hiring Partners (DARK) */}
+      <section className="py-24 bg-[#080d1a] border-b border-white/5 overflow-hidden">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl font-bold text-white">Top Companies Hiring Actively</h2>
+        </div>
+        <div className="flex gap-10 whitespace-nowrap overflow-hidden opacity-50 justify-center">
+          {["OpenAI", "Stripe", "Airbnb", "Coinbase", "GitLab", "Vercel", "Discord"].map((company, idx) => (
+            <span key={idx} className="text-3xl font-extrabold text-slate-500">{company}</span>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. Candidate Journey (DARK) */}
+      <ScrollReveal className="py-32 bg-[#020409] text-white relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold mb-4">How It Works</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">We act as your personal career agent, handling the friction of job hunting so you can focus on coding.</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">How It Works</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg">We act as your personal career agent, handling the friction of job hunting so you can focus on coding.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
