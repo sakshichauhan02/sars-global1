@@ -50,7 +50,7 @@ export default function AboutPage() {
       <section ref={containerRef} className="relative w-full min-h-[90vh] flex flex-col items-center justify-center overflow-hidden perspective-1000">
         {/* Animated Dots */}
         <motion.div
-          className="absolute inset-0 w-[110%] h-[110%] -left-[5%] -top-[5%] bg-dots pointer-events-none opacity-40"
+          className="absolute inset-0 w-[110%] h-[110%] -left-[5%] -top-[5%] bg-dots pointer-events-none"
           style={{ x: bgX, y: bgY }}
         />
         
@@ -94,7 +94,7 @@ export default function AboutPage() {
 
       {/* 2. Core Values Bento Grid (LIGHT) */}
       <section className="relative py-32 bg-white text-slate-900 overflow-hidden">
-        <div className="absolute inset-0 bg-dots-white opacity-60 pointer-events-none" />
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-extrabold mb-6">Our Core Values</h2>
@@ -116,7 +116,7 @@ export default function AboutPage() {
 
       {/* 3. Media & Press Marquee (DARK) */}
       <section className="relative py-24 bg-[#080d1a] border-y border-white/5 overflow-hidden">
-        <div className="absolute inset-0 bg-dots opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-dots pointer-events-none" />
         <div className="text-center mb-10 relative z-10">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Featured In</span>
         </div>
@@ -129,7 +129,7 @@ export default function AboutPage() {
 
       {/* 4. Leadership Team Grid (DARK) */}
       <section className="relative py-32 bg-[#020409] overflow-hidden">
-        <div className="absolute inset-0 bg-dots opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-dots pointer-events-none" />
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <h2 className="text-5xl font-extrabold mb-16 text-center">Meet the Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -151,7 +151,7 @@ export default function AboutPage() {
 
       {/* 5. Internal Careers (LIGHT) */}
       <section className="relative py-32 bg-[#F8FAFC] text-slate-900 border-t border-slate-200 text-center overflow-hidden">
-        <div className="absolute inset-0 bg-dots-white opacity-60 pointer-events-none" />
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <h2 className="text-5xl font-extrabold mb-6">Join Our Internal Team</h2>
           <p className="text-xl text-slate-500 mb-10">We are always looking for Staff Engineers, AI Researchers, and Talent Architects to build the future of recruitment.</p>
