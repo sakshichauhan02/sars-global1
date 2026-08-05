@@ -58,12 +58,6 @@ const TECH_STACKS = [
   { category: "Web3", tools: ["Solidity", "Rust", "Foundry", "Hardhat", "Ethers.js"], gradient: "from-orange-500 to-amber-500" }
 ];
 
-const SUCCESS_STORIES = [
-  { company: "Fintech Unicorn", metric: "3 Weeks", result: "Scaled core banking engineering team from 10 to 25 devs.", gradient: "from-blue-400 to-cyan-400" },
-  { company: "Series A AI Startup", metric: "48 Hours", result: "Deployed 2 Staff ML Researchers to beat a product deadline.", gradient: "from-violet-400 to-fuchsia-400" },
-  { company: "Enterprise SaaS", metric: "98%", result: "Retention rate across 40+ placements over the last two years.", gradient: "from-pink-400 to-rose-400" }
-];
-
 function useTypingEffect(words: string[], speed = 80, pause = 2000) {
   const [text, setText] = useState("");
   const [wordIdx, setWordIdx] = useState(0);
@@ -109,9 +103,13 @@ export default function TalentPage() {
     return () => el.removeEventListener("mousemove", move);
   }, [mouseX, mouseY]);
 
+  // Parallax bindings
+  const bgX = useTransform(mouseX, [0, 1], ["0%", "-5%"]);
+  const bgY = useTransform(mouseY, [0, 1], ["0%", "-5%"]);
+  const lensX = useTransform(mouseX, [0, 1], ["-20%", "20%"]);
+  const lensY = useTransform(mouseY, [0, 1], ["-20%", "20%"]);
   const formX = useTransform(mouseX, [0, 1], ["15px", "-15px"]);
   const formY = useTransform(mouseY, [0, 1], ["15px", "-15px"]);
-  const orbX = useTransform(mouseX, [0, 1], ["-20%", "20%"]);
   
   const typedText = useTypingEffect(["AI Engineers", "DevOps Leads", "Rust Experts", "Top 1% Talent"], 80);
 
@@ -124,21 +122,31 @@ export default function TalentPage() {
       
       {/* 1. Ultra-Premium Interactive Hero (DARK) */}
       <section ref={containerRef} className="relative w-full min-h-[95vh] flex items-center overflow-hidden perspective-1000">
-        <div className="absolute inset-0 bg-dots pointer-events-none opacity-20" />
+        {/* Animated Parallax Dots */}
+        <motion.div
+          className="absolute inset-0 w-[110%] h-[110%] -left-[5%] -top-[5%] bg-dots pointer-events-none opacity-40"
+          style={{ x: bgX, y: bgY }}
+        />
         
-        {/* Multi-color glowing orbs */}
+        {/* Dynamic Distortion Lens (Follows Mouse) */}
         <motion.div 
-          className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full pointer-events-none mix-blend-screen z-0 blur-[150px]"
-          style={{ background: "rgba(139,92,246,0.15)", x: orbX }}
+          className="absolute top-1/2 left-1/2 w-[800px] h-[800px] rounded-full pointer-events-none mix-blend-overlay z-0"
+          style={{
+            background: "radial-gradient(circle, rgba(139,92,246,0.35) 0%, transparent 60%)",
+            x: lensX,
+            y: lensY,
+            translateX: "-50%",
+            translateY: "-50%"
+          }}
         />
-        <motion.div 
-          className="absolute bottom-0 right-1/3 w-[500px] h-[500px] rounded-full pointer-events-none mix-blend-screen z-0 blur-[150px]"
-          style={{ background: "rgba(10,102,245,0.15)", x: orbX }}
-        />
+        
+        {/* Ambient background glows */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-cyan-600/10 blur-[150px] rounded-full pointer-events-none z-0" />
+        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-violet-600/10 blur-[150px] rounded-full pointer-events-none z-0" />
         
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 py-20">
           <div className="flex flex-col gap-8 justify-center">
-            <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet-500/30 bg-violet-500/10 backdrop-blur-md w-fit">
+            <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet-500/30 bg-violet-500/10 backdrop-blur-md w-fit hover:border-violet-400 transition-colors cursor-default">
               <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
               <span className="text-xs font-bold tracking-widest text-violet-300 uppercase">For Hiring Managers</span>
             </motion.div>
@@ -157,7 +165,7 @@ export default function TalentPage() {
 
           <div className="relative w-full h-full min-h-[500px] hidden lg:flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/20 via-cyan-600/20 to-transparent rounded-[2rem] blur-2xl" />
-            <motion.div style={{ x: formX, y: formY }} className="w-full max-w-md bg-[#080d1a]/80 border border-white/10 rounded-[2rem] backdrop-blur-2xl shadow-[0_0_50px_rgba(139,92,246,0.15)] flex flex-col overflow-hidden">
+            <motion.div style={{ x: formX, y: formY }} className="w-full max-w-md bg-[#080d1a]/80 border border-white/10 rounded-[2rem] backdrop-blur-3xl shadow-[0_0_50px_rgba(139,92,246,0.15)] flex flex-col overflow-hidden">
               <div className="h-12 border-b border-white/10 bg-white/[0.02] flex items-center px-6 justify-between">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
@@ -171,7 +179,7 @@ export default function TalentPage() {
                 <form className="flex flex-col gap-5">
                   <div className="flex flex-col gap-2 relative">
                     <label className="text-[11px] font-bold text-violet-400 uppercase tracking-wider">I need a...</label>
-                    <select className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white appearance-none focus:border-violet-500/50">
+                    <select className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white appearance-none focus:border-violet-500/50 transition-colors">
                       <option>Senior React Engineer</option>
                       <option>Lead DevOps Architect</option>
                     </select>
@@ -179,11 +187,11 @@ export default function TalentPage() {
                   <div className="flex flex-col gap-2">
                     <label className="text-[11px] font-bold text-violet-400 uppercase tracking-wider">Engagement Model</label>
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="border border-violet-500/50 bg-violet-500/10 rounded-xl p-3 text-center text-sm font-bold text-violet-400 shadow-[0_0_15px_rgba(139,92,246,0.2)]">Contract</div>
-                      <div className="border border-white/10 bg-white/5 rounded-xl p-3 text-center text-sm font-semibold text-slate-300">Full-Time</div>
+                      <div className="border border-violet-500/50 bg-violet-500/10 rounded-xl p-3 text-center text-sm font-bold text-violet-400 shadow-[0_0_15px_rgba(139,92,246,0.2)] cursor-pointer">Contract</div>
+                      <div className="border border-white/10 bg-white/5 rounded-xl p-3 text-center text-sm font-semibold text-slate-300 hover:bg-white/10 transition-colors cursor-pointer">Full-Time</div>
                     </div>
                   </div>
-                  <Link href="/contact" className="w-full py-4 mt-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-center hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] transition-all">
+                  <Link href="/contact" className="w-full py-4 mt-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-center hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:scale-[1.02] transition-all">
                     Engage Engine →
                   </Link>
                 </form>
@@ -195,7 +203,8 @@ export default function TalentPage() {
 
       {/* 2. ROI & Value Calculator (DARK) */}
       <section className="relative py-32 bg-[#080d1a] border-y border-white/5 overflow-hidden">
-        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        {/* Subtle static dots for secondary dark sections */}
+        <div className="absolute inset-0 bg-dots opacity-20 pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">The Cost of Bad Hires</h2>
@@ -203,7 +212,7 @@ export default function TalentPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="p-10 rounded-[2rem] bg-white/[0.02] border border-white/10 flex flex-col gap-8">
+            <div className="p-10 rounded-[2rem] bg-[#020409]/80 backdrop-blur-xl border border-white/10 flex flex-col gap-8 hover:border-white/20 transition-colors shadow-2xl">
               <h3 className="text-2xl font-bold text-white mb-2">Traditional Agencies</h3>
               {[
                 { label: "Time to Shortlist", val: "3-4 Weeks", bar: "w-[80%]", color: "bg-red-500" },
@@ -222,7 +231,7 @@ export default function TalentPage() {
               ))}
             </div>
 
-            <div className="p-10 rounded-[2rem] bg-gradient-to-br from-violet-600/10 to-cyan-600/10 border border-violet-500/30 flex flex-col gap-8 relative overflow-hidden">
+            <div className="p-10 rounded-[2rem] bg-gradient-to-br from-violet-600/10 to-cyan-600/10 backdrop-blur-xl border border-violet-500/30 flex flex-col gap-8 relative overflow-hidden shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:border-cyan-400/50 transition-colors">
               <div className="absolute top-0 right-0 p-8 text-8xl opacity-5">🚀</div>
               <h3 className="text-2xl font-bold text-white mb-2">SARS Global</h3>
               {[
@@ -236,7 +245,7 @@ export default function TalentPage() {
                     <span className="text-white">{s.val}</span>
                   </div>
                   <div className="h-2 w-full bg-black/40 rounded-full overflow-hidden">
-                    <div className={`h-full ${s.bar} ${s.color} shadow-[0_0_10px_currentColor]`} />
+                    <div className={`h-full ${s.bar} ${s.color} shadow-[0_0_15px_currentColor]`} />
                   </div>
                 </div>
               ))}
@@ -247,7 +256,8 @@ export default function TalentPage() {
 
       {/* 3. Advanced Hover Vetted Profiles (LIGHT) */}
       <section className="relative py-32 bg-white text-slate-900 border-y border-slate-100 overflow-hidden">
-        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        {/* Subtle static dots for light sections */}
+        <div className="absolute inset-0 bg-dots-white opacity-60 pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-end gap-6 relative z-10">
           <div>
             <span className="inline-block px-4 py-1.5 rounded-full border border-violet-500/20 bg-violet-50 text-violet-600 text-xs font-bold tracking-widest uppercase mb-5">
@@ -263,8 +273,8 @@ export default function TalentPage() {
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
           <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ ease: "linear", duration: 40, repeat: Infinity }} className="flex gap-6 px-6 whitespace-nowrap marquee-parent">
             {[...PROFILES, ...PROFILES].map((p, i) => (
-              <div key={i} className="w-[380px] inline-flex flex-col bg-white border border-slate-200 rounded-[2rem] p-8 hover:border-violet-400 hover:shadow-[0_20px_50px_rgba(139,92,246,0.12)] transition-all shrink-0 group relative">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div key={i} className="w-[380px] inline-flex flex-col bg-white/80 backdrop-blur-md border border-slate-200 rounded-[2rem] p-8 hover:border-violet-400 hover:shadow-[0_20px_50px_rgba(139,92,246,0.15)] transition-all shrink-0 group relative cursor-default">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity rounded-t-[2rem]" />
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-4">
                     <img src={p.img} alt={p.name} className="w-14 h-14 rounded-full border-2 border-slate-100 object-cover" />
@@ -273,7 +283,7 @@ export default function TalentPage() {
                       <p className="text-sm font-semibold text-slate-500">{p.role}</p>
                     </div>
                   </div>
-                  <div className="px-3 py-1.5 bg-green-50 text-green-600 border border-green-200 text-[10px] font-extrabold rounded-md">{p.match} AI Match</div>
+                  <div className="px-3 py-1.5 bg-green-50 text-green-600 border border-green-200 text-[10px] font-extrabold rounded-md shadow-sm">{p.match} AI Match</div>
                 </div>
                 <div className="flex gap-6 mb-6 pt-6 border-t border-slate-100">
                   <div className="flex flex-col"><span className="text-[10px] text-slate-400 uppercase font-bold mb-1">Previous</span><span className="font-semibold text-slate-700">{p.prev}</span></div>
@@ -292,7 +302,7 @@ export default function TalentPage() {
 
       {/* 4. Scroll-Linked Vetting Process (DARK) */}
       <section ref={processRef} className="relative py-32 bg-[#020409] text-white border-b border-white/5 overflow-hidden">
-        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="absolute inset-0 bg-dots opacity-20 pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
           <div className="sticky top-32">
             <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Rigorous <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Protocol</span></h2>
@@ -301,7 +311,7 @@ export default function TalentPage() {
           
           <div className="relative pl-12 md:pl-16">
             <div className="absolute left-[23px] top-4 bottom-4 w-1 bg-white/10 rounded-full" />
-            <motion.div style={{ height: lineHeight }} className="absolute left-[23px] top-4 w-1 bg-gradient-to-b from-violet-500 via-cyan-400 to-pink-500 shadow-[0_0_15px_rgba(139,92,246,0.8)] z-10 origin-top" />
+            <motion.div style={{ height: lineHeight }} className="absolute left-[23px] top-4 w-1 bg-gradient-to-b from-violet-500 via-cyan-400 to-pink-500 shadow-[0_0_20px_rgba(139,92,246,0.9)] z-10 origin-top" />
 
             <div className="flex flex-col gap-16 relative z-20">
               {[
@@ -311,11 +321,11 @@ export default function TalentPage() {
                 { step: "4", title: "Cultural Alignment", desc: "Behavioral deep-dive to ensure high EQ." }
               ].map((s, i) => (
                 <ScrollReveal key={i} className="flex gap-8 group">
-                  <div className="absolute -left-12 md:-left-16 w-12 h-12 rounded-full bg-[#080d1a] border-2 border-white/20 flex items-center justify-center text-slate-500 font-extrabold text-xl group-hover:border-violet-500 group-hover:text-violet-400 group-hover:bg-violet-500/10 transition-all z-20">
+                  <div className="absolute -left-12 md:-left-16 w-12 h-12 rounded-full bg-[#080d1a] border-2 border-white/20 flex items-center justify-center text-slate-500 font-extrabold text-xl group-hover:border-violet-500 group-hover:text-violet-300 group-hover:bg-violet-500/20 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all z-20">
                     {s.step}
                   </div>
                   <div>
-                    <h4 className="font-bold text-white text-2xl mb-3">{s.title}</h4>
+                    <h4 className="font-bold text-white text-2xl mb-3 group-hover:text-violet-300 transition-colors">{s.title}</h4>
                     <p className="text-slate-400">{s.desc}</p>
                   </div>
                 </ScrollReveal>
@@ -327,15 +337,15 @@ export default function TalentPage() {
 
       {/* 5. Core Technologies (LIGHT with Multi-color Gradients) */}
       <section className="relative py-32 bg-[#F8FAFC] text-slate-900 border-b border-slate-200">
-        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        <div className="absolute inset-0 bg-dots-white opacity-60 pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Core Technologies</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {TECH_STACKS.map((stack, i) => (
-              <ScrollReveal key={i} className="p-8 rounded-[2rem] bg-white border border-slate-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] group relative overflow-hidden">
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stack.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
+              <ScrollReveal key={i} className="p-8 rounded-[2rem] bg-white/80 backdrop-blur-md border border-slate-200 hover:border-slate-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] group relative overflow-hidden transition-all">
+                <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${stack.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
                 <h3 className="font-extrabold text-xl mb-6 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stack.gradient} flex items-center justify-center text-white shadow-lg`}>
                     {i+1}
@@ -344,7 +354,7 @@ export default function TalentPage() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {stack.tools.map(tool => (
-                    <span key={tool} className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-xs font-bold text-slate-600">{tool}</span>
+                    <span key={tool} className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-xs font-bold text-slate-600 group-hover:border-slate-300 transition-colors">{tool}</span>
                   ))}
                 </div>
               </ScrollReveal>
@@ -352,67 +362,6 @@ export default function TalentPage() {
           </div>
         </div>
       </section>
-
-      {/* 6. Security & Compliance (DARK) */}
-      <section className="relative py-32 bg-[#020409] text-white overflow-hidden border-b border-white/5">
-        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
-        <div className="max-w-[1300px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
-          <div>
-            <h2 className="text-4xl font-extrabold mb-6">Enterprise-Grade <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Compliance</span></h2>
-            <p className="text-slate-400 text-lg mb-8">Hiring globally comes with immense legal and security risks. We handle 100% of the compliance, IP protection, and localized payroll.</p>
-            <ul className="flex flex-col gap-4">
-              {["SOC2 Type II Certified Network", "Zero-Risk IP Assignment Agreements", "Localized Payroll in 90+ Countries", "Background Checks & NDAs standard"].map((item, idx) => (
-                <li key={idx} className="flex items-center gap-4 text-sm font-bold">
-                  <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">✓</div>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="aspect-square rounded-[2rem] bg-gradient-to-br from-emerald-600/10 to-teal-600/10 border border-emerald-500/20 flex flex-col items-center justify-center text-center p-6">
-              <div className="text-5xl mb-4">🛡️</div>
-              <div className="font-bold text-lg">SOC 2</div>
-              <div className="text-xs text-slate-400">Compliant Process</div>
-            </div>
-            <div className="aspect-square rounded-[2rem] bg-gradient-to-br from-blue-600/10 to-cyan-600/10 border border-blue-500/20 flex flex-col items-center justify-center text-center p-6 translate-y-8">
-              <div className="text-5xl mb-4">🌍</div>
-              <div className="font-bold text-lg">EOR</div>
-              <div className="text-xs text-slate-400">Global Partners</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. Engagement Models (LIGHT - Multi-Color Gradients) */}
-      <ScrollReveal className="relative py-32 bg-white text-slate-900">
-        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
-        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-extrabold mb-4">Engagement Models</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {MODELS.map((m, i) => (
-              <div key={i} className="flex flex-col bg-white border border-slate-200 rounded-[2rem] p-10 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all group relative overflow-hidden">
-                <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${m.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${m.gradient} flex items-center justify-center text-3xl mb-8 shadow-lg text-white group-hover:scale-110 transition-transform`}>
-                  {m.icon}
-                </div>
-                <h3 className="text-3xl font-extrabold mb-4">{m.title}</h3>
-                <p className="text-slate-500 mb-10 font-medium">{m.desc}</p>
-                <div className="flex-1 flex flex-col gap-4">
-                  {m.points.map((pt, idx) => (
-                    <div key={idx} className="flex items-center gap-3">
-                      <div className={`w-5 h-5 rounded-full bg-gradient-to-br ${m.gradient} flex items-center justify-center text-[10px] text-white font-bold`}>✓</div>
-                      <span className="text-sm font-bold text-slate-700">{pt}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </ScrollReveal>
 
     </div>
   );
