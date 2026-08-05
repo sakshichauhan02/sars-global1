@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useTransform, useMotionValue, useScroll } from "framer-motion";
+import { useEffect, useRef } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const SKILLS = ["React", "Rust", "Python", "Solidity", "Node.js", "Go", "Kubernetes", "GraphQL", "PyTorch"];
@@ -12,8 +13,6 @@ const JOBS = [
   { id: 4, title: "Backend Engineer - Infrastructure", company: "SaaS Enterprise", loc: "San Francisco, CA", type: "Full-Time", salary: "$150k - $190k", tech: ["Go", "Kubernetes", "gRPC"], tag: "" },
   { id: 5, title: "Machine Learning Ops (MLOps)", company: "HealthTech AI", loc: "Remote (EU/US)", type: "Full-Time", salary: "$140k - $175k", tech: ["Docker", "Python", "Terraform"], tag: "Actively Interviewing" },
   { id: 6, title: "Principal Security Engineer", company: "CyberDefense Co.", loc: "Remote (Global)", type: "Full-Time", salary: "$200k - $250k", tech: ["Security", "Rust", "C++"], tag: "Exclusive" },
-  { id: 7, title: "Data Platform Lead", company: "E-Commerce Giant", loc: "London, UK (Hybrid)", type: "Full-Time", salary: "£120k - £160k", tech: ["Snowflake", "Spark", "Python"], tag: "" },
-  { id: 8, title: "Senior iOS Developer", company: "Health & Fitness App", loc: "Remote (US/Canada)", type: "Contract (6mo)", salary: "$100/hr", tech: ["Swift", "Objective-C", "Combine"], tag: "New" }
 ];
 
 const JOURNEY = [
@@ -31,168 +30,220 @@ const PERKS = [
 ];
 
 export default function RolesPage() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  
+  // Parallax for Hero Search
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const move = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      mouseX.set((e.clientX - rect.left) / rect.width);
+      mouseY.set((e.clientY - rect.top) / rect.height);
+    };
+    el.addEventListener("mousemove", move);
+    return () => el.removeEventListener("mousemove", move);
+  }, [mouseX, mouseY]);
+
+  const searchX = useTransform(mouseX, [0, 1], ["5px", "-5px"]);
+  const searchY = useTransform(mouseY, [0, 1], ["5px", "-5px"]);
+  const orbX = useTransform(mouseX, [0, 1], ["-10%", "10%"]);
+
   return (
-    <div className="flex flex-col min-h-screen bg-[#020409] text-white pt-[72px]">
+    <div className="flex flex-col min-h-screen bg-[#020409] text-white pt-[72px] font-poppins">
       
-      {/* 1. Job Board Search Hero (DARK) */}
-      <section className="relative w-full py-32 flex flex-col items-center justify-center overflow-hidden border-b border-white/5">
-        <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(10,102,245,0.15)_0%,#020409_70%)] pointer-events-none" />
+      {/* 1. Job Board Search Hero (DARK with Parallax) */}
+      <section ref={heroRef} className="relative w-full min-h-[70vh] flex flex-col items-center justify-center overflow-hidden border-b border-white/5 perspective-1000 py-32">
+        <motion.div 
+          style={{ x: orbX }}
+          className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(10,102,245,0.15)_0%,#020409_70%)] pointer-events-none" 
+        />
+        <div className="absolute inset-0 bg-dots opacity-[0.1] pointer-events-none" />
         
-        <div className="relative z-10 text-center px-6 max-w-3xl mx-auto w-full">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 w-fit mb-6">
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-            <span className="text-xs font-semibold tracking-widest text-blue-300 uppercase">For Candidates</span>
-          </span>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-            Find Your Next <span className="gradient-text">Breakthrough</span>
-          </h1>
-          <p className="text-lg text-slate-400 mb-10">
-            Access exclusive, unlisted roles at the world&apos;s most innovative startups and tech giants.
-          </p>
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto w-full flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 w-fit mb-6">
+              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+              <span className="text-xs font-bold tracking-widest text-blue-300 uppercase">For Candidates</span>
+            </span>
+          </motion.div>
           
-          {/* Big Search Bar */}
-          <div className="relative w-full mb-8">
-            <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none">
-              <span className="text-2xl">🔍</span>
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-5xl md:text-[80px] font-extrabold tracking-tight mb-8 leading-[1.1]"
+          >
+            Find Your Next <br/>
+            <span className="gradient-text text-glow">Breakthrough</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl"
+          >
+            Access exclusive, unlisted roles at the world&apos;s most innovative startups and tech giants without dealing with automated recruiters.
+          </motion.p>
+          
+          {/* Big Search Bar with Parallax */}
+          <motion.div 
+            style={{ x: searchX, y: searchY }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="relative w-full max-w-3xl mb-12 group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-50" />
+            <div className="relative bg-[#080d1a]/80 backdrop-blur-2xl border border-white/20 rounded-full flex items-center p-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+              <span className="text-2xl pl-6 text-slate-400">🔍</span>
+              <input 
+                type="text" 
+                placeholder="Search roles, skills, or companies..." 
+                className="flex-1 bg-transparent border-none pl-4 pr-4 h-16 text-lg text-white placeholder-slate-500 focus:outline-none"
+              />
+              <button className="h-14 px-8 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-full transition-all shadow-[0_0_20px_rgba(10,102,245,0.4)]">
+                Search
+              </button>
             </div>
-            <input 
-              type="text" 
-              placeholder="Search roles, skills, or companies..." 
-              className="w-full h-20 bg-white/5 border border-white/10 rounded-full pl-16 pr-40 text-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all backdrop-blur-xl shadow-[0_0_30px_rgba(10,102,245,0.05)]"
-            />
-            <button className="absolute right-3 top-3 bottom-3 px-8 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full transition-colors shadow-lg">
-              Search
-            </button>
-          </div>
+          </motion.div>
 
           {/* Skill Pills */}
-          <div className="flex flex-wrap justify-center gap-3">
-            <span className="text-sm font-semibold text-slate-500 py-2">Trending:</span>
-            {SKILLS.map(s => (
-              <button key={s} className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="flex flex-wrap justify-center gap-3"
+          >
+            <span className="text-sm font-bold text-slate-500 py-2 uppercase tracking-wider">Trending:</span>
+            {SKILLS.map((s, i) => (
+              <motion.button 
+                key={s} 
+                whileHover={{ scale: 1.05 }}
+                className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-semibold text-slate-300 hover:border-blue-500 hover:bg-blue-500/10 hover:text-blue-400 transition-colors"
+              >
                 {s}
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 2. Perks of the Network (LIGHT) */}
-      <section className="py-20 bg-[#F8FAFC] text-slate-900 border-b border-slate-200">
-        <div className="max-w-[1300px] mx-auto px-6">
+      <section className="py-32 bg-[#F8FAFC] text-slate-900 border-b border-slate-200 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100 blur-[150px] rounded-full pointer-events-none opacity-50" />
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-extrabold mb-4 tracking-tight">Why Join the Network?</h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {PERKS.map((p, i) => (
-              <div key={i} className="flex flex-col items-center text-center">
-                <div className="text-5xl mb-4">{p.icon}</div>
-                <h3 className="font-bold text-xl mb-2 text-slate-900">{p.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{p.desc}</p>
-              </div>
+              <ScrollReveal key={i} className="flex flex-col items-center text-center p-8 rounded-[2rem] bg-white border border-slate-200 hover:border-blue-400 hover:shadow-[0_20px_40px_rgba(10,102,245,0.08)] transition-all duration-300 group cursor-default">
+                <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">{p.icon}</div>
+                <h3 className="font-extrabold text-xl mb-3 text-slate-900">{p.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed font-medium">{p.desc}</p>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* 3. Advanced Job List (LIGHT) */}
-      <section className="py-24 bg-white text-slate-900 border-y border-slate-100 relative overflow-hidden">
+      <section className="py-32 bg-white text-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-dots-white pointer-events-none" />
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-blue-50 blur-[120px] rounded-full pointer-events-none -translate-y-1/2" />
+        <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-blue-50 blur-[150px] rounded-full pointer-events-none -translate-y-1/2" />
         
-        <div className="max-w-[1000px] mx-auto px-6 relative z-10">
-          <div className="flex justify-between items-center mb-8 border-b border-slate-200 pb-6">
-            <h2 className="text-3xl font-extrabold">Latest Openings</h2>
-            <select className="bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 focus:outline-none cursor-pointer">
+        <div className="max-w-[1100px] mx-auto px-6 relative z-10">
+          <div className="flex justify-between items-center mb-10 border-b border-slate-200 pb-6">
+            <h2 className="text-4xl font-extrabold tracking-tight">Active Opportunities</h2>
+            <select className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none cursor-pointer hover:border-blue-300 transition-colors">
               <option>Most Relevant</option>
               <option>Highest Salary</option>
               <option>Newest First</option>
             </select>
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             {JOBS.map((job, i) => (
               <motion.div 
                 key={job.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i % 5) * 0.1 }}
-                className="group flex flex-col md:flex-row justify-between items-start md:items-center p-6 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-[0_10px_30px_rgba(10,102,245,0.06)] transition-all cursor-pointer"
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: (i % 6) * 0.1 }}
+                whileHover={{ scale: 1.01 }}
+                className="group flex flex-col md:flex-row justify-between items-start md:items-center p-8 rounded-[2rem] border border-slate-200 bg-white hover:border-blue-400 hover:shadow-[0_20px_50px_rgba(10,102,245,0.08)] transition-all cursor-pointer relative overflow-hidden"
               >
-                <div className="flex flex-col gap-3">
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="flex flex-col gap-4">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{job.title}</h3>
+                    <h3 className="text-2xl font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">{job.title}</h3>
                     {job.tag && (
-                      <span className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md ${job.tag === 'Hot Role' || job.tag === 'Exclusive' ? 'bg-orange-50 text-orange-600 border border-orange-200' : 'bg-green-50 text-green-600 border border-green-200'}`}>
+                      <span className={`px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest rounded-md ${job.tag === 'Hot Role' || job.tag === 'Exclusive' ? 'bg-orange-50 text-orange-600 border border-orange-200' : 'bg-green-50 text-green-600 border border-green-200'}`}>
                         {job.tag}
                       </span>
                     )}
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-                    <span className="flex items-center gap-1.5 font-semibold text-slate-700">🏢 {job.company}</span>
-                    <span className="flex items-center gap-1.5 font-medium text-slate-500">📍 {job.loc}</span>
-                    <span className="flex items-center gap-1.5 font-medium text-slate-500">💼 {job.type}</span>
-                    <span className="flex items-center gap-1.5 text-blue-600 font-bold">💵 {job.salary}</span>
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+                    <span className="flex items-center gap-2 font-bold text-slate-700">🏢 {job.company}</span>
+                    <span className="flex items-center gap-2 font-semibold text-slate-500">📍 {job.loc}</span>
+                    <span className="flex items-center gap-2 font-semibold text-slate-500">💼 {job.type}</span>
+                    <span className="flex items-center gap-2 text-blue-600 font-extrabold bg-blue-50 px-3 py-1 rounded-lg">💵 {job.salary}</span>
                   </div>
-                  <div className="flex gap-2 mt-1">
+                  <div className="flex gap-2 mt-2">
                     {job.tech.map(t => (
-                      <span key={t} className="px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-600">{t}</span>
+                      <span key={t} className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-xs font-bold text-slate-600 group-hover:border-blue-200 group-hover:bg-blue-50 transition-colors">{t}</span>
                     ))}
                   </div>
                 </div>
 
-                <button className="mt-6 md:mt-0 px-6 py-3 rounded-xl bg-blue-50 text-blue-600 font-bold text-sm group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0 border border-blue-200 group-hover:border-blue-600">
-                  View Role
+                <button className="mt-8 md:mt-0 px-8 py-4 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm group-hover:bg-blue-600 group-hover:text-white transition-all shrink-0 border border-slate-200 group-hover:border-blue-600 group-hover:shadow-[0_10px_20px_rgba(10,102,245,0.3)]">
+                  Apply Now
                 </button>
               </motion.div>
             ))}
           </div>
-
-          <div className="mt-12 text-center">
-            <button className="px-8 py-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold transition-colors shadow-sm">
-              Load More Roles
-            </button>
-          </div>
         </div>
       </section>
 
-      {/* 4. Top Hiring Partners (DARK) */}
-      <section className="py-24 bg-[#080d1a] border-b border-white/5 overflow-hidden">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-white">Top Companies Hiring Actively</h2>
-        </div>
-        <div className="flex gap-10 whitespace-nowrap overflow-hidden opacity-50 justify-center">
-          {["OpenAI", "Stripe", "Airbnb", "Coinbase", "GitLab", "Vercel", "Discord"].map((company, idx) => (
-            <span key={idx} className="text-3xl font-extrabold text-slate-500">{company}</span>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. Candidate Journey (DARK) */}
-      <ScrollReveal className="py-32 bg-[#020409] text-white relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
+      {/* 4. Candidate Journey (DARK) */}
+      <section className="py-32 bg-[#020409] text-white relative overflow-hidden border-t border-white/5">
+        <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">How It Works</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">We act as your personal career agent, handling the friction of job hunting so you can focus on coding.</p>
+          <div className="text-center mb-20">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-400 text-xs font-semibold tracking-widest uppercase mb-5">
+              The Blueprint
+            </span>
+            <h2 className="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">How It Works</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg">We act as your personal career agent, handling the friction of job hunting so you can focus on writing great code.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {JOURNEY.map((j, i) => (
-              <div key={i} className="relative flex flex-col pt-8">
-                {/* Connecting Line (desktop only) */}
+              <ScrollReveal key={i} className="relative flex flex-col pt-8 group cursor-default">
+                {/* Connecting Line */}
                 {i !== JOURNEY.length - 1 && (
-                  <div className="hidden lg:block absolute top-12 left-1/2 w-full h-[2px] bg-gradient-to-r from-blue-500/30 to-transparent z-0" />
+                  <div className="hidden lg:block absolute top-12 left-[60%] w-full h-[2px] bg-gradient-to-r from-blue-500/30 to-transparent z-0" />
                 )}
                 
-                <div className="relative z-10 w-16 h-16 rounded-full bg-[#080d1a] border-2 border-blue-500/30 flex items-center justify-center text-xl font-extrabold text-blue-400 mb-6 shadow-[0_0_20px_rgba(10,102,245,0.2)]">
+                <div className="relative z-10 w-20 h-20 rounded-2xl bg-[#080d1a] border border-blue-500/30 flex items-center justify-center text-2xl font-extrabold text-blue-400 mb-8 shadow-[0_0_30px_rgba(10,102,245,0.15)] group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                   {j.step}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{j.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{j.desc}</p>
-              </div>
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">{j.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed font-medium">{j.desc}</p>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </ScrollReveal>
+      </section>
     </div>
   );
 }
