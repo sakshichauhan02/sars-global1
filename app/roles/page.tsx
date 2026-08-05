@@ -43,7 +43,8 @@ export default function RolesPage() {
       
       {/* 1. Job Board Search Hero (DARK with Violet/Cyan) */}
       <section ref={heroRef} className="relative w-full min-h-[70vh] flex flex-col items-center justify-center overflow-hidden border-b border-white/5 py-32">
-        <motion.div style={{ x: orbX }} className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.15)_0%,#020409_70%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <motion.div style={{ x: orbX }} className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.15)_0%,transparent_70%)] pointer-events-none" />
         
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto w-full flex flex-col items-center">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet-500/30 bg-violet-500/10 w-fit mb-6">
@@ -66,9 +67,10 @@ export default function RolesPage() {
         </div>
       </section>
 
-      {/* 2. Global Salary Insights (DARK) - NEW SECTION */}
-      <section className="py-32 bg-[#080d1a] border-b border-white/5">
-        <div className="max-w-[1300px] mx-auto px-6">
+      {/* 2. Global Salary Insights (DARK) */}
+      <section className="relative py-32 bg-[#080d1a] border-b border-white/5 overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-extrabold mb-4">Global Salary Insights</h2>
             <p className="text-slate-400">Real-time compensation data aggregated from our placed engineers.</p>
@@ -91,7 +93,7 @@ export default function RolesPage() {
       </section>
 
       {/* 3. Advanced Job List (LIGHT) */}
-      <section className="py-32 bg-white text-slate-900 relative">
+      <section className="relative py-32 bg-white text-slate-900 overflow-hidden">
         <div className="absolute inset-0 bg-dots-white pointer-events-none" />
         <div className="max-w-[1100px] mx-auto px-6 relative z-10">
           <div className="flex justify-between items-center mb-10 border-b border-slate-200 pb-6">
@@ -101,7 +103,7 @@ export default function RolesPage() {
             {JOBS.map((job, i) => (
               <div key={job.id} className="group flex flex-col md:flex-row justify-between items-start md:items-center p-8 rounded-[2rem] border border-slate-200 bg-white hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all cursor-pointer relative overflow-hidden">
                 <div className={`absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b ${job.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 relative z-10">
                   <h3 className="text-2xl font-extrabold text-slate-900 group-hover:text-blue-600">{job.title}</h3>
                   <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
                     <span className="font-bold text-slate-700">🏢 {job.company}</span>
@@ -109,7 +111,7 @@ export default function RolesPage() {
                     <span className={`font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${job.gradient}`}>💵 {job.salary}</span>
                   </div>
                 </div>
-                <button className="mt-8 md:mt-0 px-8 py-4 rounded-xl bg-slate-900 text-white font-bold text-sm group-hover:scale-105 transition-transform">
+                <button className="relative z-10 mt-8 md:mt-0 px-8 py-4 rounded-xl bg-slate-900 text-white font-bold text-sm group-hover:scale-105 transition-transform">
                   Apply Now
                 </button>
               </div>
@@ -119,26 +121,28 @@ export default function RolesPage() {
       </section>
 
       {/* 4. Perks (LIGHT with Multi-color Gradients) */}
-      <section className="py-32 bg-[#F8FAFC] text-slate-900 border-t border-slate-200">
-        <div className="max-w-[1300px] mx-auto px-6">
+      <section className="relative py-32 bg-[#F8FAFC] text-slate-900 border-t border-slate-200 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <h2 className="text-4xl font-extrabold mb-16 text-center">Why Join the Network?</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {PERKS.map((p, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-8 rounded-[2rem] bg-white border border-slate-200 group">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${p.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg text-white group-hover:scale-110 transition-transform`}>
+              <div key={i} className="flex flex-col items-center text-center p-8 rounded-[2rem] bg-white border border-slate-200 group relative">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${p.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg text-white group-hover:scale-110 transition-transform relative z-10`}>
                   {p.icon}
                 </div>
-                <h3 className="font-extrabold text-xl mb-3">{p.title}</h3>
-                <p className="text-slate-500 font-medium">{p.desc}</p>
+                <h3 className="font-extrabold text-xl mb-3 relative z-10">{p.title}</h3>
+                <p className="text-slate-500 font-medium relative z-10">{p.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5. Candidate Testimonials (DARK) - NEW SECTION */}
-      <section className="py-32 bg-[#020409] text-white border-t border-white/5">
-        <div className="max-w-[1300px] mx-auto px-6">
+      {/* 5. Candidate Testimonials (DARK) */}
+      <section className="relative py-32 bg-[#020409] text-white border-t border-white/5 overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <h2 className="text-4xl font-extrabold mb-16 text-center">Engineers We&apos;ve Placed</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[

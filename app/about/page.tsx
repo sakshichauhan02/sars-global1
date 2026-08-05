@@ -40,6 +40,7 @@ export default function AboutPage() {
       
       {/* 1. Cinematic Hero (DARK) */}
       <section ref={containerRef} className="relative w-full min-h-[90vh] flex flex-col items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
         <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-violet-600/10 blur-[150px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-cyan-600/10 blur-[150px] rounded-full pointer-events-none" />
         
@@ -65,9 +66,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. Core Values Bento Grid (LIGHT with Multi-color) - NEW SECTION */}
-      <section className="py-32 bg-white text-slate-900 relative">
-        <div className="max-w-[1300px] mx-auto px-6">
+      {/* 2. Core Values Bento Grid (LIGHT with Multi-color) */}
+      <section className="relative py-32 bg-white text-slate-900 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-extrabold mb-6">Our Core Values</h2>
           </div>
@@ -75,23 +77,24 @@ export default function AboutPage() {
             {CORE_VALUES.map((v, i) => (
               <div key={i} className="p-10 rounded-[2.5rem] bg-white border border-slate-200 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] group relative overflow-hidden transition-all">
                 <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${v.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${v.gradient} flex items-center justify-center text-3xl mb-6 text-white shadow-lg group-hover:scale-110 transition-transform`}>
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${v.gradient} flex items-center justify-center text-3xl mb-6 text-white shadow-lg group-hover:scale-110 transition-transform relative z-10`}>
                   {v.icon}
                 </div>
-                <h3 className="text-2xl font-extrabold mb-3">{v.title}</h3>
-                <p className="text-slate-500 font-medium text-lg">{v.desc}</p>
+                <h3 className="text-2xl font-extrabold mb-3 relative z-10">{v.title}</h3>
+                <p className="text-slate-500 font-medium text-lg relative z-10">{v.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3. Media & Press Marquee (DARK) - NEW SECTION */}
-      <section className="py-24 bg-[#080d1a] border-y border-white/5 overflow-hidden">
-        <div className="text-center mb-10">
+      {/* 3. Media & Press Marquee (DARK) */}
+      <section className="relative py-24 bg-[#080d1a] border-y border-white/5 overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="text-center mb-10 relative z-10">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Featured In</span>
         </div>
-        <div className="flex gap-16 whitespace-nowrap opacity-40 justify-center">
+        <div className="flex gap-16 whitespace-nowrap opacity-40 justify-center relative z-10">
           {["TechCrunch", "Wired", "Forbes", "Bloomberg", "Wall Street Journal"].map((m, i) => (
             <span key={i} className="text-4xl font-extrabold text-white">{m}</span>
           ))}
@@ -99,8 +102,9 @@ export default function AboutPage() {
       </section>
 
       {/* 4. Leadership Team Grid (DARK) */}
-      <section className="py-32 bg-[#020409]">
-        <div className="max-w-[1400px] mx-auto px-6">
+      <section className="relative py-32 bg-[#020409] overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <h2 className="text-5xl font-extrabold mb-16 text-center">Meet the Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {TEAM.map((member, i) => (
@@ -119,12 +123,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 5. Internal Careers (LIGHT) - NEW SECTION */}
-      <section className="py-32 bg-[#F8FAFC] text-slate-900 border-t border-slate-200 text-center">
-        <div className="max-w-3xl mx-auto px-6">
+      {/* 5. Internal Careers (LIGHT) */}
+      <section className="relative py-32 bg-[#F8FAFC] text-slate-900 border-t border-slate-200 text-center overflow-hidden">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        <div className="max-w-3xl mx-auto px-6 relative z-10">
           <h2 className="text-5xl font-extrabold mb-6">Join Our Internal Team</h2>
           <p className="text-xl text-slate-500 mb-10">We are always looking for Staff Engineers, AI Researchers, and Talent Architects to build the future of recruitment.</p>
-          <button className="px-10 py-5 rounded-full bg-slate-900 text-white font-bold text-lg hover:bg-slate-800 transition-colors shadow-xl hover:-translate-y-1">
+          <button className="relative z-10 px-10 py-5 rounded-full bg-slate-900 text-white font-bold text-lg hover:bg-slate-800 transition-colors shadow-xl hover:-translate-y-1">
             View Internal Roles
           </button>
         </div>

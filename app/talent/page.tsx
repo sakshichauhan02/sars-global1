@@ -193,9 +193,9 @@ export default function TalentPage() {
         </div>
       </section>
 
-      {/* 2. ROI & Value Calculator (DARK) - NEW SECTION */}
-      <section className="py-32 bg-[#080d1a] border-y border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-dots opacity-[0.05]" />
+      {/* 2. ROI & Value Calculator (DARK) */}
+      <section className="relative py-32 bg-[#080d1a] border-y border-white/5 overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">The Cost of Bad Hires</h2>
@@ -246,7 +246,7 @@ export default function TalentPage() {
       </section>
 
       {/* 3. Advanced Hover Vetted Profiles (LIGHT) */}
-      <section className="py-32 bg-white text-slate-900 border-y border-slate-100 overflow-hidden relative">
+      <section className="relative py-32 bg-white text-slate-900 border-y border-slate-100 overflow-hidden">
         <div className="absolute inset-0 bg-dots-white pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-end gap-6 relative z-10">
           <div>
@@ -291,7 +291,8 @@ export default function TalentPage() {
       </section>
 
       {/* 4. Scroll-Linked Vetting Process (DARK) */}
-      <section ref={processRef} className="py-32 bg-[#020409] text-white border-b border-white/5 relative overflow-hidden">
+      <section ref={processRef} className="relative py-32 bg-[#020409] text-white border-b border-white/5 overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
           <div className="sticky top-32">
             <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Rigorous <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Protocol</span></h2>
@@ -325,8 +326,9 @@ export default function TalentPage() {
       </section>
 
       {/* 5. Core Technologies (LIGHT with Multi-color Gradients) */}
-      <section className="py-32 bg-[#F8FAFC] text-slate-900 border-b border-slate-200">
-        <div className="max-w-[1300px] mx-auto px-6">
+      <section className="relative py-32 bg-[#F8FAFC] text-slate-900 border-b border-slate-200">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Core Technologies</h2>
           </div>
@@ -351,9 +353,10 @@ export default function TalentPage() {
         </div>
       </section>
 
-      {/* 6. Security & Compliance (DARK) - NEW SECTION */}
-      <section className="py-32 bg-[#020409] text-white overflow-hidden border-b border-white/5">
-        <div className="max-w-[1300px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      {/* 6. Security & Compliance (DARK) */}
+      <section className="relative py-32 bg-[#020409] text-white overflow-hidden border-b border-white/5">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="max-w-[1300px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
           <div>
             <h2 className="text-4xl font-extrabold mb-6">Enterprise-Grade <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Compliance</span></h2>
             <p className="text-slate-400 text-lg mb-8">Hiring globally comes with immense legal and security risks. We handle 100% of the compliance, IP protection, and localized payroll.</p>
@@ -382,7 +385,8 @@ export default function TalentPage() {
       </section>
 
       {/* 7. Engagement Models (LIGHT - Multi-Color Gradients) */}
-      <ScrollReveal className="py-32 bg-white text-slate-900 relative">
+      <ScrollReveal className="relative py-32 bg-white text-slate-900">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
         <div className="max-w-[1300px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-extrabold mb-4">Engagement Models</h2>

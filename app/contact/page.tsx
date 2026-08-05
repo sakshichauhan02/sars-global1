@@ -22,6 +22,7 @@ export default function ContactPage() {
       
       {/* 1. Hero & Form (DARK with Violet/Cyan) */}
       <section className="relative w-full py-24 lg:py-32 overflow-hidden border-b border-white/5">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
         <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-violet-600/20 blur-[150px] rounded-full pointer-events-none" />
         <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 relative z-10 items-center">
           
@@ -40,12 +41,12 @@ export default function ContactPage() {
             <div className="bg-[#080d1a]/90 border border-white/10 rounded-[3rem] p-10 md:p-12 backdrop-blur-3xl shadow-[0_30px_80px_rgba(0,0,0,0.5)] relative">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-cyan-400 to-transparent opacity-50" />
               {isSubmitted ? (
-                <div className="text-center py-20">
+                <div className="text-center py-20 relative z-10">
                   <h3 className="text-4xl font-extrabold text-white mb-4">Request Received</h3>
                   <p className="text-slate-400">A talent architect will review your requirements and contact you shortly.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-8 relative z-10">
                   <h3 className="text-3xl font-extrabold text-white mb-2">Send a Message</h3>
                   <input required type="email" placeholder="Work Email" className="w-full bg-[#020409]/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-violet-500/50" />
                   <textarea required rows={4} placeholder="Project Details" className="w-full bg-[#020409]/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-violet-500/50" />
@@ -59,9 +60,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* 2. Enterprise Partnerships (DARK) - NEW SECTION */}
-      <section className="py-32 bg-[#080d1a] border-b border-white/5 text-center">
-        <div className="max-w-4xl mx-auto px-6">
+      {/* 2. Enterprise Partnerships (DARK) */}
+      <section className="relative py-32 bg-[#080d1a] border-b border-white/5 text-center overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
           <h2 className="text-4xl font-extrabold mb-6">Enterprise ATS Integrations</h2>
           <p className="text-slate-400 text-lg mb-10">We integrate seamlessly with Greenhouse, Lever, and Workday. If you are an ATS provider looking to partner, access our developer API docs.</p>
           <div className="flex justify-center gap-4">
@@ -72,8 +74,9 @@ export default function ContactPage() {
       </section>
 
       {/* 3. Global Offices Section (LIGHT with Multi-color) */}
-      <section className="py-32 bg-[#F8FAFC] text-slate-900">
-        <div className="max-w-[1400px] mx-auto px-6">
+      <section className="relative py-32 bg-[#F8FAFC] text-slate-900 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-white pointer-events-none" />
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-extrabold mb-6">Our Global Hubs</h2>
           </div>
@@ -81,9 +84,9 @@ export default function ContactPage() {
             {OFFICES.map((office, i) => (
               <div key={i} className="flex flex-col p-12 rounded-[2.5rem] bg-white border border-slate-200 group overflow-hidden relative">
                 <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${office.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <div className="text-6xl mb-6">{office.icon}</div>
-                <h3 className="text-3xl font-extrabold text-slate-900 mb-2">{office.city}</h3>
-                <p className="text-slate-500 font-bold uppercase tracking-widest">{office.region}</p>
+                <div className="text-6xl mb-6 relative z-10">{office.icon}</div>
+                <h3 className="text-3xl font-extrabold text-slate-900 mb-2 relative z-10">{office.city}</h3>
+                <p className="text-slate-500 font-bold uppercase tracking-widest relative z-10">{office.region}</p>
               </div>
             ))}
           </div>
